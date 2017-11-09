@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 
 app.get('/', (req, res) => {
-  res.json({test: 'succeeded'});
+  res.render('login', { title: 'login page', css: ['main.css'] });
 });
 
 
