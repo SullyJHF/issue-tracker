@@ -36,6 +36,7 @@ button {
   border-radius: 0.3vh;
   padding: 1vh 3.5vh;
   cursor: pointer;
+  min-height: 5vh;
 }
 
 input {
