@@ -1,0 +1,42 @@
+{
+  "name": "Base",
+  "version": "1.0.0",
+  "description": "Base ejs repo that utilises es2015+ features both on the frontend and backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node dist/server",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && npm run build-client && npm run build-server && npm run copy",
+    "build-client": "webpack",
+    "build-server": "babel src/server -d dist/server",
+    "copy": "mkdir -p dist/public/js && cp -r src/public/images src/public/css dist/public && mv src/public/js/bundle.js dist/public/js && cp -r src/views dist",
+    "dev": "NODE_ENV=development nodemon src/server/index.js --exec babel-node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sullivan Ford",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SullyJHF/base-ejs"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "nodemon": "^1.12.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0"
+  },
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "path": "^0.12.7"
+  },
+  "nodemonConfig": {
+    "ext": "js json ejs css",
+    "watch": [ "src/" ],
+    "ignore": [ "bundle.js" ]
+  }
+}
