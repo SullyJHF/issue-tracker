@@ -1,3 +1,96 @@
+/* COLORS */
+/*
+  primary: #80d8ff;
+  light: #b5ffff;
+  dark: #49a7cc;
+
+  grey-bg: #F5F5F5;
+  dark-grey-bg: #E1E1E1;
+*/
+
 * {
+  font-family: nowayregular, helvetica, arial, sans-serif;
+}
+
+html, body {
+  box-sizing: border-box;
   height: 100%;
+  width: 100%;
+  font-size: 2vh;
+  background: #E1E1E1;
+}
+
+/* GENERAL */
+.wrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* FORMS */
+button {
+  background: #80D8FF; 
+  font-size: 2vh;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.3vh;
+  padding: 1vh 3.5vh;
+  cursor: pointer;
+}
+
+input {
+  border: 1px solid #E1E1E1;
+  border-radius: 0.5vh; 
+  padding: 1.5vh;
+  font-size: 2vh;
+}
+
+form table td {
+  padding: 1vh;
+}
+
+/* LOGIN */
+.login-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 3vh 5vh 5vh 5vh;
+  border-top: 1.5vh solid #80d8ff;
+  border-radius: 0.5vh;
+  -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
+
+  background: #F5F5F5;
+}
+
+.login-card .title {
+  font-size: 2.5vh;
+  font-weight: bold;
+  margin-bottom: 2vh;
+  padding: 0.3vh;
+}
+
+.login-card button {
+  margin-right: 1px;
+}
+
+/* UTIL */
+.text-right {
+  text-align: right;
+}
+
+/* FONTS */
+@font-face {
+  font-family: 'nowayregular';
+  src: url('../fonts/noway-regular-webfont.eot');
+  src: url('../fonts/noway-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/noway-regular-webfont.woff2') format('woff2'),
+       url('../fonts/noway-regular-webfont.woff') format('woff'),
+       url('../fonts/noway-regular-webfont.ttf') format('truetype'),
+       url('../fonts/noway-regular-webfont.svg#nowayregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }

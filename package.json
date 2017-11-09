@@ -9,7 +9,7 @@
     "build": "npm run clean && npm run build-client && npm run build-server && npm run copy",
     "build-client": "webpack",
     "build-server": "babel src/server -d dist/server",
-    "copy": "mkdir -p dist/public/js && cp -r src/public/images src/public/css dist/public && mv src/public/js/bundle.js dist/public/js && cp -r src/views dist",
+    "copy": "mkdir -p dist/public/js && cp -r src/public/images src/public/css src/public/fonts dist/public && mv src/public/js/bundle.js dist/public/js && cp -r src/views dist",
     "dev": "NODE_ENV=development nodemon src/server/index.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

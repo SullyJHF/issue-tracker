@@ -4,6 +4,26 @@
   <%- include('./includes/head'); %>
 </head>
 <body>
-
+  <div class="wrapper">
+    <div class="login-card">
+      <form>
+        <h1 class="title">Enter your details:</h1>
+        <table>
+          <tr>
+            <td><label for="login-email">Email:</label></td>
+            <td><input id="login-email" type="text" name="email" placeholder="bob.smith@example.com"></td>
+          </tr>
+          <tr>
+            <td><label for="login-password">Password:</label></td>
+            <td><input id="login-password" type="password" name="password" placeholder="•••••••••••"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="text-right"><button id="login-button">LOG IN</button></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
