@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('./includes/head'); %>
+</head>
+<body>
+  <div class="wrapper">
+    <div id="error" class="card middle">
+      <%- include('./includes/icon', { icon: 'warning' }) %>
+      <div class="inline lh-2"><%= locals.statusCode %> - <%= locals.message %></div>
+    </div>
+  </div>
+</body>
+</html>

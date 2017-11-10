@@ -14,13 +14,15 @@ router.use('/login', loginRouter);
 
 // ERROR PAGES
 router.get('/404', (req, res) => {
-  res.statusCode = 404;
-  res.render('404');
+  let statusCode = 404
+  res.statusCode = statusCode;
+  res.render('error', { statusCode, message: 'Page not found', css: [ 'main.css' ] });
 });
 
 router.get('/500', (req, res) => {
-  res.statusCode = 500;
-  res.render('500');
+  let statusCode = 500
+  res.statusCode = statusCode;
+  res.render('error', { statusCode, message: 'Internal server error', css: [ 'main.css' ] });
 });
 
 export default router;

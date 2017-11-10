@@ -4,6 +4,7 @@ export class LoginController {
   }
 
   login(req, res) {
+    // do login authentication
     console.log(req.body);
     res.json({success: true});
   }

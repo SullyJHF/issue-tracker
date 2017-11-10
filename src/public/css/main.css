@@ -8,6 +8,7 @@
   dark-grey-bg: #E1E1E1;
 */
 
+
 * {
   font-family: nowayregular, helvetica, arial, sans-serif;
 }
@@ -20,12 +21,14 @@ html, body {
   background: #E1E1E1;
 }
 
+
 /* GENERAL */
 .wrapper {
   height: 100%;
   width: 100%;
   position: relative;
 }
+
 
 /* FORMS */
 button {
@@ -50,14 +53,46 @@ form table td {
   padding: 1vh;
 }
 
+
 /* LOGIN */
-.login-card {
+#login-form.card .title {
+  font-size: 2.5vh;
+  font-weight: bold;
+  margin-bottom: 2vh;
+  padding: 0.3vh;
+}
+
+#login-form.card button {
+  margin-right: 1px;
+}
+
+
+/* UTIL */
+.text-right {
+  text-align: right;
+}
+
+.middle {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
 
-  padding: 3vh 5vh 5vh 5vh;
+.inline {
+  display: inline-block;
+}
+
+.vert-bottom {
+  vertical-align: bottom;
+}
+
+.lh-2 {
+  line-height: 2vh !important;
+}
+
+.card {
+  padding: 4vh 5vh 5vh 5vh;
   border-top: 1.5vh solid #80d8ff;
   border-radius: 0.5vh;
   -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
@@ -68,21 +103,6 @@ form table td {
   background-clip: padding-box;
 }
 
-.login-card .title {
-  font-size: 2.5vh;
-  font-weight: bold;
-  margin-bottom: 2vh;
-  padding: 0.3vh;
-}
-
-.login-card button {
-  margin-right: 1px;
-}
-
-/* UTIL */
-.text-right {
-  text-align: right;
-}
 
 /* FONTS */
 @font-face {
