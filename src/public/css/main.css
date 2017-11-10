@@ -65,6 +65,7 @@ form table td {
   box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
 
   background: #F5F5F5;
+  background-clip: padding-box;
 }
 
 .login-card .title {
