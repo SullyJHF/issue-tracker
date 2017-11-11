@@ -1,0 +1,17 @@
+<%
+  let options = ['Issues', 'Employees', 'Data', 'Sprint'];
+  let active = options.map(option => option.toLowerCase()).indexOf(locals.active.toLowerCase());
+  console.log(active);
+%>
+
+<div class="left">
+  <ul id="navbar">
+    <% for (let option of options) { %>
+      <a href="/<%= option.toLowerCase() %>"><li class="<%= option.toLowerCase() === locals.active.toLowerCase() ? 'active' : '' %>"><%= option %></li></a>
+    <% } %>
+  </ul>
+</div>
+<div class="right">
+  <button>Logout</button>
+</div>
+<div class="clear"></div>

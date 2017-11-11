@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import loginRouter from './login-router';
+import issuesRouter from './issues-router';
 
 router.get('/', (req, res) => {
   res.render('login', { title: 'login page', css: ['main.css'] });
@@ -10,6 +11,7 @@ router.get('/', (req, res) => {
 
 // Routes
 router.use('/login', loginRouter);
+router.use('/issues', issuesRouter);
 
 
 // ERROR PAGES

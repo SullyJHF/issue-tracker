@@ -21,6 +21,11 @@ html, body {
   background: #E1E1E1;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 
 /* GENERAL */
 .wrapper {
@@ -67,7 +72,45 @@ form table td {
 }
 
 
+/* ISSUES PAGE */
+.header {
+  width: 100%;
+  padding: 2vh 1vh;
+  border-bottom: 1.5vh solid #49a7cc;
+  background: white;
+}
+
+
+/* NAVBAR */
+#navbar {
+  line-height: 100%;
+}
+
+#navbar li {
+  display: inline;
+  padding: 2vh 2vh 0.5vh 2vh;
+  line-height: 5vh; /* min-height of logout button */
+  cursor: pointer;
+}
+
+#navbar li.active, #navbar li:hover {
+  border-bottom: 0.5vh solid #80d8ff;
+}
+
+
 /* UTIL */
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
 .text-right {
   text-align: right;
 }
