@@ -3,6 +3,9 @@ const router = express.Router();
 
 import loginRouter from './login-router';
 import issuesRouter from './issues-router';
+import employeesRouter from './employees-router';
+import dataRouter from './data-router';
+import sprintRouter from './sprint-router';
 
 router.get('/', (req, res) => {
   res.render('login', { title: 'login page', css: ['main.css'] });
@@ -12,6 +15,9 @@ router.get('/', (req, res) => {
 // Routes
 router.use('/login', loginRouter);
 router.use('/issues', issuesRouter);
+router.use('/employees', employeesRouter);
+router.use('/data', dataRouter);
+router.use('/sprint', sprintRouter);
 
 
 // ERROR PAGES

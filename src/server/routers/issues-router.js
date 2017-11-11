@@ -7,7 +7,7 @@ const issuesController = new IssuesController();
 
 
 // Routes
-router.get('/', issuesController.home);
+router.get('/', issuesController.index);
 
 
 export default router;
