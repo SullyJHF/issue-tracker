@@ -27,6 +27,10 @@ a {
   color: inherit;
 }
 
+.material-icons {
+  font-size: 3vh !important;
+}
+
 
 /* GENERAL */
 .wrapper {
@@ -91,12 +95,17 @@ form table td {
   padding: 7.5vh;
 }
 
+
 /* ISSUES PAGE */
 #issues-list {
   background: white;
   width: 100%;
   height: 50px;
-  margin: 0 auto;
+  margin: 0 auto 1vh auto;
+}
+
+#create-issue {
+  
 }
 
 
@@ -151,6 +160,10 @@ form table td {
 
 .lh-2 {
   line-height: 2vh !important;
+}
+
+.lh-3 {
+  line-height: 3vh !important;
 }
 
 .card {
