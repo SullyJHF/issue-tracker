@@ -1,0 +1,38 @@
+--- VISUALS ---
+icon on login button *
+
+
+--- LOGIC ---
+login
+authentication after logging in
+
+somehow change clientside javascript to be better
+
+
+--- FEATURES ---
+issues page *
+  create issue
+  view issues
+    issue page
+      log work
+      remove work log
+      change issue state
+
+employees page *
+  create employee
+  employee page
+    admin
+    tier
+    team
+
+data page *
+  show visualisations
+  edit colour schemes
+
+sprint page *
+  view sprints
+  add sprint
+
+
+
+make navbar selection border go over bottom border of header
