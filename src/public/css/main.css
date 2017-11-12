@@ -11,6 +11,7 @@
 
 * {
   font-family: nowayregular, helvetica, arial, sans-serif;
+  box-sizing: border-box;
 }
 
 html, body {
@@ -29,9 +30,11 @@ a {
 
 /* GENERAL */
 .wrapper {
+  min-height: 100%;
   height: 100%;
   width: 100%;
   position: relative;
+  padding-top: 10vh;
 }
 
 
@@ -72,12 +75,28 @@ form table td {
 }
 
 
-/* ISSUES PAGE */
+/* PAGES */
 .header {
   width: 100%;
-  padding: 2vh 1vh;
+  padding: 2vh 10vh;
   border-bottom: 1.5vh solid #49a7cc;
   background: white;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+
+.content {
+  width: 100%;
+  padding: 7.5vh;
+}
+
+/* ISSUES PAGE */
+#issues-list {
+  background: white;
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
 }
 
 
