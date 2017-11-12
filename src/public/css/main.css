@@ -41,6 +41,10 @@ a {
   padding-top: 10vh;
 }
 
+h1 {
+  font-size: 2.5vh;
+}
+
 
 /* FORMS */
 button {
@@ -105,7 +109,7 @@ form table td {
 }
 
 #create-issue {
-  
+
 }
 
 
@@ -123,6 +127,34 @@ form table td {
 
 #navbar li.active, #navbar li:hover {
   border-bottom: 0.5vh solid #80d8ff;
+}
+
+
+/* MODALS */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+  z-index: 2;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  height: 75%;
+  width: 75%;
+  z-index: 3;
+  background: #F5F5F5;
+  padding: 5vh;
+}
+
+.modal-show {
+  display: block !important;
 }
 
 

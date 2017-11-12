@@ -1,5 +1,10 @@
-import { Test } from './test';
+import { Modal } from './modal';
 
-let test = new Test();
-test.woohoo();
-console.log('woohoo');
+let createIssueBtn = document.getElementById('create-issue');
+let issueCreateModal = new Modal('issue-create-modal');
+
+if (createIssueBtn) {
+  createIssueBtn.addEventListener('click', (e) => {
+    issueCreateModal.show();
+  });
+}
