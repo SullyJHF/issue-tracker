@@ -13,8 +13,17 @@ export class IssuesController {
     res.render('issues', Object.assign({ css: ['main.css'] }, data));
   }
 
+  issue(req, res) {
+    let id = req.params.id;
+    
+    res.redirect('/issues');
+  }
+
   create(req, res) {
     // do logic and add to database
-    // res.redirect('/issues/:issueId');
+    console.log(req.body);
+    let id = req.body.project + '-1';
+
+    res.redirect(`/issues/${id}`);
   }
 }

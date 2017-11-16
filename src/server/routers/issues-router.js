@@ -8,6 +8,7 @@ const issuesController = new IssuesController();
 
 // Routes
 router.get('/', issuesController.index);
+router.get('/:id', issuesController.issue);
 router.post('/create', issuesController.create)
 
 
