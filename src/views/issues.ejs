@@ -7,7 +7,7 @@
   <div class="wrapper">
     <div id="modal-overlay"></div>
     <div id="issue-create-modal" class="card modal middle">
-      <form action="/issues/create" method="POST">
+      <form id="create-issue-form" action="/issues/create" method="POST">
         <h1 class="title">Create Issue</h1>
         <table>
           <tr>
@@ -20,7 +20,7 @@
           </tr>
           <tr>
             <td class="vert-top"><label for="create-description">Description:</label></td>
-            <td class="full-width"><textarea id="create-description" class="full-width" rows="6"></textarea></td>
+            <td class="full-width"><textarea id="create-description" class="full-width" rows="6" name="description"></textarea></td>
           </tr>
           <tr>
             <td><label for="create-estimate">Estimate:</label></td>
@@ -31,6 +31,7 @@
             <td>
               <% if (locals.currentUser) { %>
                 <input id="create-assignee" type="text" readonly name="assignee" value="<%= locals.currentUser.fullName %>">
+                <input type="hidden" name="assigneeId" value="<%= locals.currentUser.id %>">
               <% } %>
             </td>
           </tr>

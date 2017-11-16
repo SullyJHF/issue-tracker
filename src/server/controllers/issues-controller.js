@@ -1,3 +1,5 @@
+import { IssueModel } from '../models/issue-model';
+
 export class IssuesController {
   constructor() {
 
@@ -6,6 +8,7 @@ export class IssuesController {
   index(req, res) {
     let data = {
       currentUser: {
+        id: 1,
         fullName: 'Sullivan Ford'
       }
     };
@@ -15,15 +18,18 @@ export class IssuesController {
 
   issue(req, res) {
     let id = req.params.id;
-    
+
     res.redirect('/issues');
   }
 
-  create(req, res) {
+  async create(req, res) {
     // do logic and add to database
     console.log(req.body);
-    let id = req.body.project + '-1';
+    let issue = IssueModel.create(req.body);
+    let result = await IssueModel.insertIssue(issue);
+    console.log(result);
 
+    let id = 43;
     res.redirect(`/issues/${id}`);
   }
 }
