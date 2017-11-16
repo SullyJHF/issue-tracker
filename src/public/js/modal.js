@@ -3,6 +3,9 @@ export class Modal {
     this.visible = false;
     this.elm = document.getElementById(id);
     this.bgElm = document.getElementById('modal-overlay');
+
+    if (!this.elm || !this.bgElm) return;
+    
     this.hide = this.hide.bind(this);
     this.bgElm.addEventListener('click', this.hide);
   }

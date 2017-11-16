@@ -27,6 +27,10 @@ a {
   color: inherit;
 }
 
+textarea {
+  resize: none;
+}
+
 .material-icons {
   font-size: 3vh !important;
 }
@@ -58,7 +62,7 @@ button {
   min-height: 5vh;
 }
 
-input {
+input, textarea {
   border: 1px solid #E1E1E1;
   border-radius: 0.5vh; 
   padding: 1.5vh;
@@ -150,7 +154,6 @@ form table td {
 .modal {
   display: none;
   position: fixed;
-  height: 75%;
   width: 75%;
   z-index: 3;
   background: #F5F5F5;
@@ -188,6 +191,10 @@ form table td {
 
 .inline {
   display: inline-block;
+}
+
+.vert-top {
+  vertical-align: top;
 }
 
 .vert-bottom {
