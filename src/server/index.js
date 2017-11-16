@@ -1,6 +1,8 @@
 import express from 'express';
 import path from 'path';
 
+import 'babel-polyfill';
+
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../../webpack.config.js';
