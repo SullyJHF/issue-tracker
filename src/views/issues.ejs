@@ -27,6 +27,14 @@
             <td><input id="create-estimate" type="text" name="estimate" placeholder="3w 2d 4h 30m"></td>
           </tr>
           <tr>
+            <td><label for="create-assignee">Assignee:</label></td>
+            <td>
+              <% if (locals.currentUser) { %>
+                <input id="create-assignee" type="text" readonly name="assignee" value="<%= locals.currentUser.fullName %>">
+              <% } %>
+            </td>
+          </tr>
+          <tr>
             <td></td>
             <td class="text-right"><button id="create-button"><i class="material-icons">done</i></button></td>
           </tr>

@@ -4,7 +4,13 @@ export class IssuesController {
   }
 
   index(req, res) {
-    res.render('issues', { css: ['main.css'] });
+    let data = {
+      currentUser: {
+        fullName: 'Sullivan Ford'
+      }
+    };
+
+    res.render('issues', Object.assign({ css: ['main.css'] }, data));
   }
 
   create(req, res) {
