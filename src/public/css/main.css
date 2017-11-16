@@ -71,7 +71,11 @@ form table td {
 
 
 /* LOGIN */
-#login-form.card .title {
+#login-form {
+  width: 50vh;
+}
+
+.title {
   font-size: 2.5vh;
   font-weight: bold;
   margin-bottom: 2vh;
@@ -196,6 +200,10 @@ form table td {
 
 .lh-3 {
   line-height: 3vh !important;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .card {
