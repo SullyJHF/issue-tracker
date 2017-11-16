@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import loginRouter from './login-router';
+import logoutRouter from './logout-router';
 import issuesRouter from './issues-router';
 import employeesRouter from './employees-router';
 import dataRouter from './data-router';
@@ -14,6 +15,7 @@ router.get('/', (req, res) => {
 
 // Routes
 router.use('/login', loginRouter);
+router.use('/logout', logoutRouter);
 router.use('/issues', issuesRouter);
 router.use('/employees', employeesRouter);
 router.use('/data', dataRouter);

@@ -1,10 +1,12 @@
 import { Modal } from './modal';
+import { SimpleButton } from './simple-button';
 
-let createIssueBtn = document.getElementById('create-issue');
 let issueCreateModal = new Modal('issue-create-modal');
 
-if (createIssueBtn) {
-  createIssueBtn.addEventListener('click', (e) => {
-    issueCreateModal.show();
-  });
-}
+let createIssueBtn = new SimpleButton('create-issue', (event) => {
+  issueCreateModal.show();
+});
+
+let logoutBtn = new SimpleButton('logout-btn', (event) => {
+  window.location = '/logout';
+});
