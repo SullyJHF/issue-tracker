@@ -20,6 +20,7 @@ issues page *
 
 employees page *
   create employee
+  create team
   employee page
     admin
     tier
