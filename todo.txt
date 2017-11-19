@@ -11,7 +11,7 @@ somehow change clientside javascript to be better
 
 --- FEATURES ---
 issues page *
-  create issue
+  create issue *
   view issues
     issue page
       log work
