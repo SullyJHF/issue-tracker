@@ -8,6 +8,7 @@ const dataController = new DataController();
 
 // Routes
 router.get('/', dataController.index);
+router.post('/create', dataController.createColourScheme);
 
 
 export default router;
