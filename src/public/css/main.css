@@ -135,6 +135,49 @@ form table td {
 }
 
 
+/* LISTS */
+.list-wrapper {
+  width: 100%;
+  margin: 0 auto 1vh auto;
+}
+
+.list-item {
+  background: white;
+  padding: 2vh;
+  overflow: auto;
+  border-top: 1vh solid #80d8ff;
+  margin-bottom: 1vh;
+}
+
+.list-title {
+  display: inline-block;
+  font-weight: bold;
+  max-width: 65%;
+  line-height: 3vh;
+}
+
+.colours {
+  display: inline-block;
+  float: right;
+  width: 35%;
+  text-align: justify;
+  font-size: 0.1px;
+}
+
+.colours:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+.colour {
+  width: 3vh;
+  height: 3vh;
+  display: inline-block;
+  border: 1px solid #E1E1E1;
+}
+
+
 /* NAVBAR */
 #navbar {
   line-height: 100%;

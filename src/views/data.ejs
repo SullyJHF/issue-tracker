@@ -47,6 +47,20 @@
     </div>
     <div class="content">
       <h1 class="title">Colour Schemes</h1>
+      <div class="list-wrapper">
+        <% for(let colourScheme of locals.colourSchemes) { %>
+        <div class="list-item">
+          <div class="list-title"><%= colourScheme.title %></div>
+          <div class="colours">
+            <div class="colour" style="background: <%= colourScheme.resolve %>;"></div>
+            <div class="colour" style="background: <%= colourScheme.close %>;"></div>
+            <div class="colour" style="background: <%= colourScheme.inProgress %>"></div>
+            <div class="colour" style="background: <%= colourScheme.awaitingStart %>"></div>
+            <div class="colour" style="background: <%= colourScheme.defaultColour %>"></div>
+          </div>
+        </div>
+        <% } %>
+      </div>
       <button id="create-colour-scheme">
         <%- include('./includes/icon', { icon: 'add_circle' }) %>
       </button>

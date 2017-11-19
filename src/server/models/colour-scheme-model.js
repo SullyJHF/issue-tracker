@@ -14,7 +14,18 @@ export class ColourSchemeModel {
     return new ColourSchemeModel(title, resolve, close, inProgress, awaitingStart, defaultColour);
   }
 
-  static async insertColourScheme(colourScheme) {
+  static createFromDb(colourSchemeData) {
+    return new ColourSchemeModel(
+      colourSchemeData.NAME,
+      colourSchemeData.RESOLVE_COLOUR,
+      colourSchemeData.CLOSE_COLOUR,
+      colourSchemeData.IN_PROGRESS_COLOUR,
+      colourSchemeData.AWAITING_START_COLOUR,
+      colourSchemeData.DEFAULT_COLOUR
+    );
+  }
+
+  static async insert(colourScheme) {
     if (!(colourScheme instanceof ColourSchemeModel)) throw new Error('Data must be of type ColourSchemeModel');
     let sql = 'INSERT INTO colour_schemes VALUES (NULL, ?, ?, ?, ?, ?, ?)';
     let inserts = [
@@ -29,5 +40,10 @@ export class ColourSchemeModel {
     sql = db.format(sql, inserts);
 
     return await db.query(sql);
+  }
+
+  static async getAll() {
+    let results = await db.query('SELECT * FROM colour_schemes');
+    return results.map(this.createFromDb);
   }
 }
