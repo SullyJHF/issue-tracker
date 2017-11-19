@@ -23,7 +23,7 @@ export class IssueModel {
   }
 
   static async insertIssue(issue) {
-    if (!(issue instanceof IssueModel)) throw new Error('Issue must be of type IssueModel');
+    if (!(issue instanceof IssueModel)) throw new Error('Data must be of type IssueModel');
     let sql = 'INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?)';
     let inserts = [
       issue.id,
