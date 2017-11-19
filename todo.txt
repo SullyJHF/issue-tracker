@@ -27,7 +27,9 @@ employees page *
 
 data page *
   show visualisations
-  edit/add colour schemes
+  colour schemes
+    add *
+    edit
   admin view each team
 
 sprints page *
