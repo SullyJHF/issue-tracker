@@ -175,6 +175,57 @@ form table td {
   height: 3vh;
   display: inline-block;
   border: 1px solid #E1E1E1;
+  position: relative;
+}
+
+
+/* TOOLTIPS */
+.has-tooltip {
+  display: inline-block;
+  position: unset;
+  text-align: center;
+}
+
+.tooltipwrapper {
+  position: absolute;
+  visibility: hidden;
+}
+
+.tooltip {
+  display: block;
+  position: absolute;
+  background-color: #555;
+  text-align: center;
+  padding: 1vh;
+  border-radius: 2px;
+
+  color: #fff;
+
+  box-sizing: border-box;
+
+  width: 10vh;
+
+  bottom: 100%;
+  transform: translate(-50%, -10%);
+
+  font-size: 1.5vh;
+}
+
+.tooltip:after {
+  content: '';
+  position: absolute;
+    top: 95%;
+    left: 50%;
+  margin-left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid #555;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+
+.has-tooltip:hover .tooltipwrapper {
+  visibility: visible;
 }
 
 

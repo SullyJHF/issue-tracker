@@ -52,11 +52,21 @@
         <div class="list-item">
           <div class="list-title"><%= colourScheme.title %></div>
           <div class="colours">
-            <div class="colour" style="background: <%= colourScheme.resolve %>;"></div>
-            <div class="colour" style="background: <%= colourScheme.close %>;"></div>
-            <div class="colour" style="background: <%= colourScheme.inProgress %>"></div>
-            <div class="colour" style="background: <%= colourScheme.awaitingStart %>"></div>
-            <div class="colour" style="background: <%= colourScheme.defaultColour %>"></div>
+            <div class="colour has-tooltip" style="background: <%= colourScheme.resolve %>;">
+              <span class="tooltipwrapper"><span class="tooltip">Resolved</span></span>
+            </div>
+            <div class="colour has-tooltip" style="background: <%= colourScheme.close %>;">
+              <span class="tooltipwrapper"><span class="tooltip">Closed</span></span>
+            </div>
+            <div class="colour has-tooltip" style="background: <%= colourScheme.inProgress %>">
+              <span class="tooltipwrapper"><span class="tooltip">In Progress</span></span>
+            </div>
+            <div class="colour has-tooltip" style="background: <%= colourScheme.awaitingStart %>">
+              <span class="tooltipwrapper"><span class="tooltip">Awaiting Start</span></span>
+            </div>
+            <div class="colour has-tooltip" style="background: <%= colourScheme.defaultColour %>">
+              <span class="tooltipwrapper"><span class="tooltip">Default</span></span>
+            </div>
           </div>
         </div>
         <% } %>
