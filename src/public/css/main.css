@@ -49,6 +49,10 @@ h1 {
   font-size: 2.5vh;
 }
 
+.jscolor {
+  width: 11vh;
+}
+
 
 /* FORMS */
 button {
@@ -71,6 +75,16 @@ input, textarea {
 
 form table td {
   padding: 1vh;
+}
+
+
+/* TABLES */
+.table-1\:4 tr td {
+  width: 80%;
+}
+
+.table-1\:4 tr td:first-child {
+  width: 20%;
 }
 
 
