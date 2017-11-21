@@ -1,5 +1,6 @@
 --- VISUALS ---
 icon on login button *
+download material icon pack and include from local files
 
 
 --- LOGIC ---
@@ -31,6 +32,7 @@ data page *
   colour schemes
     add *
     edit
+    show what graph would look like instead of list of colour schemes
   admin view each team
 
 sprints page *
