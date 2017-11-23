@@ -13,7 +13,7 @@ export class IssueModel {
     this.totalHours = 0;
   }
 
-  static create({project, title, description, estimate, assigneeId}) {
+  static createFromReq({project, title, description, estimate, assigneeId}) {
     return new IssueModel(project, title, description, estimate, assigneeId);
   }
 

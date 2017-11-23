@@ -1,7 +1,8 @@
 import db from '../database';
 
 export class ColourSchemeModel {
-  constructor(title, resolve, close, inProgress, awaitingStart, defaultColour) {
+  constructor(id, title, resolve, close, inProgress, awaitingStart, defaultColour) {
+    this.id = id;
     this.title = title;
     this.resolve = resolve;
     this.close = close;
@@ -10,12 +11,13 @@ export class ColourSchemeModel {
     this.defaultColour = defaultColour;
   }
 
-  static create({title, resolve, close, inProgress, awaitingStart, defaultColour}) {
-    return new ColourSchemeModel(title, resolve, close, inProgress, awaitingStart, defaultColour);
+  static createFromReq({title, resolve, close, inProgress, awaitingStart, defaultColour}) {
+    return new ColourSchemeModel(-1, title, resolve, close, inProgress, awaitingStart, defaultColour);
   }
 
   static createFromDb(colourSchemeData) {
     return new ColourSchemeModel(
+      colourSchemeData.SCHEME_ID,
       colourSchemeData.NAME,
       colourSchemeData.RESOLVE_COLOUR,
       colourSchemeData.CLOSE_COLOUR,

@@ -25,7 +25,7 @@ export class IssuesController {
   async create(req, res) {
     // do logic and add to database
     console.log(req.body);
-    let issue = IssueModel.create(req.body);
+    let issue = IssueModel.createFromReq(req.body);
     let result = await IssueModel.insertIssue(issue);
     console.log(result);
 

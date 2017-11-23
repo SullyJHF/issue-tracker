@@ -8,6 +8,7 @@ const employeesController = new EmployeesController();
 
 // Routes
 router.get('/', employeesController.index);
+router.post('/teams/create', employeesController.createTeam);
 
 
 export default router;

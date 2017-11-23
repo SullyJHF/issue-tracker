@@ -31,6 +31,10 @@ textarea {
   resize: none;
 }
 
+table {
+  table-layout: fixed;
+}
+
 .material-icons {
   font-size: 3vh !important;
 }
@@ -46,11 +50,16 @@ textarea {
 }
 
 h1 {
-  font-size: 2.5vh;
+  font-size: 2.5vh !important;
+}
+
+h2 {
+  font-size: 2.3vh !important;
 }
 
 .jscolor {
-  width: 11vh;
+  width: 12vh;
+  text-align: center;
 }
 
 
@@ -66,7 +75,7 @@ button {
   min-height: 5vh;
 }
 
-input, textarea {
+input, textarea, select {
   border: 1px solid #E1E1E1;
   border-radius: 0.5vh; 
   padding: 1.5vh;

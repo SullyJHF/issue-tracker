@@ -9,7 +9,35 @@
       <%- include('./includes/navbar', { active: 'employees' }); %>
     </div>
     <div class="content">
-      
+      <h1 class="title">Teams</h1>
+      <% for (let team of teams) { %>
+        <h2 class="title"><%= team.name %></h2>
+        <div class="list-wrapper"></div>
+      <% } %>
+      <div id="team-list" class="list-wrapper">
+        <form id="create-team-form" action="/employees/teams/create" method="POST">
+          <table class="full-width">
+            <tbody>
+              <tr>
+                  <td>
+                    <input class="full-width" id="create-team-name" type="text" name="name" placeholder="Team Name">
+                  </td>
+                  <td>
+                    <select class="full-width" id="create-team-colour-scheme" name="colourScheme">
+                      <option selected disabled value="-1">Select Colour Scheme</option>
+                      <% for(let colourScheme of locals.colourSchemes) { %>
+                        <option value="<%= colourScheme.id %>"><%= colourScheme.title %></option>
+                      <% } %>
+                    </select>
+                  </td>
+                  <td class="text-right">
+                    <button><%- include('includes/icon', { icon: 'add_circle' }); %></button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
     </div>
   </div>
 </body>

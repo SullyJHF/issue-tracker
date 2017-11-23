@@ -11,7 +11,7 @@ export class DataController {
   }
 
   async createColourScheme(req, res) {
-    let colourScheme = ColourSchemeModel.create(req.body);
+    let colourScheme = ColourSchemeModel.createFromReq(req.body);
     let result = ColourSchemeModel.insert(colourScheme);
     res.redirect('/data');
   }
