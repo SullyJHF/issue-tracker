@@ -15,7 +15,7 @@ export class EmployeesController {
   }
 
   async createTeam(req, res) {
-    let team = TeamModel.createFromReq(req.body);
+    let team = await TeamModel.createFromReq(req.body);
     let result = await TeamModel.insert(team);
     res.redirect('/employees');
   }

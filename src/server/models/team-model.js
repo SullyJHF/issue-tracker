@@ -8,8 +8,10 @@ export class TeamModel {
     this.colourScheme = colourScheme;
   }
 
-  static createFromReq({name, colourScheme}) {
-    return new TeamModel(-1, name, colourScheme);
+  // change colourScheme to colourSchemeId
+  static async createFromReq({name, colourScheme}) {
+    let colourSchemeObj = await ColourSchemeModel.getById(colourScheme);
+    return new TeamModel(-1, name, colourSchemeObj);
   }
 
   static createFromDb(teamData) {
@@ -25,12 +27,17 @@ export class TeamModel {
     let sql = 'INSERT INTO teams VALUES (NULL, ?, ?)';
     let inserts = [
       team.name,
-      team.colourScheme
+      team.colourScheme.id
     ];
     
     sql = db.format(sql, inserts);
 
-    return await db.query(sql);
+    let result = await db.query(sql);
+
+    // if there're no errors do this
+    team.id = result.insertId;
+
+    return result;
   }
 
   static async getAll() {

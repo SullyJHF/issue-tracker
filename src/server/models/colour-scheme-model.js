@@ -44,6 +44,15 @@ export class ColourSchemeModel {
     return await db.query(sql);
   }
 
+  static async getById(id) {
+    let query = db.format(
+      'SELECT * FROM colour_schemes WHERE SCHEME_ID=?',
+      [id]
+    );
+    let results = await db.query(query);
+    return this.createFromDb(results[0]);
+  }
+
   static async getAll() {
     let results = await db.query('SELECT * FROM colour_schemes');
     return results.map(this.createFromDb);
