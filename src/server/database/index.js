@@ -13,7 +13,6 @@ class DB {
   async query(sql) {
     try {
       let result = await this.pool.query(sql);
-      console.log(result);
       return result;
     } catch(err) {
       console.error(err);

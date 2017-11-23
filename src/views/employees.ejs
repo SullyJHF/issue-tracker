@@ -10,7 +10,7 @@
     </div>
     <div class="content">
       <h1 class="title">Teams</h1>
-      <% for (let team of teams) { %>
+      <% for (let team of locals.teams) { %>
         <h2 class="title"><%= team.name %></h2>
         <div class="list-wrapper"></div>
       <% } %>
@@ -33,6 +33,30 @@
                   <td class="text-right">
                     <button><%- include('includes/icon', { icon: 'add_circle' }); %></button>
                   </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <h1 class="title">Tiers</h1>
+      <% for (let tier of locals.tiers) { %>
+        <h2 class="title"><%= tier.name + ' - ' + tier.cost %></h2>
+        <div class="list-wrapper"></div>
+      <% } %>
+      <div id="tier-list" class="list-wrapper">
+        <form id="create-tier-form" action="/employees/tiers/create" method="POST">
+          <table class="full-width">
+            <tbody>
+              <tr>
+                <td>
+                  <input class="full-width" type="text" name="name" placeholder="Name">
+                </td>
+                <td>
+                  <input class="full-width" type="number" name="cost" placeholder="Cost">
+                </td>
+                <td class="text-right">
+                  <button><%- include('includes/icon', { icon: 'add_circle' }); %></button>
+                </td>
               </tr>
             </tbody>
           </table>

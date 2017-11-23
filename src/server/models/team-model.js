@@ -1,3 +1,4 @@
+import { ColourSchemeModel } from './colour-scheme-model';
 import db from '../database';
 
 export class TeamModel {
@@ -15,7 +16,7 @@ export class TeamModel {
     return new TeamModel(
       teamData.TEAM_ID,
       teamData.TEAM_NAME,
-      teamData.SCHEME_ID
+      ColourSchemeModel.createFromDb(teamData)
     );
   }
 
@@ -33,7 +34,7 @@ export class TeamModel {
   }
 
   static async getAll() {
-    let results = await db.query('SELECT * FROM teams');
+    let results = await db.query('SELECT * FROM teams, colour_schemes WHERE teams.SCHEME_ID = colour_schemes.SCHEME_ID');
     return results.map(this.createFromDb);
   }
 }
