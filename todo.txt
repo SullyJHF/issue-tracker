@@ -9,6 +9,8 @@ authentication after logging in
 
 somehow change clientside javascript to be better
 
+Refactor Models to have a parent Model class they all extend from
+
 
 --- FEATURES ---
 issues page *
@@ -19,8 +21,9 @@ issues page *
       remove work log
       change issue state
 
+Sort out how employees page will look
 employees page *
-  create employee
+  create employee *
   create team *
   employee page
     admin
