@@ -40,6 +40,15 @@ export class TeamModel {
     return result;
   }
 
+  static async getById(id) {
+    let query = db.format(
+      'SELECT * FROM teams WHERE TEAM_ID=?',
+      [id]
+    );
+    let results = await db.query(query);
+    return this.createFromDb(results[0]);
+  }
+
   static async getAll() {
     let results = await db.query('SELECT * FROM teams, colour_schemes WHERE teams.SCHEME_ID = colour_schemes.SCHEME_ID');
     return results.map(this.createFromDb);

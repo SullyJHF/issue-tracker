@@ -30,6 +30,15 @@ export class TierModel {
     return await db.query(sql);
   }
 
+  static async getByName(name) {
+    let query = db.format(
+      'SELECT * FROM tiers WHERE TIER=?',
+      [name]
+    );
+    let results = await db.query(query);
+    return this.createFromDb(results[0]);
+  }
+
   static async getAll() {
     let results = await db.query('SELECT * FROM tiers');
     return results.map(this.createFromDb);

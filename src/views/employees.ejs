@@ -9,10 +9,71 @@
       <%- include('./includes/navbar', { active: 'employees' }); %>
     </div>
     <div class="content">
+      <div id="modal-overlay"></div>
+      <div id="employee-create-modal" class="card modal middle">
+        <form id="create-employee-form" action="/employees/create" method="POST">
+          <h1 class="title">Create Employee</h1>
+          <table class="table-1:4">
+            <tr>
+              <td><label for="create-first-name">First Name:</label></td>
+              <td class="full-width"><input id="create-first-name" class="full-width" type="text" name="firstName"></td>
+            </tr>
+            <tr>
+              <td><label for="create-surname">Surname:</label></td>
+              <td class="full-width"><input id="create-surname" class="full-width" type="text" name="surname"></td>
+            </tr>
+            <tr>
+              <td><label for="create-email">Email:</label></td>
+              <td class="full-width"><input id="create-email" class="full-width" type="email" name="email"></td>
+            </tr>
+            <tr>
+              <td><label for="create-password">Password:</label></td>
+              <td><input id="create-password" type="password" name="password"></td>
+            </tr>
+            <tr>
+              <td class="vert-middle"><label for="create-password-confirm">Confirm Password:</label></td>
+              <td><input id="create-password-confirm" type="password" name="passwordConfirm"></td>
+            </tr>
+            <tr>
+              <td><label for="create-capacity">Capacity:</label></td>
+              <td><input id="create-capacity" type="number" name="capacity"></td>
+            </tr>
+            <tr>
+              <td><label for="create-team">Team:</label></td>
+              <td>
+                <select name="team" id="create-team" class="full-width">
+                  <option value="-1" disabled selected>Select a Team</option>
+                  <% for (let team of locals.teams) { %>
+                    <option value="<%= team.id %>"><%= team.name %></option>
+                  <% } %>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="create-tier">Tier:</label></td>
+              <td>
+                <select name="tier" id="create-tier" class="full-width">
+                  <option value="-1" disabled selected>Select a Tier</option>
+                  <% for (let tier of locals.tiers) { %>
+                    <option value="<%= tier.name %>"><%= tier.name %></option>
+                  <% } %>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="text-right"><button id="create-button"><i class="material-icons">done</i></button></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <h1 class="title">Employees</h1>
+      <button id="create-employee"><%- include('includes/icon', { icon: 'add_circle' }); %></button>
       <h1 class="title">Teams</h1>
       <% for (let team of locals.teams) { %>
         <h2 class="title"><%= team.name %></h2>
-        <div class="list-wrapper"></div>
+        <div class="list-wrapper">
+        </div>
       <% } %>
       <div id="team-list" class="list-wrapper">
         <form id="create-team-form" action="/employees/teams/create" method="POST">

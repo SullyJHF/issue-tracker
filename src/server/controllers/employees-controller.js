@@ -1,6 +1,7 @@
 import { ColourSchemeModel } from '../models/colour-scheme-model';
 import { TeamModel } from '../models/team-model';
 import { TierModel } from '../models/tier-model';
+import { UserModel } from '../models/user-model';
 
 export class EmployeesController {
   constructor() {
@@ -12,6 +13,13 @@ export class EmployeesController {
     let teams = await TeamModel.getAll();
     let tiers = await TierModel.getAll();
     res.render('employees', { css: ['main.css'], title: 'Employees', colourSchemes, teams, tiers });
+  }
+
+  async create(req, res) {
+    console.log(req.body);
+    let user = await UserModel.createFromReq(req.body);
+    let result = await UserModel.insert(user);
+    res.redirect('/employees');
   }
 
   async createTeam(req, res) {

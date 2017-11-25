@@ -88,6 +88,10 @@ form table td {
 
 
 /* TABLES */
+.table-1\:4 {
+  width: 100%;
+}
+
 .table-1\:4 tr td {
   width: 80%;
 }
@@ -270,11 +274,14 @@ form table td {
 
 .modal {
   display: none;
-  position: fixed;
   width: 75%;
   z-index: 3;
   background: #F5F5F5;
   padding: 5vh;
+}
+
+.modal.middle {
+  position: fixed;
 }
 
 .modal-show {
@@ -312,6 +319,10 @@ form table td {
 
 .vert-top {
   vertical-align: top;
+}
+
+.vert-middle {
+  vertical-align: middle;
 }
 
 .vert-bottom {

@@ -19,6 +19,14 @@ let colourSchemeCreateBtn = new SimpleButton('create-colour-scheme', (event) => 
 });
 
 
+// Employees page
+let employeeCreateModal = new Modal('employee-create-modal');
+
+let employeeCreateBtn = new SimpleButton('create-employee', (event) => {
+  employeeCreateModal.show();
+});
+
+
 // All pages
 let logoutBtn = new SimpleButton('logout-btn', (event) => {
   window.location = '/logout';
