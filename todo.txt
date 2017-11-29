@@ -11,6 +11,8 @@ somehow change clientside javascript to be better
 
 Refactor Models to have a parent Model class they all extend from
 
+Validate form inputs
+
 
 --- FEATURES ---
 issues page *
