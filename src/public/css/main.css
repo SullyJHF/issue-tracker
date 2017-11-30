@@ -86,6 +86,68 @@ form table td {
   padding: 1vh;
 }
 
+.error input {
+  border: 1px solid red;
+  padding-right: 6vh;
+}
+
+.error .error-icon {
+  display: inline-block;
+}
+
+.error-icon {
+  color: rgba(255, 0, 0, 0.8);
+  margin-left: calc(-6vh);
+  padding: calc(1.5vh - 1px);
+  position: absolute;
+  display: none;
+}
+
+.error-icon:before {
+  content: attr(data-before);
+  display: none;
+  width: 10vh;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: red;
+  color: white;
+  font-size: 1.7vh;
+  padding: 0.5vh;
+  line-height: 1.7vh;
+  text-align: center;
+  left: calc(100% + 1vh + 1px);
+  border-radius: 2px;
+}
+
+.error-icon:after {
+  content: '';
+  position: absolute;
+  display: none;
+  width: 0; 
+  height: 0; 
+  border-top: 1vh solid transparent;
+  border-bottom: 1vh solid transparent; 
+  
+  border-right: 1vh solid red;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(100% + 2px);
+
+}
+
+.error-icon:hover:before {
+  display: block;
+}
+
+.error-icon:hover:after {
+  display: block;
+}
+
+/* icon:hover:after {
+  
+}
+
 
 /* TABLES */
 .table-1\:4 {
@@ -102,7 +164,7 @@ form table td {
 
 
 /* LOGIN */
-#login-form {
+#login-form-wrapper {
   width: 50vh;
 }
 
@@ -113,7 +175,7 @@ form table td {
   padding: 0.3vh;
 }
 
-#login-form.card button {
+#login-form-wrapper.card button {
   margin-right: 1px;
 }
 

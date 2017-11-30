@@ -1,5 +1,6 @@
 import { Modal } from './modal';
 import { SimpleButton } from './simple-button';
+import { ValidatedForm } from './validated-form';
 import './lib/jscolor.min.js';
 
 
@@ -31,3 +32,8 @@ let employeeCreateBtn = new SimpleButton('create-employee', (event) => {
 let logoutBtn = new SimpleButton('logout-btn', (event) => {
   window.location = '/logout';
 });
+
+
+// Login page
+// formData and errors comes from the ejs
+let loginForm = new ValidatedForm('login-form', formData, errors);

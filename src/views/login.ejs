@@ -5,17 +5,17 @@
 </head>
 <body>
   <div class="wrapper">
-    <div id="login-form" class="card middle">
-      <form action="/login" method="POST">
+    <div id="login-form-wrapper" class="card middle">
+      <form id="login-form" action="/login" method="POST">
         <h1 class="title">Enter your details:</h1>
         <table id="login-table">
           <tr>
             <td><label for="login-email"><%- include('./includes/icon', { icon: 'email' }); %></label></td>
-            <td class="full-width"><input id="login-email" class="full-width" type="text" name="email" placeholder="Email"></td>
+            <td class="full-width"><input id="login-email" class="full-width" type="text" name="email" placeholder="Email"><%- include('./includes/icon', { icon: 'warning', error: true }); %></td>
           </tr>
           <tr>
             <td><label for="login-password"><%- include('./includes/icon', { icon: 'lock' }); %></label></td>
-            <td class="full-width"><input id="login-password" class="full-width" type="password" name="password" placeholder="Password"></td>
+            <td class="full-width"><input id="login-password" class="full-width" type="password" name="password" placeholder="Password"><%- include('./includes/icon', { icon: 'warning', error: true }); %></td>
           </tr>
           <tr>
             <td></td>

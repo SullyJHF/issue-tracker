@@ -1,3 +1,7 @@
 <%- include('./css'); %>
+<script type="text/javascript">
+  let formData = <%- locals.formData ? JSON.stringify(locals.formData) : false; %>;
+  let errors = <%- locals.errors ? JSON.stringify(locals.errors) : false; %>;
+</script>
 <script type="text/javascript" src="/js/bundle.js" defer></script>
 <title><%= locals.title %></title>

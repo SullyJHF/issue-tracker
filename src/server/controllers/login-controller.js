@@ -23,7 +23,7 @@ export class LoginController {
     if (!exists) {
       // user not found in database
       req.body.errors = {
-        email: 'Email not found'
+        email: 'Email address not found'
       };
       res.statusCode = 404;
       this.index(req, res);
