@@ -8,12 +8,8 @@ import employeesRouter from './employees-router';
 import dataRouter from './data-router';
 import sprintRouter from './sprint-router';
 
-router.get('/', (req, res) => {
-  res.render('login', { title: 'login page', css: ['main.css'] });
-});
-
-
 // Routes
+router.get('/', (req, res) => res.redirect('/login'));
 router.use('/login', loginRouter);
 router.use('/logout', logoutRouter);
 router.use('/issues', issuesRouter);

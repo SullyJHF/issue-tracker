@@ -69,4 +69,21 @@ export class UserModel {
     let results = await db.query('SELECT * FROM users');
     return results.map(this.createFromDb);
   }
+
+  static async getByEmail(email) {
+    let query = 'SELECT * FROM users WHERE EMAIL = ?';
+    let inserts = [email];
+    query = db.format(query, inserts);
+    let results = await db.query(query);
+    if (results.length) {
+      return UserModel.createFromDb(results[0]);
+    }
+    return null;
+  }
+
+  static async checkExists(email) {
+    let user = await UserModel.getByEmail(email);
+    if (user) return true;
+    return false;
+  }
 }

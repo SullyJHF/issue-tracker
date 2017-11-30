@@ -7,7 +7,8 @@ const loginController = new LoginController();
 
 
 // Routes
-router.post('/', loginController.login);
+router.get('/', loginController.index);
+router.post('/', loginController.login.bind(loginController));
 
 
 export default router;
