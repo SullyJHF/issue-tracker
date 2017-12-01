@@ -4,12 +4,12 @@ export class LoginController {
   constructor() {}
 
   index(req, res) {
-    console.log(req.body);
+    console.log(req.body.errors, req.body.formData);
     res.render('login', {
       title: 'Login',
       css: ['main.css'],
       errors: req.body.errors,
-      formData: { email: req.body.email }
+      formData: req.body.formData
     });
   }
 
@@ -18,19 +18,16 @@ export class LoginController {
     let email = req.body.email;
     let password = req.body.password;
 
-    let exists = await UserModel.checkExists(email);
+    let data = await UserModel.validate(email, password);
 
-    if (!exists) {
-      // user not found in database
-      req.body.errors = {
-        email: 'Email address not found'
-      };
-      res.statusCode = 404;
+    if (data.error) {
+      req.body.errors = data.errors;
+      req.body.formData = data.formData;
+      res.statusCode = data.errors.statusCode;
       this.index(req, res);
       return;
     }
-
-    console.log(req.body);
+    
     res.redirect('/issues');
   }
 }

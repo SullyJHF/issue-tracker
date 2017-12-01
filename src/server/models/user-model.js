@@ -65,6 +65,29 @@ export class UserModel {
     return result;
   }
 
+  static async validate(email, password) {
+    // formData will be passed back to the ejs
+    // and will repopulate the relevant data
+    let formData = { email };
+    let errors = {};
+    // check if email exists
+    let user = await UserModel.getByEmail(email);
+    if (!user) {
+      errors.email = 'Email not found';
+      errors.statusCode = 404;
+      return { formData, errors, error: true };
+    }
+
+    // check if password matches
+    let passwordMatch = await bcrypt.compare(password, user.hashedPass);
+    if (!passwordMatch) {
+      errors.password = 'Password incorrect';
+      errors.statusCode = 401
+      return { formData, errors, error: true };
+    }
+    // return relevant errors
+  }
+
   static async getAll() {
     let results = await db.query('SELECT * FROM users');
     return results.map(this.createFromDb);
@@ -79,11 +102,5 @@ export class UserModel {
       return UserModel.createFromDb(results[0]);
     }
     return null;
-  }
-
-  static async checkExists(email) {
-    let user = await UserModel.getByEmail(email);
-    if (user) return true;
-    return false;
   }
 }
