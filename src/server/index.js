@@ -8,6 +8,7 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../../webpack.config.js';
 
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 import routers from './routers';
 
@@ -25,6 +26,9 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
