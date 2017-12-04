@@ -34,7 +34,7 @@ export class LoginController {
     
     let token = TokenModel.generateTokenForUser(user);
 
-    console.log(token);
+    res.cookie('token', token);
 
     res.redirect('/issues');
   }
