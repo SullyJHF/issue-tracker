@@ -59,6 +59,9 @@ export class UserModel {
     return result;
   }
 
+  // Either returns { formData, errors, error }
+  // in the case of an error
+  // or a user object if there are no errors
   static async validate(email, password) {
     // formData will be passed back to the ejs
     // and will repopulate the relevant data
@@ -66,6 +69,7 @@ export class UserModel {
     let errors = {};
     // check if email exists
     let user = await UserModel.getByEmail(email);
+    
     if (!user) {
       errors.email = 'Email not found';
       errors.statusCode = 404;
@@ -79,7 +83,8 @@ export class UserModel {
       errors.statusCode = 401
       return { formData, errors, error: true };
     }
-    // return relevant errors
+
+    return user;
   }
 
   static async getAll() {
