@@ -1,4 +1,5 @@
 import { UserModel } from '../models/user-model';
+import { TokenModel } from '../models/token-model';
 
 export class LoginController {
   constructor() {}
@@ -27,7 +28,14 @@ export class LoginController {
       this.index(req, res);
       return;
     }
+
+    // if function gets to this point then data is a user object
+    let user = data;
     
+    let token = TokenModel.generateTokenForUser(user);
+
+    console.log(token);
+
     res.redirect('/issues');
   }
 }
