@@ -14,19 +14,16 @@ export class UserModel {
     this.capacity = capacity;
     this.team = team;
     this.tier = tier;
-    this.token = token;
   }
 
   static async createFromReq({email, password, firstName, surname, capacity, team, tier}) {
     // team and tier are both ids
-    // need to create model for token
     let id = -1;
     let teamObj = await TeamModel.getById(team);
     let tierObj = await TierModel.getByName(tier);
-    let token = await TokenModel.generateBlankToken();
     // bcrypt.hash automatically makes salt
     let hashedPass = await bcrypt.hash(password, 10);
-    return new UserModel(id, email, hashedPass, firstName, surname, capacity, teamObj, tierObj, token);
+    return new UserModel(id, email, hashedPass, firstName, surname, capacity, teamObj, tierObj);
   }
 
   static createFromDb(userData) {
@@ -37,16 +34,14 @@ export class UserModel {
       userData.FIRST_NAME,
       userData.SURNAME,
       userData.CAPACITY,
-      // Make these last three an actual model object of each id
       userData.TEAM_ID,
-      userData.TIER,
-      userData.TOKEN_ID
+      userData.TIER
     );
   }
 
   static async insert(user) {
     if (!(user instanceof UserModel)) throw new Error('Data must be of type UserModel');
-    let sql = 'INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)';
+    let sql = 'INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)';
     let inserts = [
       user.email,
       user.hashedPass,
@@ -54,8 +49,7 @@ export class UserModel {
       user.surname,
       user.capacity,
       user.team.id,
-      user.tier.name,
-      user.token.id
+      user.tier.name
     ];
     
     sql = db.format(sql, inserts);
