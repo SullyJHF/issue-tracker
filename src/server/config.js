@@ -5,5 +5,6 @@ export default {
     user: 'sullyjhf',
     password: 'tincan',
     database: 'issue_tracker'
-  }
+  },
+  secret: '5W1FTC4RR0T'
 };
