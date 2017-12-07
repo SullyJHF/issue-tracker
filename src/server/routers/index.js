@@ -8,9 +8,12 @@ import employeesRouter from './employees-router';
 import dataRouter from './data-router';
 import sprintRouter from './sprint-router';
 
+import authenticator from '../utils/authenticator';
+
 // Routes
 router.get('/', (req, res) => res.redirect('/login'));
 router.use('/login', loginRouter);
+router.use(authenticator);
 router.use('/logout', logoutRouter);
 router.use('/issues', issuesRouter);
 router.use('/employees', employeesRouter);

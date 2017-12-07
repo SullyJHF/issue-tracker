@@ -14,6 +14,7 @@ export class UserModel {
     this.capacity = capacity;
     this.team = team;
     this.tier = tier;
+    // Add role here
   }
 
   static async createFromReq({email, password, firstName, surname, capacity, team, tier}) {
@@ -95,6 +96,17 @@ export class UserModel {
   static async getByEmail(email) {
     let query = 'SELECT * FROM users WHERE EMAIL = ?';
     let inserts = [email];
+    query = db.format(query, inserts);
+    let results = await db.query(query);
+    if (results.length) {
+      return UserModel.createFromDb(results[0]);
+    }
+    return null;
+  }
+
+  static async getById(id) {
+    let query = 'SELECT * FROM users WHERE EMP_ID = ?';
+    let inserts = [id];
     query = db.format(query, inserts);
     let results = await db.query(query);
     if (results.length) {
