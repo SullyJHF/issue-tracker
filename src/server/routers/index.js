@@ -10,17 +10,6 @@ import sprintRouter from './sprint-router';
 
 import authenticator from '../utils/authenticator';
 
-// Routes
-router.get('/', (req, res) => res.redirect('/login'));
-router.use('/login', loginRouter);
-router.use(authenticator);
-router.use('/logout', logoutRouter);
-router.use('/issues', issuesRouter);
-router.use('/employees', employeesRouter);
-router.use('/data', dataRouter);
-router.use('/sprint', sprintRouter);
-
-
 // ERROR PAGES
 router.get('/404', (req, res) => {
   let statusCode = 404
@@ -33,5 +22,15 @@ router.get('/500', (req, res) => {
   res.statusCode = statusCode;
   res.render('error', { statusCode, message: 'Internal server error', css: [ 'main.css' ] });
 });
+
+// Routes
+router.get('/', (req, res) => res.redirect('/login'));
+router.use('/login', loginRouter);
+router.use('/logout', logoutRouter);
+router.use(authenticator);
+router.use('/issues', issuesRouter);
+router.use('/employees', employeesRouter);
+router.use('/data', dataRouter);
+router.use('/sprint', sprintRouter);
 
 export default router;
