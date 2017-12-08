@@ -68,6 +68,21 @@ export class UserModel {
     // and will repopulate the relevant data
     let formData = { email };
     let errors = {};
+
+    if (email === '') {
+      errors.error = true;
+      errors.email = 'Please provide an email';
+      errors.statusCode = 400;
+    }
+
+    if (password === '') {
+      errors.error = true;
+      errors.password = 'Please provide a password';
+      errors.statusCode = 400;
+    }
+
+    if (errors.error) return { formData, errors, error: errors.error };
+
     // check if email exists
     let user = await UserModel.getByEmail(email);
     
