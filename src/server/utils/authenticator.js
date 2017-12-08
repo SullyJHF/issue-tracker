@@ -27,16 +27,15 @@ export default async function authenticator(req, res, next) {
   // token validity (expired)
   // if password hash is the same (if they've changed their password)
   let user = await UserModel.getById(token.id);
-  console.log(token);
-  console.log(user);
 
   if (!user) {
     // User doesn't exist
-    return unauthenticated('User not found', req, res, next)
+    return unauthenticated('User not found', req, res, next);
   }
 
   if (token.hashedPass !== user.hashedPass) {
     // User changed password since - unauthenticated
+    return unauthenticated('User changed password', req, res, next);
   }
 
   // do this when user role is implemented
