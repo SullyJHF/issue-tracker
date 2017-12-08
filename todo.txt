@@ -11,6 +11,7 @@ login
     write middleware to get cookie every request *
       and test if jwt still valid *
       and refresh jwt *
+  generate client secret on startup of server *
   Add a few new errors to login *
     please provide email (empty email) *
     please provide password (empty password) *

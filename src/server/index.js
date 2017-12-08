@@ -1,6 +1,8 @@
 import express from 'express';
 import path from 'path';
 
+import crypto from 'crypto';
+
 import 'babel-polyfill';
 
 import webpack from 'webpack';
@@ -11,6 +13,20 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
 import routers from './routers';
+
+import config from './config';
+import { updateConfig } from './config';
+
+
+if (process.env.NODE_ENV === 'production') {
+  let configuration = config();
+  configuration.secret = crypto.randomBytes(20).toString('hex');
+
+  console.log(configuration);
+
+  (async () => await updateConfig(configuration))();
+}
+
 
 let app = express();
 const port = process.env.PORT || 3000
