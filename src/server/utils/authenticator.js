@@ -2,10 +2,12 @@ import config from '../config';
 import jwt from 'jsonwebtoken';
 
 import { UserModel } from '../models/user-model';
+import { TokenModel } from '../models/token-model';
 
 export default async function authenticator(req, res, next) {
   console.log('AUTHENTICATING');
   let token;
+
   try {
     token = jwt.verify(req.cookies.token, config.secret);
   } catch(e) {
@@ -39,7 +41,16 @@ export default async function authenticator(req, res, next) {
 
   // do this when user role is implemented
   // res.statusCode = 403; // forbidden
-  // req.role = user.role;
+  req.user = {
+    id: user.id,
+    role: 0, // set as actual user role
+    fullName: `${user.firstName} ${user.surname}`
+  };
+
+  // refresh the token
+  let newToken = TokenModel.generateTokenForUser(user);
+
+  res.cookie('token', newToken);
 
   next();
 }
