@@ -5,11 +5,15 @@ download material icon pack and include from local files
 
 --- LOGIC ---
 login
-  authentication after logging in
+  authentication after logging in *
     generate jwt from user *
     save jwt in cookie *
-    write middleware to get cookie every request
-      and test if jwt still valid
+    write middleware to get cookie every request *
+      and test if jwt still valid *
+      and refresh jwt *
+  Add a few new errors to login
+    please provide email (empty email)
+    please provide password (empty password)
 
 somehow change clientside javascript to be better
 
