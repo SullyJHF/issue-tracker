@@ -22,6 +22,8 @@ Refactor Models to have a parent Model class they all extend from
 form validation design *
   implement everywhere
 
+change mysql queryFormat to use objects instead
+
 
 --- FEATURES ---
 issues page *
