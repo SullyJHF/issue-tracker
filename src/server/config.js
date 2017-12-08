@@ -1,10 +1,5 @@
-export default {
-  db: {
-    connectionLimit: 9,
-    host: 'localhost',
-    user: 'sullyjhf',
-    password: 'tincan',
-    database: 'issue_tracker'
-  },
-  secret: '5W1FTC4RR0T'
+import configFile from '../../config';
+
+export default function() {
+  return configFile;
 };

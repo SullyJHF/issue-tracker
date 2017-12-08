@@ -3,7 +3,7 @@ import config from '../config';
 
 class DB {
   constructor() {
-    this.pool = mysql.createPool(config.db);
+    this.pool = mysql.createPool(config().db);
   }
 
   static create() {

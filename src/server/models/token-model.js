@@ -15,7 +15,7 @@ export class TokenModel {
       hashedPass: user.hashedPass
     }
 
-    let token = jwt.sign(payload, config.secret, { expiresIn: '1h' });
+    let token = jwt.sign(payload, config().secret, { expiresIn: '1h' });
 
     return token;
   }

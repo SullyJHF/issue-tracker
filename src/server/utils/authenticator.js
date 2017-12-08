@@ -9,7 +9,7 @@ export default async function authenticator(req, res, next) {
   let token;
 
   try {
-    token = jwt.verify(req.cookies.token, config.secret);
+    token = jwt.verify(req.cookies.token, config().secret);
   } catch(e) {
     console.error(e);
     // do this switch for each error and handle accordingly?
