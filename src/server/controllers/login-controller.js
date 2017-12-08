@@ -5,7 +5,6 @@ export class LoginController {
   constructor() {}
 
   index(req, res) {
-    console.log(req.body.errors, req.body.formData);
     res.render('login', {
       title: 'Login',
       css: ['main.css'],
