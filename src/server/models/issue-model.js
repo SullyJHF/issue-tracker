@@ -15,7 +15,7 @@ export class IssueModel {
   }
 
   static async createFromReq({project, title, description, estimate, assigneeId}) {
-    let id = await IssueModel.getIdForProject(project);
+    let id = await IssueModel.getIdForProject(project.toUpperCase());
     return new IssueModel(id, title, description, IssueModel.convertEstimate(estimate), assigneeId);
   }
 
@@ -48,7 +48,7 @@ export class IssueModel {
     let results = await db.query(sql);
 
     if (!results.length) return `${project}-1`;
-    
+
     return `${project}-${results.length + 1}`;
   }
 }
