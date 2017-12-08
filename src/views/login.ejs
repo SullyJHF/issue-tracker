@@ -8,19 +8,25 @@
     <div id="login-form-wrapper" class="card middle">
       <form id="login-form" action="/login" method="POST">
         <h1 class="title">Enter your details:</h1>
-        <table id="login-table">
-          <tr>
-            <td><label for="login-email"><%- include('./includes/icon', { icon: 'email' }); %></label></td>
-            <td class="full-width"><input id="login-email" class="full-width" type="text" name="email" placeholder="Email"><%- include('./includes/icon', { icon: 'warning', error: true }); %></td>
-          </tr>
-          <tr>
-            <td><label for="login-password"><%- include('./includes/icon', { icon: 'lock' }); %></label></td>
-            <td class="full-width"><input id="login-password" class="full-width" type="password" name="password" placeholder="Password"><%- include('./includes/icon', { icon: 'warning', error: true }); %></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="text-right"><button id="login-button"><i class="material-icons">done</i></button></td>
-          </tr>
+        <table id="login-table" class="full-width">
+          <colgroup>
+            <col class="width-5">
+            <col>
+          </colgroup>
+          <tbody>
+            <tr>
+              <td><label for="login-email"><%- include('./includes/icon', { icon: 'email' }); %></label></td>
+              <td><input id="login-email" class="full-width" type="text" name="email" placeholder="Email"><%- include('./includes/icon', { icon: 'warning', error: true }); %></td>
+            </tr>
+            <tr>
+              <td><label for="login-password"><%- include('./includes/icon', { icon: 'lock' }); %></label></td>
+              <td><input id="login-password" class="full-width" type="password" name="password" placeholder="Password"><%- include('./includes/icon', { icon: 'warning', error: true }); %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="text-right"><button id="login-button"><i class="material-icons">done</i></button></td>
+            </tr>
+          </tbody>
         </table>
       </form>
     </div>

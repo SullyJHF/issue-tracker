@@ -9,36 +9,42 @@
     <div id="issue-create-modal" class="card modal middle">
       <form id="create-issue-form" action="/issues/create" method="POST">
         <h1 class="title">Create Issue</h1>
-        <table>
-          <tr>
-            <td><label for="create-project">Project:</label></td>
-            <td><input id="create-project" type="text" name="project"></td>
-          </tr>
-          <tr>
-            <td><label for="create-title">Title:</label></td>
-            <td class="full-width"><input id="create-title" class="full-width" type="text" name="title"></td>
-          </tr>
-          <tr>
-            <td class="vert-top"><label for="create-description">Description:</label></td>
-            <td class="full-width"><textarea id="create-description" class="full-width" rows="6" name="description"></textarea></td>
-          </tr>
-          <tr>
-            <td><label for="create-estimate">Estimate:</label></td>
-            <td><input id="create-estimate" type="text" name="estimate" placeholder="3w 2d 4h 30m"></td>
-          </tr>
-          <tr>
-            <td><label for="create-assignee">Assignee:</label></td>
-            <td>
-              <% if (locals.user) { %>
-                <input id="create-assignee" type="text" readonly name="assignee" value="<%= locals.user.fullName %>">
-                <input type="hidden" name="assigneeId" value="<%= locals.user.id %>">
-              <% } %>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="text-right"><button id="create-button"><i class="material-icons">done</i></button></td>
-          </tr>
+        <table class="full-width">
+          <colgroup>
+            <col class="width-15">
+            <col>
+          </colgroup>
+          <tbody>
+            <tr>
+              <td><label for="create-project">Project:</label></td>
+              <td><input id="create-project" type="text" name="project"></td>
+            </tr>
+            <tr>
+              <td><label for="create-title">Title:</label></td>
+              <td class="full-width"><input id="create-title" class="full-width" type="text" name="title"></td>
+            </tr>
+            <tr>
+              <td class="vert-top"><label for="create-description">Description:</label></td>
+              <td><textarea id="create-description" class="full-width" rows="6" name="description"></textarea></td>
+            </tr>
+            <tr>
+              <td><label for="create-estimate">Estimate:</label></td>
+              <td><input id="create-estimate" type="text" name="estimate" placeholder="3w 2d 4h 30m"></td>
+            </tr>
+            <tr>
+              <td><label for="create-assignee">Assignee:</label></td>
+              <td>
+                <% if (locals.user) { %>
+                  <input id="create-assignee" type="text" readonly name="assignee" value="<%= locals.user.fullName %>">
+                  <input type="hidden" name="assigneeId" value="<%= locals.user.id %>">
+                <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="text-right"><button id="create-button"><i class="material-icons">done</i></button></td>
+            </tr>
+          </tbody>
         </table>
       </form>
     </div>
