@@ -6,14 +6,9 @@ export class IssuesController {
   }
 
   index(req, res) {
-    let data = {
-      currentUser: {
-        id: 1,
-        fullName: 'Sullivan Ford'
-      }
-    };
+    let user = req.user;
 
-    res.render('issues', Object.assign({ css: ['main.css'] }, data));
+    res.render('issues', Object.assign({ css: ['main.css'] }, { user }));
   }
 
   issue(req, res) {

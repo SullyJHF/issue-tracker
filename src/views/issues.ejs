@@ -29,9 +29,9 @@
           <tr>
             <td><label for="create-assignee">Assignee:</label></td>
             <td>
-              <% if (locals.currentUser) { %>
-                <input id="create-assignee" type="text" readonly name="assignee" value="<%= locals.currentUser.fullName %>">
-                <input type="hidden" name="assigneeId" value="<%= locals.currentUser.id %>">
+              <% if (locals.user) { %>
+                <input id="create-assignee" type="text" readonly name="assignee" value="<%= locals.user.fullName %>">
+                <input type="hidden" name="assigneeId" value="<%= locals.user.id %>">
               <% } %>
             </td>
           </tr>
