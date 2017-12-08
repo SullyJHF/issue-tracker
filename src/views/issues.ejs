@@ -51,10 +51,17 @@
           <a href="/issues/<%= issue.id %>">
             <div class="list-item">
               <table class="full-width">
+                <colgroup>
+                  <col class="width-10">
+                  <col class="width-60">
+                  <col>
+                  <col class="width-10">
+                </colgroup>
                 <tbody>
                   <tr>
                     <td><%= issue.id %></td>
                     <td><%= issue.title %></td>
+                    <td class="text-right"><%= issue.assigneeId %></td>
                     <td class="text-right"><%= issue.estimate %></td>
                   </tr>
                 </tbody>
