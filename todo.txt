@@ -11,9 +11,9 @@ login
     write middleware to get cookie every request *
       and test if jwt still valid *
       and refresh jwt *
-  Add a few new errors to login
-    please provide email (empty email)
-    please provide password (empty password)
+  Add a few new errors to login *
+    please provide email (empty email) *
+    please provide password (empty password) *
 
 somehow change clientside javascript to be better
 
