@@ -35,7 +35,7 @@ export class IssueModel {
 
     sql = db.format(sql, inserts);
 
-    return await db.query(sql);
+    return Object.assign(await db.query(sql), {id: issue.id});
   }
 
   static convertEstimate(estimateString) {
