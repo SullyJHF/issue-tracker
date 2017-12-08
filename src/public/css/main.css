@@ -162,15 +162,15 @@ form table td {
   width: 20%;
 }
 
-.width-10 { width: 10%; }
-.width-20 { width: 20%; }
-.width-30 { width: 30%; }
-.width-40 { width: 40%; }
-.width-50 { width: 50%; }
-.width-60 { width: 60%; }
-.width-70 { width: 70%; }
-.width-80 { width: 80%; }
-.width-90 { width: 90%; }
+.width-10 { width: 10vh; }
+.width-20 { width: 20vh; }
+.width-30 { width: 30vh; }
+.width-40 { width: 40vh; }
+.width-50 { width: 50vh; }
+.width-60 { width: 60vh; }
+.width-70 { width: 70vh; }
+.width-80 { width: 80vh; }
+.width-90 { width: 90vh; }
 
 td {
   text-overflow: ellipsis;
