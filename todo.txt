@@ -33,6 +33,7 @@ issues page *
       log work
       remove work log
       change issue state
+  add search function
 
 Sort out how employees page will look
 employees page *
