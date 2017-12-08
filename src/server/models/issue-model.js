@@ -3,8 +3,8 @@ import db from '../database';
 import parse from 'parse-duration';
 
 export class IssueModel {
-  constructor(project, title, description, estimate, assigneeId) {
-    this.id = project;
+  constructor(id, title, description, estimate, assigneeId) {
+    this.id = id;
     this.title = title;
     this.description = description;
     this.estimate = estimate;
