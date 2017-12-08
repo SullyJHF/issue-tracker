@@ -44,7 +44,7 @@ export class IssueModel {
   }
 
   static async getIdForProject(project) {
-    let sql = db.format('SELECT * FROM issues WHERE left(ISSUE_ID, ?) = ?', [project.length, project + '-']);
+    let sql = db.format('SELECT * FROM issues WHERE left(ISSUE_ID, ?) = ?', [project.length + 1, project + '-']);
     let results = await db.query(sql);
 
     if (!results.length) return `${project}-1`;
