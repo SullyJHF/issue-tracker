@@ -4,7 +4,8 @@ export class LogoutController {
   }
 
   logout(req, res) {
-    // do login authentication
+    res.clearCookie('token');
+    req.user = undefined;
     res.redirect('/');
   }
 }
