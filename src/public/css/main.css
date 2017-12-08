@@ -172,6 +172,13 @@ form table td {
 .width-80 { width: 80%; }
 .width-90 { width: 90%; }
 
+td {
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /* LOGIN */
 #login-form-wrapper {
   width: 50vh;
