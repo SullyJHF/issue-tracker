@@ -5,10 +5,10 @@ export class IssuesController {
 
   }
 
-  index(req, res) {
-    let user = req.user;
+  async index(req, res) {
+    let issues = await IssueModel.getAll();
 
-    res.render('issues', Object.assign({ css: ['main.css'] }, { user }));
+    res.render('issues', Object.assign({ css: ['main.css'] }, { user: req.user, issues }));
   }
 
   issue(req, res) {

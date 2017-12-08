@@ -199,10 +199,12 @@ form table td {
 
 /* ISSUES PAGE */
 #issues-list {
-  background: white;
   width: 100%;
-  height: 50px;
   margin: 0 auto 1vh auto;
+}
+
+#issues-list table {
+
 }
 
 #create-issue {
@@ -219,7 +221,6 @@ form table td {
 .list-item {
   background: white;
   padding: 2vh;
-  overflow: auto;
   border-top: 1vh solid #80d8ff;
   margin-bottom: 1vh;
 }

@@ -47,7 +47,21 @@
     </div>
     <div class="content">
       <div id="issues-list">
-        <!-- show list of issues here -->
+        <% for (let issue of locals.issues) { %>
+          <a href="/issues/<%= issue.id %>">
+            <div class="list-item">
+              <table class="full-width">
+                <tbody>
+                  <tr>
+                    <td><%= issue.id %></td>
+                    <td><%= issue.title %></td>
+                    <td class="text-right"><%= issue.estimate %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </a>
+        <% } %>
       </div>
       <button id="create-issue">
         <%- include('./includes/icon', { icon: 'add_circle' }) %>
