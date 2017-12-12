@@ -56,6 +56,24 @@ export class IssueModel {
     return Object.assign(await db.query(sql), {id: issue.id});
   }
 
+  static async updateIssue(issue) {
+    if (!(issue instanceof IssueModel)) throw new Error('Data must be of type IssueModel');
+    let sql = 'UPDATE issues SET TITLE=?, DESCRIPTION=?, STATE=?, TOTAL_HOURS_LOGGED=?, ESTIMATED_TIME=?, EMP_ID=? WHERE ISSUE_ID=?';
+    let inserts = [
+      issue.title,
+      issue.description,
+      issue.state,
+      issue.totalHours,
+      issue.estimate,
+      issue.assignee.id,
+      issue.id
+    ];
+
+    sql = db.format(sql, inserts);
+
+    return Object.assign(await db.query(sql), {id: issue.id});
+  }
+
   static async getAll() {
     let results = await db.query('SELECT * FROM issues');
     return Promise.all(results.map(IssueModel.createFromDb));

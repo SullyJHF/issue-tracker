@@ -1,4 +1,5 @@
 import { IssueModel } from '../models/issue-model';
+import { IssueState } from '../utils/issue-state'
 
 export class IssuesController {
   constructor() {
@@ -23,5 +24,19 @@ export class IssuesController {
 
     let id = result.id;
     res.redirect(`/issues/${id}`);
+  }
+
+  async toggleProgress(req, res) {
+    let issue = await IssueModel.getById(req.params.id);
+    
+    issue.state = issue.state === IssueState.AWAITING_START ? IssueState.IN_PROGRESS : IssueState.AWAITING_START;
+
+    try {
+      issue = await IssueModel.updateIssue(issue);
+    } catch (e) {
+      console.error(e);
+    }
+
+    res.redirect(`/issues/${req.params.id}`);
   }
 }

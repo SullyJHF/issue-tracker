@@ -11,18 +11,17 @@
     <div class="content">
       <div class="card full-width">
         <table class="full-width">
-          <colgroup>
-            
-          </colgroup>
           <tbody>
             <tr>
               <td>
                 <b><%= locals.issue.id + ' - ' %></b><div class="italic inline"><%= locals.issue.state %></div>
               </td>
               <td class="text-right">
-                <button id="toggle-progress-btn">
-                  Start Progress
-                </button>
+                <form action="/issues/<%= locals.issue.id %>/toggleProgress" method="POST">
+                  <button id="toggle-progress-btn">
+                    <%= locals.issue.state === 'Awaiting Start' ? 'Start' : 'Stop' %> Progress
+                  </button>
+                </form>
               </td>
             </tr>
             <tr>
