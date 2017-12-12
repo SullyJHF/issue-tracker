@@ -1,0 +1,17 @@
+<%
+  let totalWidth = Math.min(100, (locals.total / locals.estimate) * 100);
+  let estimateWidth = 100 - totalWidth;
+%>
+
+<table class="full-width">
+  <tr>
+    <td><%= locals.friendlyTotal %></td>
+    <td class="text-right"><%= locals.friendlyEstimate %></td>
+  </tr>
+</table>
+<table class="full-width">
+  <tr>
+    <td class="bg-green" style="width: <%= totalWidth %>%"></td>
+    <td class="bg-orange" style="width: <%= estimateWidth %>%"></td>
+  </tr>
+</table>

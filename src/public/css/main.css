@@ -75,6 +75,10 @@ button {
   min-height: 5vh;
 }
 
+button:disabled {
+  background-color: #E1E1E1;
+}
+
 input, textarea, select {
   border: 1px solid #E1E1E1;
   border-radius: 0.5vh; 
@@ -82,7 +86,7 @@ input, textarea, select {
   font-size: 2vh;
 }
 
-form table td {
+table td {
   padding: 1vh;
 }
 
@@ -179,6 +183,9 @@ td {
   text-overflow: ellipsis;
 
   white-space: nowrap;
+}
+
+#time-graph {
 }
 
 /* LOGIN */
@@ -433,6 +440,20 @@ td {
   background: #F5F5F5;
   background-clip: padding-box;
 }
+
+.italic {
+  font-style: italic;
+}
+
+.bg-orange {
+  background-color: orange;
+}
+
+.bg-green {
+  background-color: green;
+}
+
+
 
 
 /* FONTS */

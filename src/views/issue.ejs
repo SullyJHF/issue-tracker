@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('./includes/head'); %>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <%- include('./includes/navbar', { active: 'issues' }); %>
+    </div>
+    <div class="content">
+      <div class="card full-width">
+        <table class="full-width">
+          <colgroup>
+            
+          </colgroup>
+          <tbody>
+            <tr>
+              <td>
+                <b><%= locals.issue.id + ' - ' %></b><div class="italic inline"><%= locals.issue.state %></div>
+              </td>
+              <td class="text-right">
+                <button id="toggle-progress-btn">
+                  Start Progress
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <b><%= locals.issue.title %></b>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <textarea class="full-width" rows="6" name="description" disabled><%= locals.issue.description %></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button id="log-time-btn" disabled>
+                  <%- include('includes/icon', { icon: 'access_time' }); %>
+                </button>
+              </td>
+              <td>
+                <div id="time-graph">
+                  <%- include('includes/time-graph', {
+                    estimate: locals.issue.estimate,
+                    total: locals.issue.totalHours,
+                    friendlyEstimate: locals.issue.friendlyEstimate,
+                    friendlyTotal: locals.issue.friendlyTotal
+                  }); %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button id="resolve-btn">Resolve</button>
+              </td>
+              <td class="text-right">
+                <button id="done-btn">
+                  <%- include('includes/icon', { icon: 'done' }); %>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

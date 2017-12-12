@@ -11,10 +11,10 @@ export class IssuesController {
     res.render('issues', Object.assign({ css: ['main.css'] }, { issues }));
   }
 
-  issue(req, res) {
-    let id = req.params.id;
+  async issue(req, res) {
+    let issue = await IssueModel.getById(req.params.id);
 
-    res.redirect('/issues');
+    res.render('issue', { css: ['main.css'], issue });
   }
 
   async create(req, res) {
