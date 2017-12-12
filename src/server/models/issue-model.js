@@ -2,6 +2,7 @@ import { IssueState } from '../utils/issue-state';
 import { UserModel } from './user-model';
 import db from '../database';
 import parse from 'parse-duration';
+import humanizer from '../utils/humanizer';
 
 export class IssueModel {
   constructor(id, title, description, estimate, assignee, state, totalHours) {
@@ -9,6 +10,7 @@ export class IssueModel {
     this.title = title;
     this.description = description;
     this.estimate = estimate;
+    this.friendlyEstimate = humanizer(estimate * 60 * 60 * 1000);
     this.assignee = assignee;
 
     this.state = state;
