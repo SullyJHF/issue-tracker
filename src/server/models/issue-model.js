@@ -14,7 +14,8 @@ export class IssueModel {
     this.assignee = assignee;
 
     this.state = state;
-    this.totalHours = 0;
+    this.totalHours = totalHours;
+    this.friendlyTotal = humanizer(totalHours * 60 * 60 * 1000);
   }
 
   static async createFromReq({project, title, description, estimate, assigneeId}) {
@@ -58,6 +59,17 @@ export class IssueModel {
   static async getAll() {
     let results = await db.query('SELECT * FROM issues');
     return Promise.all(results.map(IssueModel.createFromDb));
+  }
+
+  static async getById(id) {
+    let query = 'SELECT * FROM issues WHERE ISSUE_ID = ?';
+    let inserts = [id];
+    query = db.format(query, inserts);
+    let results = await db.query(query);
+    if (results.length) {
+      return await IssueModel.createFromDb(results[0]);
+    }
+    return null;
   }
 
   static async getIdForProject(project) {
