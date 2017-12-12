@@ -21,7 +21,7 @@ export class IssueModel {
   static async createFromReq({project, title, description, estimate, assigneeId}) {
     let id = await IssueModel.getIdForProject(project.toUpperCase());
     let assignee = await UserModel.getById(assigneeId);
-    return new IssueModel(id, title, description, IssueModel.convertEstimate(estimate), assignee, IssueState.OPEN, 0);
+    return new IssueModel(id, title, description, IssueModel.convertEstimate(estimate), assignee, IssueState.AWAITING_START, 0);
   }
 
   static async createFromDb(dbIssue) {

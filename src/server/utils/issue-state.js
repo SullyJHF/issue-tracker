@@ -1,5 +1,6 @@
 export const IssueState = {
-  OPEN: 'Open',
+  AWAITING_START: 'Awaiting Start',
   IN_PROGRESS: 'In Progress',
-  RESOLVED: 'Resolved'
+  RESOLVED: 'Resolved',
+  CLOSED: 'Closed'
 };
