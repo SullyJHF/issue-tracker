@@ -18,9 +18,7 @@
               </td>
               <td class="text-right">
                 <form action="/issues/<%= locals.issue.id %>/toggleProgress" method="POST">
-                  <button id="toggle-progress-btn">
-                    <%= locals.issue.state === 'Awaiting Start' ? 'Start' : 'Stop' %> Progress
-                  </button>
+                  <button id="toggle-progress-btn"><%= locals.issue.state === 'Awaiting Start' ? 'Start' : 'Stop' %> Progress</button>
                 </form>
               </td>
             </tr>
