@@ -57,6 +57,8 @@ export default async function authenticator(req, res, next) {
 function unauthenticated(err, req, res, next) {
   console.log('NOT AUTHENTICATED:', err);
   res.statusCode = 401;
+  res.clearCookie('token');
+  req.user = undefined;
   // redirect back to login?
   // or explain to user that unauthenticated
   // send back some data to display on the current page?
