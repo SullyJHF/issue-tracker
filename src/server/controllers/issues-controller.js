@@ -8,7 +8,7 @@ export class IssuesController {
   async index(req, res) {
     let issues = await IssueModel.getAll();
 
-    res.render('issues', Object.assign({ css: ['main.css'] }, { user: req.user, issues }));
+    res.render('issues', Object.assign({ css: ['main.css'] }, { issues }));
   }
 
   issue(req, res) {

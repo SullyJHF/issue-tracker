@@ -46,6 +46,8 @@ export default async function authenticator(req, res, next) {
     fullName: `${user.firstName} ${user.surname}`
   };
 
+  res.locals.user = req.user;
+
   // refresh the token
   let newToken = TokenModel.generateTokenForUser(user);
 
@@ -59,6 +61,7 @@ function unauthenticated(err, req, res, next) {
   res.statusCode = 401;
   res.clearCookie('token');
   req.user = undefined;
+  res.locals.user = undefined;
   // redirect back to login?
   // or explain to user that unauthenticated
   // send back some data to display on the current page?
