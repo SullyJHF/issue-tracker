@@ -61,13 +61,13 @@
                   <col class="width-10">
                   <col class="width-60">
                   <col>
-                  <col class="width-10">
+                  <col class="width-15">
                 </colgroup>
                 <tbody>
                   <tr>
                     <td><%= issue.id %></td>
                     <td><%= issue.title %></td>
-                    <td class="text-right"><%= issue.assignee.firstName + ' ' + issue.assignee.surname %></td>
+                    <td><%= issue.assignee.firstName + ' ' + issue.assignee.surname %></td>
                     <td class="text-right"><%= issue.friendlyEstimate %></td>
                   </tr>
                 </tbody>
