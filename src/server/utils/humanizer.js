@@ -3,10 +3,10 @@ import humanizeDuration from 'humanize-duration';
 const humanizer = humanizeDuration.humanizer({
   spacer: '',
   delimiter: ' ',
+  units: ['w', 'd', 'h', 'm'],
   language: 'shortEn',
   languages: {
     shortEn: {
-      mo: () => 'mo',
       w: () => 'w',
       d: () => 'd',
       h: () => 'h',
