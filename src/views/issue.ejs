@@ -34,7 +34,7 @@
             </tr>
             <tr>
               <td>
-                <button id="log-time-btn" disabled>
+                <button id="log-time-btn" <%= locals.issue.state === 'In Progress' ? '' : 'disabled' %>>
                   <%- include('includes/icon', { icon: 'access_time' }); %>
                 </button>
               </td>
