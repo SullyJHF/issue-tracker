@@ -1,5 +1,7 @@
 import db from '../database';
 
+import { IssueState } from '../utils/issue-state';
+
 export class ColourSchemeModel {
   constructor(id, title, resolve, close, inProgress, awaitingStart, defaultColour) {
     this.id = id;
@@ -56,5 +58,34 @@ export class ColourSchemeModel {
   static async getAll() {
     let results = await db.query('SELECT * FROM colour_schemes');
     return results.map(this.createFromDb);
+  }
+
+  static async getByEmpId(id) {
+    let query = db.format('SELECT ' +
+      'colour_schemes.RESOLVE_COLOUR, ' +
+      'colour_schemes.CLOSE_COLOUR, ' +
+      'colour_schemes.IN_PROGRESS_COLOUR, ' +
+      'colour_schemes.AWAITING_START_COLOUR, ' +
+      'colour_schemes.DEFAULT_COLOUR ' +
+      'FROM colour_schemes ' +
+        'INNER JOIN teams ON colour_schemes.SCHEME_ID = teams.SCHEME_ID ' +
+        'INNER JOIN users ON teams.TEAM_ID = users.TEAM_ID ' +
+      'WHERE users.EMP_ID=?', [id]);
+
+    let results = await db.query(query);
+
+    if (!results.length) {
+      console.error('No colour schemes found for this team');
+      return {};
+    }
+
+    let object = {};
+    object[IssueState.AWAITING_START] = results[0].AWAITING_START_COLOUR;
+    object[IssueState.IN_PROGRESS] = results[0].IN_PROGRESS_COLOUR;
+    object[IssueState.RESOLVED] = results[0].RESOLVE_COLOUR;
+    object[IssueState.CLOSED] = results[0].CLOSE_COLOUR;
+    object['Default'] = results[0].DEFAULT_COLOUR;
+
+    return object;
   }
 }

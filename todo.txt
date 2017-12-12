@@ -34,6 +34,8 @@ issues page *
       log work
       remove work log
       change issue state
+      show issue state as border top colour *
+        ext: show colour based on that issue's team
   add search function
 
 Sort out how employees page will look

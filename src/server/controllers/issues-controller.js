@@ -1,5 +1,7 @@
 import { IssueModel } from '../models/issue-model';
-import { IssueState } from '../utils/issue-state'
+import { ColourSchemeModel } from '../models/colour-scheme-model';
+
+import { IssueState } from '../utils/issue-state';
 
 export class IssuesController {
   constructor() {
@@ -8,8 +10,9 @@ export class IssuesController {
 
   async index(req, res) {
     let issues = await IssueModel.getAll();
+    let colours = await ColourSchemeModel.getByEmpId(req.user.id);
 
-    res.render('issues', Object.assign({ css: ['main.css'] }, { issues }));
+    res.render('issues', Object.assign({ css: ['main.css'] }, { issues, colours }));
   }
 
   async issue(req, res) {
@@ -28,7 +31,7 @@ export class IssuesController {
 
   async toggleProgress(req, res) {
     let issue = await IssueModel.getById(req.params.id);
-    
+
     issue.state = issue.state === IssueState.AWAITING_START ? IssueState.IN_PROGRESS : IssueState.AWAITING_START;
 
     try {
