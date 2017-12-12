@@ -67,7 +67,7 @@
                   <tr>
                     <td><%= issue.id %></td>
                     <td><%= issue.title %></td>
-                    <td class="text-right"><%= issue.assigneeId %></td>
+                    <td class="text-right"><%= issue.assignee.firstName + ' ' + issue.assignee.surname %></td>
                     <td class="text-right"><%= issue.estimate %></td>
                   </tr>
                 </tbody>

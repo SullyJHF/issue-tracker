@@ -1,14 +1,15 @@
 import { IssueState } from '../utils/issue-state';
+import { UserModel } from './user-model';
 import db from '../database';
 import parse from 'parse-duration';
 
 export class IssueModel {
-  constructor(id, title, description, estimate, assigneeId, state, totalHours) {
+  constructor(id, title, description, estimate, assignee, state, totalHours) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.estimate = estimate;
-    this.assigneeId = assigneeId; // create user from this id for the model
+    this.assignee = assignee;
 
     this.state = state;
     this.totalHours = 0;
@@ -16,16 +17,18 @@ export class IssueModel {
 
   static async createFromReq({project, title, description, estimate, assigneeId}) {
     let id = await IssueModel.getIdForProject(project.toUpperCase());
-    return new IssueModel(id, title, description, IssueModel.convertEstimate(estimate), assigneeId, IssueState.OPEN, 0);
+    let assignee = await UserModel.getById(assigneeId);
+    return new IssueModel(id, title, description, IssueModel.convertEstimate(estimate), assignee, IssueState.OPEN, 0);
   }
 
-  static createFromDb(dbIssue) {
+  static async createFromDb(dbIssue) {
+    let assignee = await UserModel.getById(dbIssue.EMP_ID);
     return new IssueModel(
       dbIssue.ISSUE_ID,
       dbIssue.TITLE,
       dbIssue.DESCRIPTION,
       dbIssue.ESTIMATED_TIME,
-      dbIssue.EMP_ID,
+      assignee,
       dbIssue.STATE,
       dbIssue.TOTAL_HOURS_LOGGED
     );
@@ -42,7 +45,7 @@ export class IssueModel {
       issue.state,
       issue.totalHours,
       issue.estimate,
-      issue.assigneeId
+      issue.assignee.id
     ];
 
     sql = db.format(sql, inserts);
@@ -52,7 +55,7 @@ export class IssueModel {
 
   static async getAll() {
     let results = await db.query('SELECT * FROM issues');
-    return results.map(IssueModel.createFromDb);
+    return Promise.all(results.map(IssueModel.createFromDb));
   }
 
   static async getIdForProject(project) {
