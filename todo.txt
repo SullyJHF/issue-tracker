@@ -29,17 +29,19 @@ change mysql queryFormat to use objects instead
 --- FEATURES ---
 issues page *
   create issue *
-  view issues
-    issue page
-      log work
+  view issues *
+    issue page *
+      log work *
+        make an actual work log set in sprint
       remove work log
-      change issue state
+      change issue state *
       show issue state as border top colour *
         ext: show colour based on that issue's team
   add search function
 
 Sort out how employees page will look
 employees page *
+  sort out roles
   create employee *
   create team *
   employee page
