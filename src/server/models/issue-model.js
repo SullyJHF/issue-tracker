@@ -99,6 +99,12 @@ export class IssueModel {
     return `${project}-${results.length + 1}`;
   }
 
+  static async logTime(issue, timeStr) {
+    let time = IssueModel.convertEstimate(timeStr);
+    issue.totalHours += time;
+    return await IssueModel.updateIssue(issue);
+  }
+
   static convertEstimate(estimateString) {
     let estimate = parse(estimateString);
     return estimate / 1000 / 60 / 60;

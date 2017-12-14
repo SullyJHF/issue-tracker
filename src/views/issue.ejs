@@ -5,6 +5,31 @@
 </head>
 <body>
   <div class="wrapper">
+    <div id="modal-overlay"></div>
+    <div id="log-time-modal" class="card modal middle width-50">
+      <form id="log-time-form" action="/issues/<%= locals.issue.id %>/log" method="POST">
+        <h1 class="title">Log Time</h1>
+        <table class="full-width">
+          <colgroup>
+            <col class="width-15"></col>
+            <col></col>
+            <col class="width-12"></col>
+          </colgroup>
+          <tbody>
+            <tr>
+              <td><label for="time">Estimate:</label></td>
+              <td><input id="time" class="full-width" type="text" name="time" placeholder="3w 2d 4h 30m"></td>
+              <td class="text-right">
+                <button>
+                  <%- include('includes/icon', { icon: 'done' }); %>  
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
     <div class="header">
       <%- include('./includes/navbar', { active: 'issues' }); %>
     </div>

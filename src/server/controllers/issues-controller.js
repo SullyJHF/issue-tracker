@@ -29,6 +29,14 @@ export class IssuesController {
     res.redirect(`/issues/${id}`);
   }
 
+  async log(req, res) {
+    let issue = await IssueModel.getById(req.params.id);
+    let timeStr = req.body.time;
+    issue = await IssueModel.logTime(issue, timeStr);
+
+    res.redirect(`/issues/${issue.id}`);
+  }
+
   async toggleProgress(req, res) {
     let issue = await IssueModel.getById(req.params.id);
 

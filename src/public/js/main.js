@@ -28,6 +28,14 @@ let employeeCreateBtn = new SimpleButton('create-employee', (event) => {
 });
 
 
+// Issue page
+let logTimeModal = new Modal('log-time-modal');
+
+let logTimeBtn = new SimpleButton('log-time-btn', (event) => {
+  logTimeModal.show();
+})
+
+
 // All pages
 let logoutBtn = new SimpleButton('logout-btn', (event) => {
   window.location = '/logout';

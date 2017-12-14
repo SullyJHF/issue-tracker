@@ -9,6 +9,7 @@ const issuesController = new IssuesController();
 // Routes
 router.get('/', issuesController.index);
 router.get('/:id', issuesController.issue);
+router.post('/:id/log', issuesController.log);
 router.post('/:id/toggleProgress', issuesController.toggleProgress);
 router.post('/create', issuesController.create)
 
