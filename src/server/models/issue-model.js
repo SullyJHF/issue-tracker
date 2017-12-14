@@ -5,17 +5,17 @@ import parse from 'parse-duration';
 import humanizer from '../utils/humanizer';
 
 export class IssueModel {
-  constructor(id, title, description, estimate, assignee, state, totalHours) {
+  constructor(id, title, description, estimate, assignee, state, totalSeconds) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.estimate = estimate;
-    this.friendlyEstimate = humanizer(estimate * 60 * 60 * 1000);
+    this.friendlyEstimate = humanizer(estimate * 1000);
     this.assignee = assignee;
 
     this.state = state;
-    this.totalHours = totalHours;
-    this.friendlyTotal = humanizer(totalHours * 60 * 60 * 1000);
+    this.totalSeconds = totalSeconds;
+    this.friendlyTotal = humanizer(totalSeconds * 1000);
   }
 
   static async createFromReq({project, title, description, estimate, assigneeId}) {
@@ -33,7 +33,7 @@ export class IssueModel {
       dbIssue.ESTIMATED_TIME,
       assignee,
       dbIssue.STATE,
-      dbIssue.TOTAL_HOURS_LOGGED
+      dbIssue.TOTAL_SECONDS_LOGGED
     );
   }
 
@@ -46,7 +46,7 @@ export class IssueModel {
       issue.title,
       issue.description,
       issue.state,
-      issue.totalHours,
+      issue.totalSeconds,
       issue.estimate,
       issue.assignee.id
     ];
@@ -58,12 +58,12 @@ export class IssueModel {
 
   static async updateIssue(issue) {
     if (!(issue instanceof IssueModel)) throw new Error('Data must be of type IssueModel');
-    let sql = 'UPDATE issues SET TITLE=?, DESCRIPTION=?, STATE=?, TOTAL_HOURS_LOGGED=?, ESTIMATED_TIME=?, EMP_ID=? WHERE ISSUE_ID=?';
+    let sql = 'UPDATE issues SET TITLE=?, DESCRIPTION=?, STATE=?, TOTAL_SECONDS_LOGGED=?, ESTIMATED_TIME=?, EMP_ID=? WHERE ISSUE_ID=?';
     let inserts = [
       issue.title,
       issue.description,
       issue.state,
-      issue.totalHours,
+      issue.totalSeconds,
       issue.estimate,
       issue.assignee.id,
       issue.id
@@ -101,12 +101,12 @@ export class IssueModel {
 
   static async logTime(issue, timeStr) {
     let time = IssueModel.convertEstimate(timeStr);
-    issue.totalHours += time;
+    issue.totalSeconds += time;
     return await IssueModel.updateIssue(issue);
   }
 
   static convertEstimate(estimateString) {
     let estimate = parse(estimateString);
-    return estimate / 1000 / 60 / 60;
+    return estimate / 1000;
   }
 }
