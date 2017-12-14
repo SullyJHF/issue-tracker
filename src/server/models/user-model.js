@@ -69,6 +69,25 @@ export class UserModel {
     let formData = { email };
     let errors = {};
 
+    // check if email exists
+    let user = await UserModel.getByEmail(email);
+    
+    if (!user) {
+      errors.error = true;
+      errors.email = 'Email not found';
+      errors.statusCode = 404;
+    } else {
+      // check if password matches
+      let passwordMatch = await bcrypt.compare(password, user.hashedPass);
+
+      if (!passwordMatch) {
+        errors.error = true;
+        errors.password = 'Password incorrect';
+        errors.statusCode = 401
+      }
+    }
+
+
     if (email === '') {
       errors.error = true;
       errors.email = 'Please provide an email';
@@ -82,23 +101,6 @@ export class UserModel {
     }
 
     if (errors.error) return { formData, errors, error: errors.error };
-
-    // check if email exists
-    let user = await UserModel.getByEmail(email);
-    
-    if (!user) {
-      errors.email = 'Email not found';
-      errors.statusCode = 404;
-      return { formData, errors, error: true };
-    }
-
-    // check if password matches
-    let passwordMatch = await bcrypt.compare(password, user.hashedPass);
-    if (!passwordMatch) {
-      errors.password = 'Password incorrect';
-      errors.statusCode = 401
-      return { formData, errors, error: true };
-    }
 
     return user;
   }
