@@ -43,7 +43,7 @@
               </td>
               <td class="text-right">
                 <form action="/issues/<%= locals.issue.id %>/toggleProgress" method="POST">
-                  <button id="toggle-progress-btn"><%= locals.issue.state === 'Awaiting Start' ? 'Start' : 'Stop' %> Progress</button>
+                  <button id="toggle-progress-btn" <%= locals.issue.state === 'Closed' ? 'disabled' : ''%>><%= locals.issue.state === 'Awaiting Start' || locals.issue.state === 'Resolved' || locals.issue.state === 'Closed' ? 'Start' : 'Stop' %> Progress</button>
                 </form>
               </td>
             </tr>
@@ -76,12 +76,16 @@
             </tr>
             <tr>
               <td>
-                <button id="resolve-btn">Resolve</button>
+                <form action="/issues/<%= locals.issue.id %>/<%= locals.issue.state === 'Resolved' ? 'close' : 'resolve' %>" method="POST">
+                  <button id="resolve-btn" <%= locals.issue.state === 'Closed' ? 'disabled' : '' %>><%= locals.issue.state === 'Resolved' || locals.issue.state === 'Closed' ? 'Close' : 'Resolved' %></button>
+                </form>
               </td>
               <td class="text-right">
-                <button id="done-btn">
-                  <%- include('includes/icon', { icon: 'done' }); %>
-                </button>
+                <form action="/issues" method="GET">
+                  <button id="done-btn">
+                    <%- include('includes/icon', { icon: 'done' }); %>
+                  </button>
+                </form>
               </td>
             </tr>
           </tbody>

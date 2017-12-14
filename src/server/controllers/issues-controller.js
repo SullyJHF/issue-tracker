@@ -32,7 +32,25 @@ export class IssuesController {
   async log(req, res) {
     let issue = await IssueModel.getById(req.params.id);
     let timeStr = req.body.time;
-    issue = await IssueModel.logTime(issue, timeStr);
+    let result = await IssueModel.logTime(issue, timeStr);
+
+    res.redirect(`/issues/${issue.id}`);
+  }
+
+  async resolve(req, res) {
+    let issue = await IssueModel.getById(req.params.id);
+    issue.state = IssueState.RESOLVED;
+
+    let result = await IssueModel.updateIssue(issue);
+
+    res.redirect(`/issues/${issue.id}`);
+  }
+
+  async close(req, res) {
+    let issue = await IssueModel.getById(req.params.id);
+    issue.state = IssueState.CLOSED;
+
+    let result = await IssueModel.updateIssue(issue);
 
     res.redirect(`/issues/${issue.id}`);
   }
