@@ -111,7 +111,6 @@ table td {
 .error-icon:before {
   content: attr(data-before);
   display: none;
-  width: 10vh;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
