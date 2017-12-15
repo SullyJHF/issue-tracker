@@ -32,8 +32,9 @@ issues page *
   view issues *
     issue page *
       log work *
-        make an actual work log set in sprint
+        make an actual work log set in sprint *
       remove work log
+      edit work log
       change issue state *
       show issue state as border top colour *
         ext: show colour based on that issue's team

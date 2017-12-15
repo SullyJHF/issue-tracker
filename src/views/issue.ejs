@@ -34,7 +34,7 @@
       <%- include('./includes/navbar', { active: 'issues' }); %>
     </div>
     <div class="content">
-      <div class="card full-width">
+      <div class="card full-width marg-bottom-5">
         <table class="full-width">
           <tbody>
             <tr>
@@ -90,6 +90,21 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="list-wrapper">
+        <% for (let workLog of issue.workLogs) { %>
+          <div class="list-item">
+            <table class="full-width">
+              <tbody>
+                <tr>
+                  <td class="text-right">
+                    <%= workLog.friendlyTime %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
       </div>
     </div>
   </div>

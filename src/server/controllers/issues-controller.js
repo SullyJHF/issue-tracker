@@ -58,7 +58,7 @@ export class IssuesController {
   async toggleProgress(req, res) {
     let issue = await IssueModel.getById(req.params.id);
 
-    issue.state = issue.state === IssueState.AWAITING_START ? IssueState.IN_PROGRESS : IssueState.AWAITING_START;
+    issue.state = issue.state !== IssueState.IN_PROGRESS ? IssueState.IN_PROGRESS : IssueState.AWAITING_START;
 
     try {
       issue = await IssueModel.updateIssue(issue);

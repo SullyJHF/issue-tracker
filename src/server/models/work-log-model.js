@@ -3,11 +3,14 @@ import db from '../database';
 import { SprintModel } from './sprint-model';
 import { IssueModel } from './issue-model';
 
+import humanizer from '../utils/humanizer';
+
 export class WorkLogModel {
   constructor(sprint, issue, time) {
     this.sprint = sprint;
     this.issue = issue;
     this.time = time;
+    this.friendlyTime = humanizer(this.time * 1000);
   }
 
   static create(sprint, issue, time) {
@@ -15,11 +18,9 @@ export class WorkLogModel {
   }
 
   static async createFromDb(workLogData) {
-    let sprint = await SprintModel.getById(workLogData.SPRINT_ID);
-    let issue = await IssueModel.getById(workLogData.ISSUE_ID);
     return new WorkLogModel(
-      sprint,
-      issue,
+      workLogData.SPRINT_ID,
+      workLogData.ISSUE_ID,
       workLogData.SECONDS_LOGGED
     );
   }
@@ -28,8 +29,8 @@ export class WorkLogModel {
     if (!(workLog instanceof WorkLogModel)) throw new Error('Data must be of type WorkLogModel');
     let sql = 'INSERT INTO work_log VALUES (?, ?, ?)';
     let inserts = [
-      workLog.sprint.id,
-      workLog.issue.id,
+      workLog.sprint,
+      workLog.issue,
       workLog.time
     ];
     
@@ -50,8 +51,10 @@ export class WorkLogModel {
     return [];
   }
 
-  static async getByIssue(issue) {
-    return [];
+  static async getByIssueId(id) {
+    let query = db.format('SELECT * FROM work_log WHERE ISSUE_ID=?', [id]);
+    let results = await db.query(query);
+    return Promise.all(results.map(this.createFromDb));
   }
 
   static async getAll() {

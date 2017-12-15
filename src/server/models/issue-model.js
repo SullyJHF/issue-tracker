@@ -7,7 +7,7 @@ import { convertTime } from '../utils';
 import humanizer from '../utils/humanizer';
 
 export class IssueModel {
-  constructor(id, title, description, estimate, assignee, state, totalSeconds) {
+  constructor(id, title, description, estimate, assignee, state, totalSeconds, workLogs) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -18,16 +18,20 @@ export class IssueModel {
     this.state = state;
     this.totalSeconds = totalSeconds;
     this.friendlyTotal = humanizer(totalSeconds * 1000);
+
+    this.workLogs = workLogs;
   }
 
   static async createFromReq({project, title, description, estimate, assigneeId}) {
     let id = await IssueModel.getIdForProject(project.toUpperCase());
     let assignee = await UserModel.getById(assigneeId);
-    return new IssueModel(id, title, description, convertTime(estimate), assignee, IssueState.AWAITING_START, 0);
+    let workLogs = await WorkLogModel.getByIssueId(id);
+    return new IssueModel(id, title, description, convertTime(estimate), assignee, IssueState.AWAITING_START, 0, workLogs);
   }
 
   static async createFromDb(dbIssue) {
     let assignee = await UserModel.getById(dbIssue.EMP_ID);
+    let workLogs = await WorkLogModel.getByIssueId(dbIssue.ISSUE_ID);
     return new IssueModel(
       dbIssue.ISSUE_ID,
       dbIssue.TITLE,
@@ -35,7 +39,8 @@ export class IssueModel {
       dbIssue.ESTIMATED_TIME,
       assignee,
       dbIssue.STATE,
-      dbIssue.TOTAL_SECONDS_LOGGED
+      dbIssue.TOTAL_SECONDS_LOGGED,
+      workLogs
     );
   }
 
@@ -104,7 +109,7 @@ export class IssueModel {
   static async logTime(issue, timeStr) {
     let time = convertTime(timeStr);
     let sprint = await SprintModel.getCurrentSprint();
-    let workLog = WorkLogModel.create(sprint, issue, time);
+    let workLog = WorkLogModel.create(sprint.id, issue.id, time);
 
     if (workLog === null) {
       // return some errors
