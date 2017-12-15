@@ -6,7 +6,7 @@ export class SprintModel {
     this.start = start;
     this.friendlyStart = moment(this.start * 1000).format('DD/MM/YYYY');
     this.length = length;
-    this.end = +moment(this.start * 1000).clone().add(this.length, 'days') / 1000;
+    this.end = +moment(this.start * 1000).add(this.length, 'days') / 1000;
     this.friendlyEnd = moment(this.end * 1000).format('DD/MM/YYYY');
     this.id = id;
   }
@@ -48,5 +48,19 @@ export class SprintModel {
   static async getAll() {
     let results = await db.query('SELECT * FROM sprints');
     return results.map(this.createFromDb);
+  }
+
+  static async getCurrentSprint() {
+    let sprints = await SprintModel.getAll();
+
+    sprints = sprints.filter((sprint) => moment().isBetween(moment(sprint.start * 1000), moment(sprint.end * 1000)));
+
+    if (sprints.length !== 1) {
+      return null;
+    }
+
+    let sprint = sprints[0]
+
+    return sprint;
   }
 }

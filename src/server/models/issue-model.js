@@ -1,7 +1,9 @@
 import { IssueState } from '../utils/issue-state';
 import { UserModel } from './user-model';
+import { SprintModel } from './sprint-model';
+import { WorkLogModel } from './work-log-model';
 import db from '../database';
-import parse from 'parse-duration';
+import { convertTime } from '../utils';
 import humanizer from '../utils/humanizer';
 
 export class IssueModel {
@@ -21,7 +23,7 @@ export class IssueModel {
   static async createFromReq({project, title, description, estimate, assigneeId}) {
     let id = await IssueModel.getIdForProject(project.toUpperCase());
     let assignee = await UserModel.getById(assigneeId);
-    return new IssueModel(id, title, description, IssueModel.convertEstimate(estimate), assignee, IssueState.AWAITING_START, 0);
+    return new IssueModel(id, title, description, convertTime(estimate), assignee, IssueState.AWAITING_START, 0);
   }
 
   static async createFromDb(dbIssue) {
@@ -100,13 +102,18 @@ export class IssueModel {
   }
 
   static async logTime(issue, timeStr) {
-    let time = IssueModel.convertEstimate(timeStr);
-    issue.totalSeconds += time;
-    return await IssueModel.updateIssue(issue);
-  }
+    let time = convertTime(timeStr);
+    let sprint = await SprintModel.getCurrentSprint();
+    let workLog = WorkLogModel.create(sprint, issue, time);
 
-  static convertEstimate(estimateString) {
-    let estimate = parse(estimateString);
-    return estimate / 1000;
+    if (workLog === null) {
+      // return some errors
+    }
+
+    let result = await WorkLogModel.insert(workLog);
+
+    issue.totalSeconds += time;
+
+    return await IssueModel.updateIssue(issue);
   }
 }

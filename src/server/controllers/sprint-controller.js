@@ -12,6 +12,7 @@ export class SprintController {
   async create(req, res) {
     let sprint = await SprintModel.createFromReq(req.body);
     // validate here
+    // Check if new sprint overlaps any others
     let result = await SprintModel.insert(sprint);
 
     res.redirect('/sprint');
