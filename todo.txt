@@ -59,8 +59,9 @@ data page *
   admin view each team
 
 sprints page *
-  view sprints
-  add sprint
+  view sprints *
+  add sprint *
+  delete sprint
 
 
 
