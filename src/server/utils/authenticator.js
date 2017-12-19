@@ -62,6 +62,9 @@ function unauthenticated(err, req, res, next) {
   res.clearCookie('token');
   req.user = undefined;
   res.locals.user = undefined;
+  req.session.prevUrl = req.url;
+  req.session.prevBody = req.body;
+
   // redirect back to login?
   // or explain to user that unauthenticated
   // send back some data to display on the current page?
