@@ -5,8 +5,10 @@ export class SprintController {
 
   async index(req, res) {
     let sprints = await SprintModel.getAll();
+    let formData = req.body.formData || req.session.prevBody || {};
 
-    res.render('sprint', { css: ['main.css'], sprints });
+    res.render('sprint', { css: ['main.css'], sprints, formData });
+    req.session.destroy();
   }
 
   async create(req, res) {

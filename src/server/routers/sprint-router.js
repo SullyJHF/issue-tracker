@@ -8,7 +8,7 @@ const sprintController = new SprintController();
 
 // Routes
 router.get('/', sprintController.index);
-router.post('/create', sprintController.create);
+router.post('/', sprintController.create);
 
 
 export default router;
