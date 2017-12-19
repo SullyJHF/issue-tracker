@@ -38,7 +38,7 @@ issues page *
       change issue state *
       show issue state as border top colour *
         ext: show colour based on that issue's team
-  add search function
+  add search function *
 
 Sort out how employees page will look
 employees page *

@@ -3,6 +3,8 @@ import { SimpleButton } from './simple-button';
 import { ValidatedForm } from './validated-form';
 import './lib/jscolor.min.js';
 
+import fuzzy from 'fuzzy';
+
 
 // Issue page
 let issueCreateModal = new Modal('issue-create-modal');
@@ -45,6 +47,27 @@ let editLogTimeBtns = SimpleButton.createAll(workLogButtons, function(event) {
   editLogTimeModal.elm.querySelector('input[name=editLogTime]').value = this.dataset.friendlyTime;
   editLogTimeModal.show();
 });
+
+let filterInput = document.getElementById('filter-issues');
+if (filterInput) {
+  ['change', 'keydown', 'keyup'].forEach((eventCode) => {
+    filterInput.addEventListener(eventCode, (event) => {
+      let issues = Array.from(document.getElementsByClassName('issue'));
+      let issueTexts = issues.map((elm) => elm.querySelector('.issueTitle').innerHTML);
+      let options = {
+        extract: (elm) => elm.querySelector('.issueId').innerHTML + elm.querySelector('.issueTitle').innerHTML + elm.querySelector('.issueAssignee').innerHTML
+      }
+      let filteredIssues = fuzzy.filter(filterInput.value, issues, options).map((fuzzyObj) => fuzzyObj.original);
+      for (let issue of issues) {
+        if (filteredIssues.includes(issue)) {
+          issue.style.display = 'block';
+        } else {
+          issue.style.display = 'none';
+        }
+      }
+    });
+  });
+}
 
 
 // All pages

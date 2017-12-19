@@ -52,10 +52,11 @@
       <%- include('./includes/navbar', { active: 'issues' }); %>
     </div>
     <div class="content">
+      <input class="marg-bottom-2 full-width" id="filter-issues" type="text" name="filterIssues" placeholder="Filter...">
       <div id="issues-list">
         <% for (let issue of locals.issues) { %>
           <a href="/issues/<%= issue.id %>">
-            <div class="list-item" style="border-top: 1vh solid <%= locals.colours[issue.state] %>">
+            <div class="issue list-item" style="border-top: 1vh solid <%= locals.colours[issue.state] %>">
               <table class="full-width">
                 <colgroup>
                   <col class="width-10">
@@ -65,9 +66,9 @@
                 </colgroup>
                 <tbody>
                   <tr>
-                    <td><%= issue.id %></td>
-                    <td><%= issue.title %></td>
-                    <td><%= issue.assignee.firstName + ' ' + issue.assignee.surname %></td>
+                    <td class="issueId"><%= issue.id %></td>
+                    <td class="issueTitle"><%= issue.title %></td>
+                    <td class="issueAssignee"><%= issue.assignee.firstName + ' ' + issue.assignee.surname %></td>
                     <td class="text-right"><%= issue.friendlyEstimate %></td>
                   </tr>
                 </tbody>
