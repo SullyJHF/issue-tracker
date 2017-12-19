@@ -21,33 +21,33 @@
             <tbody>
               <tr>
                 <td><label for="create-first-name">First Name:</label></td>
-                <td class="full-width"><input id="create-first-name" class="full-width" type="text" name="firstName"></td>
+                <td class="full-width"><input id="create-first-name" class="full-width" type="text" name="firstName" value="<%= locals.formData.firstName %>"></td>
               </tr>
               <tr>
                 <td><label for="create-surname">Surname:</label></td>
-                <td class="full-width"><input id="create-surname" class="full-width" type="text" name="surname"></td>
+                <td class="full-width"><input id="create-surname" class="full-width" type="text" name="surname" value="<%= locals.formData.surname %>"></td>
               </tr>
               <tr>
                 <td><label for="create-email">Email:</label></td>
-                <td class="full-width"><input id="create-email" class="full-width" type="email" name="email"></td>
+                <td class="full-width"><input id="create-email" class="full-width" type="email" name="email" value="<%= locals.formData.email %>"></td>
               </tr>
               <tr>
                 <td><label for="create-password">Password:</label></td>
-                <td><input id="create-password" type="password" name="password"></td>
+                <td><input id="create-password" type="password" name="password" value="<%= locals.formData.password %>"></td>
               </tr>
               <tr>
                 <td class="vert-middle"><label for="create-password-confirm">Confirm Password:</label></td>
-                <td><input id="create-password-confirm" type="password" name="passwordConfirm"></td>
+                <td><input id="create-password-confirm" type="password" name="passwordConfirm" value="<%= locals.formData.passwordConfirm %>"></td>
               </tr>
               <tr>
                 <td><label for="create-capacity">Capacity:</label></td>
-                <td><input id="create-capacity" type="number" name="capacity"></td>
+                <td><input id="create-capacity" type="number" name="capacity" value="<%= locals.formData.capacity %>"></td>
               </tr>
               <tr>
                 <td><label for="create-team">Team:</label></td>
                 <td>
-                  <select name="team" id="create-team" class="full-width">
-                    <option value="-1" disabled selected>Select a Team</option>
+                  <select name="team" id="create-team" class="full-width" value="<%= locals.formData.team %>">
+                    <option value="-1" disabled>Select a Team</option>
                     <% for (let team of locals.teams) { %>
                       <option value="<%= team.id %>"><%= team.name %></option>
                     <% } %>
@@ -57,8 +57,8 @@
               <tr>
                 <td><label for="create-tier">Tier:</label></td>
                 <td>
-                  <select name="tier" id="create-tier" class="full-width">
-                    <option value="-1" disabled selected>Select a Tier</option>
+                  <select name="tier" id="create-tier" class="full-width" value="<%= locals.formData.tier %>">
+                    <option value="-1" disabled>Select a Tier</option>
                     <% for (let tier of locals.tiers) { %>
                       <option value="<%= tier.name %>"><%= tier.name %></option>
                     <% } %>
@@ -92,11 +92,11 @@
             <tbody>
               <tr>
                   <td>
-                    <input class="full-width" id="create-team-name" type="text" name="name" placeholder="Team Name">
+                    <input class="full-width" id="create-team-name" type="text" name="teamName" placeholder="Team Name" value="<%= locals.formData.teamName %>">
                   </td>
                   <td>
-                    <select class="full-width" id="create-team-colour-scheme" name="colourScheme">
-                      <option selected disabled value="-1">Select Colour Scheme</option>
+                    <select class="full-width" id="create-team-colour-scheme" name="teamColourScheme" value="<%= locals.formData.teamColourScheme %>">
+                      <option disabled value="-1">Select Colour Scheme</option>
                       <% for(let colourScheme of locals.colourSchemes) { %>
                         <option value="<%= colourScheme.id %>"><%= colourScheme.title %></option>
                       <% } %>
@@ -126,10 +126,10 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="full-width" type="text" name="name" placeholder="Name">
+                  <input class="full-width" type="text" name="tierName" placeholder="Name" value="<%= locals.formData.tierName %>">
                 </td>
                 <td>
-                  <input class="full-width" type="number" name="cost" placeholder="Cost">
+                  <input class="full-width" type="number" name="tierCost" placeholder="Cost" value="<%= locals.formData.tierCost %>">
                 </td>
                 <td class="text-right">
                   <button><%- include('includes/icon', { icon: 'done' }); %></button>

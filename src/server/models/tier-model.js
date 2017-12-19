@@ -6,7 +6,7 @@ export class TierModel {
     this.cost = cost;
   }
 
-  static createFromReq({name, cost}) {
+  static createFromReq({tierName, tierCost}) {
     return new TierModel(name, cost);
   }
 

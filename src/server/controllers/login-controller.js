@@ -36,6 +36,5 @@ export class LoginController {
     res.cookie('token', token);
 
     res.redirect(req.session.prevUrl || '/issues');
-    req.session = {};
   }
 }

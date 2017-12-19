@@ -12,7 +12,9 @@ export class EmployeesController {
     let colourSchemes = await ColourSchemeModel.getAll();
     let teams = await TeamModel.getAll();
     let tiers = await TierModel.getAll();
-    res.render('employees', { css: ['main.css'], title: 'Employees', colourSchemes, teams, tiers });
+    let formData = req.body.formData || req.session.prevBody || {};
+    res.render('employees', { css: ['main.css'], title: 'Employees', colourSchemes, teams, tiers, formData });
+    req.session.destroy();
   }
 
   async create(req, res) {

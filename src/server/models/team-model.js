@@ -9,7 +9,7 @@ export class TeamModel {
   }
 
   // change colourScheme to colourSchemeId
-  static async createFromReq({name, colourScheme}) {
+  static async createFromReq({teamName, teamColourScheme}) {
     let colourSchemeObj = await ColourSchemeModel.getById(colourScheme);
     return new TeamModel(-1, name, colourSchemeObj);
   }
