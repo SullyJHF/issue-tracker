@@ -9,7 +9,7 @@ const issuesController = new IssuesController();
 // Routes
 router.get('/', issuesController.index);
 router.post('/', issuesController.create);
-router.get('/:id', issuesController.issue);
+router.get('/:id*', issuesController.issue);
 router.post('/:id/log', issuesController.log);
 router.post('/:id/resolve', issuesController.resolve);
 router.post('/:id/close', issuesController.close);

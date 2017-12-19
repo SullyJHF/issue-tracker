@@ -17,8 +17,10 @@ export class IssuesController {
 
   async issue(req, res) {
     let issue = await IssueModel.getById(req.params.id);
+    let formData = req.body.formData || req.session.prevBody || {};
 
-    res.render('issue', { css: ['main.css'], issue });
+    res.render('issue', { css: ['main.css'], issue, formData });
+    req.session.destroy();
   }
 
   async create(req, res) {
