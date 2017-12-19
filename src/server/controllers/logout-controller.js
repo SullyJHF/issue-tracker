@@ -1,7 +1,5 @@
 export class LogoutController {
-  constructor() {
-
-  }
+  constructor() {}
 
   logout(req, res) {
     res.clearCookie('token');

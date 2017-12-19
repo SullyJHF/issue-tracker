@@ -92,13 +92,26 @@
         </table>
       </div>
       <div class="list-wrapper">
-        <% for (let workLog of issue.workLogs) { %>
+        <% for (let workLog of issue.workLogs) { console.log(workLog); %>
           <div class="list-item">
             <table class="full-width">
+              <colgroup>
+                <col></col>
+                <col class="width-12"></col>
+              </colgroup>
               <tbody>
                 <tr>
                   <td class="text-right">
                     <%= workLog.friendlyTime %>
+                  </td>
+                  <td>
+                    <form action="/issues/<%= locals.issue.id %>/removeLog" method="POST">
+                      <input type="hidden" name="logSprint" value="<%= workLog.sprint %>">
+                      <input type="hidden" name="logTime" value="<%= workLog.time %>">
+                      <button id="delete-work-log-btn">
+                        <%- include('includes/icon', { icon: 'delete' }); %>
+                      </button>
+                    </form>
                   </td>
                 </tr>
               </tbody>

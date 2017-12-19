@@ -14,6 +14,7 @@ router.post('/:id/log', issuesController.log);
 router.post('/:id/resolve', issuesController.resolve);
 router.post('/:id/close', issuesController.close);
 router.post('/:id/toggleProgress', issuesController.toggleProgress);
+router.post('/:id/removeLog', issuesController.removeLog);
 
 
 export default router;

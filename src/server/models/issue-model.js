@@ -16,8 +16,8 @@ export class IssueModel {
     this.assignee = assignee;
 
     this.state = state;
-    this.totalSeconds = totalSeconds;
-    this.friendlyTotal = humanizer(totalSeconds * 1000);
+    this.totalSeconds = Math.max(totalSeconds, 0);
+    this.friendlyTotal = humanizer(this.totalSeconds * 1000);
 
     this.workLogs = workLogs;
   }
@@ -53,7 +53,7 @@ export class IssueModel {
       issue.title,
       issue.description,
       issue.state,
-      issue.totalSeconds,
+      Math.max(issue.totalSeconds, 0),
       issue.estimate,
       issue.assignee.id
     ];
@@ -70,7 +70,7 @@ export class IssueModel {
       issue.title,
       issue.description,
       issue.state,
-      issue.totalSeconds,
+      Math.max(issue.totalSeconds, 0),
       issue.estimate,
       issue.assignee.id,
       issue.id
@@ -118,6 +118,17 @@ export class IssueModel {
     let result = await WorkLogModel.insert(workLog);
 
     issue.totalSeconds += time;
+
+    return await IssueModel.updateIssue(issue);
+  }
+
+  static async removeWorkLog(issueId, sprintId, time) {
+    let issue = await IssueModel.getById(issueId);
+    let sql = db.format('DELETE FROM work_log WHERE ISSUE_ID = ? AND SPRINT_ID = ? AND SECONDS_LOGGED = ?', [issueId, sprintId, time]);
+
+    let result = await db.query(sql);
+    // if result is ok
+    issue.totalSeconds -= time;
 
     return await IssueModel.updateIssue(issue);
   }

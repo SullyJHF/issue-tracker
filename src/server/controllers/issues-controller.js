@@ -39,6 +39,16 @@ export class IssuesController {
     res.redirect(`/issues/${issue.id}`);
   }
 
+  async removeLog(req, res) {
+    let issueId = req.params.id;
+    let sprintId = req.body.logSprint;
+    let time = req.body.logTime;
+
+    let result = await IssueModel.removeWorkLog(issueId, sprintId, time);
+    
+    res.redirect(`/issues/${issueId}`);
+  }
+
   async resolve(req, res) {
     let issue = await IssueModel.getById(req.params.id);
     issue.state = IssueState.RESOLVED;
