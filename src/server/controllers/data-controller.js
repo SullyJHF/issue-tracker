@@ -7,12 +7,13 @@ export class DataController {
 
   async index(req, res) {
     let colourSchemes = await ColourSchemeModel.getAll();
-    res.render('data', { css: ['main.css'], colourSchemes });
+    let formData = req.body.formData || req.session.prevBody || {};
+    res.render('data', { css: ['main.css'], colourSchemes, formData });
   }
 
   async createColourScheme(req, res) {
     let colourScheme = ColourSchemeModel.createFromReq(req.body);
-    let result = ColourSchemeModel.insert(colourScheme);
+    let result = await ColourSchemeModel.insert(colourScheme);
     res.redirect('/data');
   }
 }
