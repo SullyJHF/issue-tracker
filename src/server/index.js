@@ -12,6 +12,8 @@ import webpackConfig from '../../webpack.config.js';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
+import session from 'express-session';
+
 import routers from './routers';
 
 import config from './config';
@@ -44,6 +46,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+
+app.use(session({ secret: config().secret, resave: false, saveUninitialized: false }));
 
 
 app.set('view engine', 'ejs');
