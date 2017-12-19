@@ -1,14 +1,13 @@
 import { ColourSchemeModel } from '../models/colour-scheme-model';
 
 export class DataController {
-  constructor() {
-
-  }
+  constructor() {}
 
   async index(req, res) {
     let colourSchemes = await ColourSchemeModel.getAll();
     let formData = req.body.formData || req.session.prevBody || {};
     res.render('data', { css: ['main.css'], colourSchemes, formData });
+    req.session.destroy();
   }
 
   async createColourScheme(req, res) {
