@@ -4,15 +4,15 @@ import { ColourSchemeModel } from '../models/colour-scheme-model';
 import { IssueState } from '../utils/issue-state';
 
 export class IssuesController {
-  constructor() {
-
-  }
+  constructor() {}
 
   async index(req, res) {
     let issues = await IssueModel.getAll();
     let colours = await ColourSchemeModel.getByEmpId(req.user.id);
+    let formData = req.body.formData || req.session.prevBody || {};
 
-    res.render('issues', Object.assign({ css: ['main.css'] }, { issues, colours }));
+    res.render('issues', Object.assign({ css: ['main.css'] }, { issues, colours, formData }));
+    req.session.destroy();
   }
 
   async issue(req, res) {
