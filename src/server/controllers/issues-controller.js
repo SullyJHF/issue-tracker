@@ -45,7 +45,18 @@ export class IssuesController {
     let time = req.body.logTime;
 
     let result = await IssueModel.removeWorkLog(issueId, sprintId, time);
-    
+
+    res.redirect(`/issues/${issueId}`);
+  }
+
+  async editLog(req, res) {
+    let issueId = req.params.id;
+    let sprintId = req.body.editLogSprint;
+    let time = req.body.editLogTime;
+    let oldTime = req.body.editLogOldTime;
+
+    let result = await IssueModel.editWorkLog(issueId, sprintId, time, oldTime);
+
     res.redirect(`/issues/${issueId}`);
   }
 

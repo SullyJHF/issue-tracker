@@ -35,6 +35,17 @@ let logTimeBtn = new SimpleButton('log-time-btn', (event) => {
   logTimeModal.show();
 })
 
+let editLogTimeModal = new Modal('edit-time-modal');
+
+let workLogButtons = document.getElementsByClassName('edit-work-log-btn');
+
+let editLogTimeBtns = SimpleButton.createAll(workLogButtons, function(event) {
+  editLogTimeModal.elm.querySelector('input[name=editLogSprint]').value = this.dataset.sprint;
+  editLogTimeModal.elm.querySelector('input[name=editLogOldTime]').value = this.dataset.time;
+  editLogTimeModal.elm.querySelector('input[name=editLogTime]').value = this.dataset.friendlyTime;
+  editLogTimeModal.show();
+});
+
 
 // All pages
 let logoutBtn = new SimpleButton('logout-btn', (event) => {

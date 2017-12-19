@@ -132,4 +132,19 @@ export class IssueModel {
 
     return await IssueModel.updateIssue(issue);
   }
+
+  static async editWorkLog(issueId, sprintId, time, oldTime) {
+    time = convertTime(time);
+    let issue = await IssueModel.getById(issueId);
+    let sql = db.format(
+      'UPDATE work_log SET SECONDS_LOGGED = ? WHERE ISSUE_ID = ? AND SPRINT_ID = ? AND SECONDS_LOGGED = ?',
+      [time, issueId, sprintId, oldTime]
+    );
+
+    let result = await db.query(sql);
+    // if result is ok
+    issue.totalSeconds -= (oldTime - time);
+
+    return await IssueModel.updateIssue(issue);
+  }
 }
