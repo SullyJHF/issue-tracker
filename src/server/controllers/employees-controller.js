@@ -32,6 +32,11 @@ export class EmployeesController {
     res.redirect('/employees');
   }
 
+  async edit(req, res) {
+    let result = await UserModel.update(req.body);
+    res.redirect('/employees');
+  }
+
   async createTeam(req, res) {
     let team = await TeamModel.createFromReq(req.body);
     let result = await TeamModel.insert(team);

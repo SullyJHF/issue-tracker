@@ -65,6 +65,30 @@ export class UserModel {
     return result;
   }
 
+  static async update(userData) {
+    let sql = db.format(
+      'UPDATE users SET ' +
+        'EMAIL = ?, ' +
+        'FIRST_NAME = ?, ' +
+        'SURNAME = ?, ' +
+        'CAPACITY = ?, ' +
+        'TEAM_ID = ?, ' +
+        'TIER = ? ' +
+      'WHERE users.EMP_ID = ?',
+      [
+        userData.email,
+        userData.firstName,
+        userData.surname,
+        userData.capacity,
+        userData.team,
+        userData.tier,
+        userData.id
+      ]
+    );
+
+    return await db.query(sql);
+  }
+
   // Either returns { formData, errors, error }
   // in the case of an error
   // or a user object if there are no errors

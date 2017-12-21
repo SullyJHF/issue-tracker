@@ -24,9 +24,16 @@ let colourSchemeCreateBtn = new SimpleButton('create-colour-scheme', (event) => 
 
 // Employees page
 let employeeCreateModal = new Modal('employee-create-modal');
+let employeeEditModal = new Modal('employee-edit-modal');
 
 let employeeCreateBtn = new SimpleButton('create-employee', (event) => {
   employeeCreateModal.show();
+});
+
+let employeeEditBtns = SimpleButton.createAll(document.getElementsByClassName('employee'), function(event) {
+  employeeEditModal.clearValues();
+  employeeEditModal.fillValues(this.dataset);
+  employeeEditModal.show();
 });
 
 

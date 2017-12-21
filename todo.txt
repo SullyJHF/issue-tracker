@@ -41,10 +41,13 @@ issues page *
   add search function *
 
 Sort out how employees page will look
-employees page *
+employees page
   sort out roles
   view employees properly *
   create employee *
+    Make separate modal for editing *
+      without password fields *
+      shown id input (disabled) *
   create team *
   employee page
     admin
