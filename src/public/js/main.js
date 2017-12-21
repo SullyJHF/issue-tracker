@@ -42,7 +42,8 @@ let logTimeModal = new Modal('log-time-modal');
 
 let logTimeBtn = new SimpleButton('log-time-btn', (event) => {
   logTimeModal.show();
-})
+  logTimeModal.elm.querySelector('#time').focus();
+});
 
 let editLogTimeModal = new Modal('edit-time-modal');
 
