@@ -42,7 +42,9 @@ issues page *
 
 Sort out how employees page will look
 employees page
-  sort out roles
+  sort out roles *
+    create *
+    edit *
   view employees properly *
   create employee *
     Make separate modal for editing *

@@ -5,7 +5,7 @@ import db from '../database';
 import bcrypt from 'bcrypt';
 
 export class UserModel {
-  constructor(id, email, hashedPass, firstName, surname, capacity, team, tier, token) {
+  constructor(id, email, hashedPass, firstName, surname, capacity, team, tier, role) {
     this.id = id;
     this.email = email;
     this.hashedPass = hashedPass;
@@ -15,17 +15,17 @@ export class UserModel {
     this.capacity = capacity;
     this.team = team;
     this.tier = tier;
-    // Add role here
+    this.role = role;
   }
 
-  static async createFromReq({email, password, firstName, surname, capacity, team, tier}) {
+  static async createFromReq({email, password, firstName, surname, capacity, team, tier, role}) {
     // team and tier are both ids
     let id = -1;
     let teamObj = await TeamModel.getById(team);
     let tierObj = await TierModel.getByName(tier);
     // bcrypt.hash automatically makes salt
     let hashedPass = await bcrypt.hash(password, 10);
-    return new UserModel(id, email, hashedPass, firstName, surname, capacity, teamObj, tierObj);
+    return new UserModel(id, email, hashedPass, firstName, surname, capacity, teamObj, tierObj, role || 0);
   }
 
   static async createFromDb(userData) {
@@ -39,21 +39,22 @@ export class UserModel {
       userData.SURNAME,
       userData.CAPACITY,
       team,
-      tier
-      //ROLE
+      tier,
+      userData.ROLE
     );
   }
 
   static async insert(user) {
     if (!(user instanceof UserModel)) throw new Error('Data must be of type UserModel');
     // this has null in it for the ROLE for now, to set everyone to the default value of 0
-    let sql = 'INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, 0, ?, ?)';
+    let sql = 'INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)';
     let inserts = [
       user.email,
       user.hashedPass,
       user.firstName,
       user.surname,
       user.capacity,
+      user.role,
       user.team.id,
       user.tier.name
     ];
@@ -73,7 +74,8 @@ export class UserModel {
         'SURNAME = ?, ' +
         'CAPACITY = ?, ' +
         'TEAM_ID = ?, ' +
-        'TIER = ? ' +
+        'TIER = ?, ' +
+        'ROLE = ? ' +
       'WHERE users.EMP_ID = ?',
       [
         userData.email,
@@ -82,6 +84,7 @@ export class UserModel {
         userData.capacity,
         userData.team,
         userData.tier,
+        userData.role,
         userData.id
       ]
     );

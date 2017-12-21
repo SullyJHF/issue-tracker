@@ -67,6 +67,10 @@
                 </td>
               </tr>
               <tr>
+                <td><label for="create-role">Role:</label></td>
+                <td><input id="create-role" type="number" name="role" value="<%= locals.formData.role || 0 %>"/></td>
+              </tr>
+              <tr>
                 <td></td>
                 <td class="text-right"><button id="create-button"><i class="material-icons">done</i></button></td>
               </tr>
@@ -127,6 +131,10 @@
                 </td>
               </tr>
               <tr>
+                <td><label for="edit-role">Role:</label></td>
+                <td><input id="edit-role" type="number" name="role" /></td>
+              </tr>
+              <tr>
                 <td></td>
                 <td class="text-right"><button id="edit-button"><i class="material-icons">done</i></button></td>
               </tr>
@@ -182,6 +190,7 @@
                 data-surname="<%= employee.surname %>"
                 data-email="<%= employee.email %>"
                 data-capacity="<%= employee.capacity %>"
+                data-role="<%= employee.role %>"
                 data-team="<%= employee.team.id %>"
                 data-tier="<%= employee.tier.name %>"><%= employee.fullName %></div>
             <% } %>
