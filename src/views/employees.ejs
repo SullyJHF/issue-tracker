@@ -74,14 +74,9 @@
         </form>
       </div>
       <h1 class="title">Employees</h1>
-      <button id="create-employee"><%- include('includes/icon', { icon: 'add_circle' }); %></button>
+      <button id="create-employee" class="marg-bottom-2"><%- include('includes/icon', { icon: 'add_circle' }); %></button>
       <h1 class="title">Teams</h1>
-      <% for (let team of locals.teams) { %>
-        <h2 class="title"><%= team.name %></h2>
-        <div class="list-wrapper">
-        </div>
-      <% } %>
-      <div id="team-list" class="list-wrapper">
+      <div id="team-create" class="full-width marg-bottom-2">
         <form id="create-team-form" action="/employees/teams/create" method="POST">
           <table class="full-width">
             <colgroup>
@@ -103,16 +98,35 @@
                     </select>
                   </td>
                   <td class="text-right">
-                    <button><%- include('includes/icon', { icon: 'done' }); %></button>
+                    <button><%- include('includes/icon', { icon: 'add_circle' }); %></button>
                   </td>
               </tr>
             </tbody>
           </table>
         </form>
       </div>
+      <% for (let team of locals.teams) { %>
+        <div class="full-width marg-bottom-5">
+          <h3 class="title"><%= team.name %></h3>
+          <div class="list-wrapper">
+            <% for (let employee of employeeMap[team.id]) { %>
+              <div
+                class="list-item employee"
+                data-id="<%= employee.id %>"
+                data-id-shown="<%= employee.id %>"
+                data-first-name="<%= employee.firstName %>"
+                data-surname="<%= employee.surname %>"
+                data-email="<%= employee.email %>"
+                data-capacity="<%= employee.capacity %>"
+                data-team="<%= employee.team.id %>"
+                data-tier="<%= employee.tier.name %>"><%= employee.fullName %></div>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
       <h1 class="title">Tiers</h1>
       <% for (let tier of locals.tiers) { %>
-        <h2 class="title"><%= tier.name + ' - ' + tier.cost %></h2>
+        <p><%= tier.name + ' - £' + tier.cost %></p>
         <div class="list-wrapper"></div>
       <% } %>
       <div id="tier-list" class="list-wrapper">
@@ -132,7 +146,7 @@
                   <input class="full-width" type="number" name="tierCost" placeholder="Cost" value="<%= locals.formData.tierCost %>">
                 </td>
                 <td class="text-right">
-                  <button><%- include('includes/icon', { icon: 'done' }); %></button>
+                  <button><%- include('includes/icon', { icon: 'add_circle' }); %></button>
                 </td>
               </tr>
             </tbody>

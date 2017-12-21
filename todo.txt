@@ -43,6 +43,7 @@ issues page *
 Sort out how employees page will look
 employees page *
   sort out roles
+  view employees properly *
   create employee *
   create team *
   employee page

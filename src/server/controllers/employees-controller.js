@@ -12,8 +12,16 @@ export class EmployeesController {
     let colourSchemes = await ColourSchemeModel.getAll();
     let teams = await TeamModel.getAll();
     let tiers = await TierModel.getAll();
+    let users = await UserModel.getAll();
+
+    let employeeMap = teams.reduce((map, team) => {
+      map[team.id] = users.filter((user) => user.team.id === team.id);
+      return map;
+    }, {});
+
     let formData = req.body.formData || req.session.prevBody || {};
-    res.render('employees', { css: ['main.css'], title: 'Employees', colourSchemes, teams, tiers, formData });
+
+    res.render('employees', { css: ['main.css'], title: 'Employees', colourSchemes, teams, tiers, employeeMap, formData });
     req.session.destroy();
   }
 

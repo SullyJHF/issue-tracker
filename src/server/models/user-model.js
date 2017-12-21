@@ -11,6 +11,7 @@ export class UserModel {
     this.hashedPass = hashedPass;
     this.firstName = firstName;
     this.surname = surname;
+    this.fullName = `${this.firstName} ${this.surname}`;
     this.capacity = capacity;
     this.team = team;
     this.tier = tier;
@@ -27,7 +28,9 @@ export class UserModel {
     return new UserModel(id, email, hashedPass, firstName, surname, capacity, teamObj, tierObj);
   }
 
-  static createFromDb(userData) {
+  static async createFromDb(userData) {
+    let team = await TeamModel.getById(userData.TEAM_ID);
+    let tier = await TierModel.getByName(userData.TIER);
     return new UserModel(
       userData.EMP_ID,
       userData.EMAIL,
@@ -35,14 +38,16 @@ export class UserModel {
       userData.FIRST_NAME,
       userData.SURNAME,
       userData.CAPACITY,
-      userData.TEAM_ID,
-      userData.TIER
+      team,
+      tier
+      //ROLE
     );
   }
 
   static async insert(user) {
     if (!(user instanceof UserModel)) throw new Error('Data must be of type UserModel');
-    let sql = 'INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)';
+    // this has null in it for the ROLE for now, to set everyone to the default value of 0
+    let sql = 'INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, 0, ?, ?)';
     let inserts = [
       user.email,
       user.hashedPass,
@@ -105,9 +110,10 @@ export class UserModel {
     return user;
   }
 
+
   static async getAll() {
     let results = await db.query('SELECT * FROM users');
-    return results.map(this.createFromDb);
+    return Promise.all(results.map(UserModel.createFromDb));
   }
 
   static async getByEmail(email) {
@@ -116,7 +122,7 @@ export class UserModel {
     query = db.format(query, inserts);
     let results = await db.query(query);
     if (results.length) {
-      return UserModel.createFromDb(results[0]);
+      return await UserModel.createFromDb(results[0]);
     }
     return null;
   }
@@ -127,7 +133,7 @@ export class UserModel {
     query = db.format(query, inserts);
     let results = await db.query(query);
     if (results.length) {
-      return UserModel.createFromDb(results[0]);
+      return await UserModel.createFromDb(results[0]);
     }
     return null;
   }
