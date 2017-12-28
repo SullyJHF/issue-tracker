@@ -57,7 +57,7 @@ export default async function authenticator(req, res, next) {
 }
 
 function unauthenticated(err, req, res, next) {
-  console.log('NOT AUTHENTICATED:', err);
+  console.log('NOT AUTHENTICATED:', err.name, err.message);
   res.statusCode = 401;
   res.clearCookie('token');
   req.user = undefined;

@@ -5,6 +5,11 @@ export class LoginController {
   constructor() {}
 
   index(req, res) {
+    if (req.cookies.token) {
+      res.redirect('/issues');
+      return;
+    }
+
     res.render('login', {
       title: 'Login',
       css: ['main.css'],
