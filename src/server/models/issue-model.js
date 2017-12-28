@@ -97,6 +97,15 @@ export class IssueModel {
     return null;
   }
 
+  static async getByTeamId(id) {
+    let query = db.format('SELECT * FROM issues JOIN users ON issues.EMP_ID = users.EMP_ID WHERE TEAM_ID = ?', [id]);
+    let results = await db.query(query);
+    if (results.length) {
+      return Promise.all(results.map(IssueModel.createFromDb));
+    }
+    return null;
+  }
+
   static async getIdForProject(project) {
     let sql = db.format('SELECT * FROM issues WHERE left(ISSUE_ID, ?) = ?', [project.length + 1, project + '-']);
     let results = await db.query(sql);

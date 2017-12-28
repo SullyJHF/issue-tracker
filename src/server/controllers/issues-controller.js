@@ -1,4 +1,5 @@
 import { IssueModel } from '../models/issue-model';
+import { UserModel } from '../models/user-model';
 import { ColourSchemeModel } from '../models/colour-scheme-model';
 
 import { IssueState } from '../utils/issue-state';
@@ -7,11 +8,17 @@ export class IssuesController {
   constructor() {}
 
   async index(req, res) {
-    let issues = await IssueModel.getAll();
+    let user = await UserModel.getById(req.user.id);
+    let issues;
+    if (req.user.role > 0) {
+      issues = await IssueModel.getAll();
+    } else {
+      issues = await IssueModel.getByTeamId(user.team.id);
+    }
     let colours = await ColourSchemeModel.getByEmpId(req.user.id);
     let formData = req.body.formData || req.session.prevBody || {};
 
-    res.render('issues', Object.assign({ css: ['main.css'] }, { issues, colours, formData }));
+    res.render('issues', { css: ['main.css'], issues, colours, formData });
     req.session.destroy();
   }
 
