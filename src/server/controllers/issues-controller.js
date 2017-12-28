@@ -24,6 +24,7 @@ export class IssuesController {
 
   async issue(req, res) {
     let issue = await IssueModel.getById(req.params.id);
+    if (issue === null) return res.redirect('/issues');
     if (req.user.role < 1) {
       let user = await UserModel.getById(req.user.id);
       let teamIssues = await IssueModel.getByTeamId(user.team.id);
