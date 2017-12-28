@@ -47,7 +47,9 @@ export class SprintModel {
 
   static async getAll() {
     let results = await db.query('SELECT * FROM sprints');
-    return results.map(this.createFromDb);
+    return results.map(this.createFromDb).sort((sprintA, sprintB) => {
+      return sprintA.end >= sprintB.end;
+    });
   }
 
   static async getCurrentSprint() {
