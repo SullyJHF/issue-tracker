@@ -464,13 +464,14 @@ td {
   font-style: italic;
 }
 
-.bg-orange {
-  background-color: orange;
+.wrap-text {
+  white-space: normal;
+  overflow-wrap: normal;
 }
 
-.bg-green {
-  background-color: green;
-}
+.bg-orange { background-color: orange; }
+.bg-green { background-color: green; }
+.bg-red { background-color: red; color: #F5F5F5; }
 
 .marg-bottom-5 { margin-bottom: 5vh; }
 .marg-bottom-2 { margin-bottom: 2vh; }

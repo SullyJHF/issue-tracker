@@ -55,6 +55,27 @@
         </table>
       </form>
     </div>
+    <div id="delete-issue-modal" class="card modal middle width-50">
+      <form id="delete-issue-form" action="/issues/<%= locals.issue.id %>/delete" method="POST">
+        <h1 class="title">Delete <%= issue.id %></h1>
+        <table class="full-width">
+          <colgroup>
+            <col></col>
+            <col class="width-12"></col>
+          </colgroup>
+          <tbody>
+            <tr>
+              <td class="vert-middle wrap-text">Are you sure you wish to irreversibly delete this issue and its related worklogs?</td>
+              <td class="vert-middle">
+                <button class="bg-red">
+                  <%- include('includes/icon', { icon: 'delete' }); %>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
 
 
 
@@ -114,7 +135,10 @@
                 </form>
               </td>
               <td class="text-right">
-                <form action="/issues" method="GET">
+                <button id="delete-btn" class="bg-red inline">
+                  <%- include('includes/icon', { icon: 'delete' }); %>
+                </button>
+                <form action="/issues" method="GET" class="inline">
                   <button id="done-btn">
                     <%- include('includes/icon', { icon: 'done' }); %>
                   </button>

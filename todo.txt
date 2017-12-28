@@ -47,6 +47,7 @@ issues page *
   add search function *
   only show issues for current team *
     don't allow users to navigate to an issue that's not on their team *
+  allow admins to delete issues *
 
 Sort out how employees page will look
 employees page

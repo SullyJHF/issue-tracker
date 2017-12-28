@@ -77,6 +77,12 @@ if (filterInput) {
   });
 }
 
+let deleteIssueModal = new Modal('delete-issue-modal');
+
+let deleteIssueButton = new SimpleButton('delete-btn', (event) => {
+  deleteIssueModal.show();
+});
+
 
 // All pages
 let logoutBtn = new SimpleButton('logout-btn', (event) => {

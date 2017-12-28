@@ -108,6 +108,11 @@ export class IssuesController {
     res.redirect(`/issues/${req.params.id}`);
   }
 
+  async deleteIssue(req, res) {
+    let results = await IssueModel.deleteIssue(req.params.id);
+    res.redirect('/issues');
+  }
+
   async checkUser(req, res, next) {
     if (req.user.role > 0) return next();
     

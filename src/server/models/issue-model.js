@@ -156,4 +156,10 @@ export class IssueModel {
 
     return await IssueModel.updateIssue(issue);
   }
+
+  static async deleteIssue(id) {
+    let query = db.format('DELETE FROM issues WHERE ISSUE_ID = ?', [id]);
+    let results = await db.query(query);
+    return results;
+  }
 }

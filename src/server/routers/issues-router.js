@@ -17,6 +17,8 @@ router.post('/:id/resolve', issuesController.resolve);
 router.post('/:id/close', issuesController.close);
 router.post('/:id/toggleProgress', issuesController.toggleProgress);
 router.post('/:id/removeLog', issuesController.removeLog);
+// Using post here because DELETE is not supported in html forms yet
+router.post('/:id/delete', issuesController.deleteIssue);
 
 
 export default router;
