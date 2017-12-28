@@ -13,6 +13,7 @@ export class EmployeesController {
     let teams = await TeamModel.getAll();
     let tiers = await TierModel.getAll();
     let users = await UserModel.getAll();
+    let user = users.find((u) => u.id === req.user.id);
 
     let employeeMap = teams.reduce((map, team) => {
       map[team.id] = users.filter((user) => user.team.id === team.id);
@@ -21,8 +22,13 @@ export class EmployeesController {
 
     let formData = req.body.formData || req.session.prevBody || {};
 
-    res.render('employees', { css: ['main.css'], title: 'Employees', colourSchemes, teams, tiers, employeeMap, formData });
+    res.render('employees', { css: ['main.css'], title: 'Employees', colourSchemes, teams, tiers, employeeMap, formData, user });
     req.session.destroy();
+  }
+
+  async singleIndex(req, res) {
+    let user = await UserModel.getById(req.user.id);
+    res.render('employee', { css: ['main.css'], title: 'Employees', user });
   }
 
   async create(req, res) {
@@ -47,5 +53,11 @@ export class EmployeesController {
     let tier = TierModel.createFromReq(req.body);
     let result = await TierModel.insert(tier);
     res.redirect('/employees');
+  }
+
+  async checkUser(req, res, next) {
+    if (req.user.role > 0) return next();
+
+    await this.singleIndex(req, res);
   }
 }

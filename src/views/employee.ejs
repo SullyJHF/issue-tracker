@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('./includes/head'); %>
+    <%console.log(user)%>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <%- include('./includes/navbar', { active: 'employees' }); %>
+      </div>
+      <div class="content">
+        <%- include('includes/employee-card'); %>
+      </div>
+    </div>
+  </body>
+</html>

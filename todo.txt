@@ -58,9 +58,8 @@ employees page
       shown id input (disabled) *
   create team *
   employee page
-    admin
-    tier
-    team
+    view *
+    edit
 
 data page *
   show visualisations

@@ -7,6 +7,7 @@ const employeesController = new EmployeesController();
 
 
 // Routes
+router.use(employeesController.checkUser.bind(employeesController));
 router.get('/', employeesController.index);
 router.post('/create', employeesController.create);
 router.post('/edit', employeesController.edit);

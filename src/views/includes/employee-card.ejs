@@ -1,0 +1,33 @@
+<h1 class="title">Your Info:</h1>
+<div class="card full-width">
+  <table>
+    <colgroup>
+      <col class="width-20">
+      <col>
+    </colgroup>
+    <tr>
+      <td><b>Full Name:</b></td>
+      <td><%= user.fullName %></td>
+    </tr>
+    <tr>
+      <td><b>Email:</b></td>
+      <td><%= user.email %></td>
+    </tr>
+    <tr>
+      <td><b>Capacity:</b></td>
+      <td><%= user.capacity %> days/week</td>
+    </tr>
+    <tr>
+      <td><b>Team:</b></td>
+      <td><%= user.team.name %></td>
+    </tr>
+    <tr>
+      <td><b>Tier:</b></td>
+      <td><%= user.tier.name %> @ £<%= user.tier.cost %>/day</td>
+    </tr>
+    <tr>
+      <td><b>Role:</b></td>
+      <td><%= user.role > 0 ? 'Admin' : 'Employee' %></td>
+    </tr>
+  </table>
+</div>
