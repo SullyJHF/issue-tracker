@@ -75,6 +75,8 @@ sprints page *
   view sprints *
   add sprint *
   delete sprint
+  role specific view *
+    don't allow rogue posts to work without role *
 
 
 

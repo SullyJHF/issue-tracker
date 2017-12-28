@@ -5,9 +5,10 @@ export class SprintController {
 
   async index(req, res) {
     let sprints = await SprintModel.getAll();
+    let currentSprint = await SprintModel.getCurrentSprint();
     let formData = req.body.formData || req.session.prevBody || {};
 
-    res.render('sprint', { css: ['main.css'], sprints, formData });
+    res.render('sprint', { css: ['main.css'], sprints, formData, currentSprint });
     req.session.destroy();
   }
 
@@ -18,5 +19,11 @@ export class SprintController {
     let result = await SprintModel.insert(sprint);
 
     res.redirect('/sprint');
+  }
+
+  async checkRole(req, res, next) {
+    if (req.user.role > 0) return next();
+
+    await this.index(req, res);
   }
 }

@@ -256,6 +256,11 @@ td {
   margin-bottom: 1vh;
 }
 
+.list-item.highlight {
+  font-weight: bold;
+  border-top: 1vh solid #49a7cc;
+}
+
 .list-title {
   display: inline-block;
   font-weight: bold;

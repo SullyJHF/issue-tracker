@@ -11,7 +11,7 @@
     <div class="content">
       <div class="list-wrapper">
         <% for (let sprint of locals.sprints) { %>
-          <div class="list-item">
+          <div class="list-item <%= sprint.id === currentSprint.id ? 'highlight' : '' %>">
             <table class="full-width">
               <colgroup>
                 <col class="width-30">
@@ -33,35 +33,37 @@
           </div>
         <% } %>
       </div>
-      <form id="create-tier-form" action="/sprint" method="POST">
-        <table class="full-width">
-          <colgroup>
-            <col class="width-30">
-            <col class="width-25">
-            <col>
-          </colgroup>
-          <tbody>
-            <tr>
-              <td class="text-left">Sprint Start:</td>
-              <td class="text-left">Sprint Length (days):</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>
-                <!-- Start date -->
-                <input class="full-width" type="date" name="start" value="<%= locals.formData.start %>">
-              </td>
-              <td>
-                <!-- Days -->
-                <input class="full-width" type="number" name="length" value="<%= locals.formData.length %>">
-              </td>
-              <td class="text-right">
-                <button><%- include('includes/icon', { icon: 'add_circle' }); %></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+      <% if (user.role > 0) { %>
+        <form id="create-tier-form" action="/sprint" method="POST">
+          <table class="full-width">
+            <colgroup>
+              <col class="width-30">
+              <col class="width-25">
+              <col>
+            </colgroup>
+            <tbody>
+              <tr>
+                <td class="text-left">Sprint Start:</td>
+                <td class="text-left">Sprint Length (days):</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <!-- Start date -->
+                  <input class="full-width" type="date" name="start" value="<%= locals.formData.start %>">
+                </td>
+                <td>
+                  <!-- Days -->
+                  <input class="full-width" type="number" name="length" value="<%= locals.formData.length %>">
+                </td>
+                <td class="text-right">
+                  <button><%- include('includes/icon', { icon: 'add_circle' }); %></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      <% } %>
     </div>
   </div>
 </body>

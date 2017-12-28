@@ -8,6 +8,7 @@ const sprintController = new SprintController();
 
 // Routes
 router.get('/', sprintController.index);
+router.use(sprintController.checkRole.bind(sprintController));
 router.post('/', sprintController.create);
 
 
