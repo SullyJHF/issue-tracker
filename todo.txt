@@ -43,7 +43,7 @@ issues page *
       user based issue functions *
         Don't allow actions on other people's issues *
         Except if admin *
-      show assignee fullName
+      show assignee fullName *
   add search function *
 
 Sort out how employees page will look
