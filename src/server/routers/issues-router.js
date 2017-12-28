@@ -10,6 +10,7 @@ const issuesController = new IssuesController();
 router.get('/', issuesController.index);
 router.post('/', issuesController.create);
 router.get('/:id*', issuesController.issue);
+router.use('/:id', issuesController.checkUser);
 router.post('/:id/log', issuesController.log);
 router.post('/:id/log/edit', issuesController.editLog);
 router.post('/:id/resolve', issuesController.resolve);

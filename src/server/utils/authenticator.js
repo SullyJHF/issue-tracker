@@ -42,7 +42,7 @@ export default async function authenticator(req, res, next) {
   // res.statusCode = 403; // forbidden
   req.user = {
     id: user.id,
-    role: 0, // set as actual user role
+    role: user.role,
     fullName: `${user.firstName} ${user.surname}`
   };
 

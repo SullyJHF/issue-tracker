@@ -25,6 +25,8 @@ form validation design *
 
 change mysql queryFormat to use objects instead
 
+Show user is admin somehow
+
 
 --- FEATURES ---
 issues page *
@@ -38,6 +40,10 @@ issues page *
       change issue state *
       show issue state as border top colour *
         ext: show colour based on that issue's team
+      user based issue functions *
+        Don't allow actions on other people's issues *
+        Except if admin *
+      show assignee fullName
   add search function *
 
 Sort out how employees page will look

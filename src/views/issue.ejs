@@ -2,6 +2,7 @@
 <html>
 <head>
   <%- include('./includes/head'); %>
+  <% let editable = issue.assignee.id === user.id || user.role > 0; %>
 </head>
 <body>
   <div class="wrapper">
@@ -18,9 +19,9 @@
           <tbody>
             <tr>
               <td><label for="time">Time:</label></td>
-              <td><input id="time" class="full-width" type="text" name="time" placeholder="3w 2d 4h 30m" value="<%= locals.formData.time %>"></td>
+              <td><input id="time" class="full-width" type="text" name="time" placeholder="3w 2d 4h 30m" value="<%= locals.formData.time %>" <%= editable ? '' : 'disabled' %>></td>
               <td class="text-right">
-                <button>
+                <button <%= editable ? '' : 'disabled' %>>
                   <%- include('includes/icon', { icon: 'done' }); %>  
                 </button>
               </td>
@@ -43,9 +44,9 @@
           <tbody>
             <tr>
               <td><label for="time">Time:</label></td>
-              <td><input id="time" class="full-width" type="text" name="editLogTime" placeholder="3w 2d 4h 30m"></td>
+              <td><input id="time" class="full-width" type="text" name="editLogTime" placeholder="3w 2d 4h 30m" <%= editable ? '' : 'disabled' %>></td>
               <td class="text-right">
-                <button>
+                <button <%= editable ? '' : 'disabled' %>>
                   <%- include('includes/icon', { icon: 'done' }); %>  
                 </button>
               </td>
@@ -66,11 +67,11 @@
           <tbody>
             <tr>
               <td>
-                <b><%= locals.issue.id + ' - ' %></b><div class="italic inline"><%= locals.issue.state %></div>
+                <b><%= locals.issue.id + ' - ' %></b><div class="italic inline"><%= locals.issue.state %><%= editable ? '' : ' - Read Only' %></div>
               </td>
               <td class="text-right">
                 <form action="/issues/<%= locals.issue.id %>/toggleProgress" method="POST">
-                  <button id="toggle-progress-btn" <%= locals.issue.state === 'Closed' ? 'disabled' : ''%>><%= locals.issue.state === 'Awaiting Start' || locals.issue.state === 'Resolved' || locals.issue.state === 'Closed' ? 'Start' : 'Stop' %> Progress</button>
+                  <button id="toggle-progress-btn" <%= locals.issue.state === 'Closed' ? 'disabled' : ''%> <%= editable ? '' : 'disabled' %>><%= locals.issue.state === 'Awaiting Start' || locals.issue.state === 'Resolved' || locals.issue.state === 'Closed' ? 'Start' : 'Stop' %> Progress</button>
                 </form>
               </td>
             </tr>
@@ -86,7 +87,7 @@
             </tr>
             <tr>
               <td>
-                <button id="log-time-btn" <%= locals.issue.state === 'In Progress' ? '' : 'disabled' %>>
+                <button id="log-time-btn" <%= locals.issue.state === 'In Progress' ? '' : 'disabled' %> <%= editable ? '' : 'disabled' %>>
                   <%- include('includes/icon', { icon: 'access_time' }); %>
                 </button>
               </td>
@@ -104,7 +105,7 @@
             <tr>
               <td>
                 <form action="/issues/<%= locals.issue.id %>/<%= locals.issue.state === 'Resolved' ? 'close' : 'resolve' %>" method="POST">
-                  <button id="resolve-btn" <%= locals.issue.state === 'Closed' ? 'disabled' : '' %>><%= locals.issue.state === 'Resolved' || locals.issue.state === 'Closed' ? 'Close' : 'Resolved' %></button>
+                  <button id="resolve-btn" <%= locals.issue.state === 'Closed' ? 'disabled' : '' %> <%= editable ? '' : 'disabled' %>><%= locals.issue.state === 'Resolved' || locals.issue.state === 'Closed' ? 'Close' : 'Resolved' %></button>
                 </form>
               </td>
               <td class="text-right">
@@ -133,7 +134,7 @@
                     <%= workLog.friendlyTime %>
                   </td>
                   <td>
-                    <button class="edit-work-log-btn" data-sprint="<%= workLog.sprint %>" data-time="<%= workLog.time %>" data-friendly-time="<%= workLog.friendlyTime %>">
+                    <button class="edit-work-log-btn" data-sprint="<%= workLog.sprint %>" data-time="<%= workLog.time %>" data-friendly-time="<%= workLog.friendlyTime %>" <%= editable ? '' : 'disabled' %>>
                       <%- include('includes/icon', { icon: 'edit' }); %>
                     </button>
                   </td>
@@ -141,7 +142,7 @@
                     <form action="/issues/<%= locals.issue.id %>/removeLog" method="POST">
                       <input type="hidden" name="logSprint" value="<%= workLog.sprint %>">
                       <input type="hidden" name="logTime" value="<%= workLog.time %>">
-                      <button id="delete-work-log-btn">
+                      <button id="delete-work-log-btn" <%= editable ? '' : 'disabled' %>>
                         <%- include('includes/icon', { icon: 'delete' }); %>
                       </button>
                     </form>

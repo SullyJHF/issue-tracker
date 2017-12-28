@@ -34,6 +34,7 @@ export class IssuesController {
   async log(req, res) {
     let issue = await IssueModel.getById(req.params.id);
     let timeStr = req.body.time;
+
     let result = await IssueModel.logTime(issue, timeStr);
 
     res.redirect(`/issues/${issue.id}`);
@@ -45,7 +46,6 @@ export class IssuesController {
     let time = req.body.logTime;
 
     let result = await IssueModel.removeWorkLog(issueId, sprintId, time);
-
     res.redirect(`/issues/${issueId}`);
   }
 
@@ -90,5 +90,13 @@ export class IssuesController {
     }
 
     res.redirect(`/issues/${req.params.id}`);
+  }
+
+  async checkUser(req, res, next) {
+    if (req.user.role > 0) return next();
+    
+    let issue = await IssueModel.getById(req.params.id);
+    if (req.user.id !== issue.assignee.id) return res.redirect(`/issues/${req.params.id}`);
+    next();
   }
 }
