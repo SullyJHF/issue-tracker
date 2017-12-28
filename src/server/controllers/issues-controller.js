@@ -24,6 +24,15 @@ export class IssuesController {
 
   async issue(req, res) {
     let issue = await IssueModel.getById(req.params.id);
+    if (req.user.role < 1) {
+      let user = await UserModel.getById(req.user.id);
+      let teamIssues = await IssueModel.getByTeamId(user.team.id);
+      if(!teamIssues.find((i) => i.id === issue.id)) {
+        // issue not in current user's team
+        res.redirect('/issues');
+        return;
+      }
+    }
     let formData = req.body.formData || req.session.prevBody || {};
 
     res.render('issue', { css: ['main.css'], issue, formData });

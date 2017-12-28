@@ -46,7 +46,7 @@ issues page *
       show assignee fullName *
   add search function *
   only show issues for current team *
-    don't allow users to navigate to an issue that's not on their team
+    don't allow users to navigate to an issue that's not on their team *
 
 Sort out how employees page will look
 employees page
