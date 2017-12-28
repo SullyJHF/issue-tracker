@@ -69,6 +69,7 @@ data page *
     show what graph would look like instead of list of colour schemes
     show what teams use each colour scheme somehow?
   admin view each team
+  non-admin view only their team *
 
 sprints page *
   view sprints *

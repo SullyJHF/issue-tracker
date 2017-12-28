@@ -7,6 +7,7 @@ const dataController = new DataController();
 
 
 // Routes
+router.use(dataController.checkRole.bind(dataController));
 router.get('/', dataController.index);
 router.post('/', dataController.createColourScheme);
 
