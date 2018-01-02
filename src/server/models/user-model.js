@@ -164,4 +164,15 @@ export class UserModel {
     }
     return null;
   }
+
+  static async getByTeamId(id) {
+    let query = 'SELECT * FROM users WHERE TEAM_ID = ?';
+    let inserts = [id];
+    query = db.format(query, inserts);
+    let results = await db.query(query);
+    if (results.length) {
+      return Promise.all(results.map(UserModel.createFromDb));
+    }
+    return [];
+  }
 }

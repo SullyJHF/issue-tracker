@@ -4,6 +4,7 @@ import { ValidatedForm } from './validated-form';
 import './lib/jscolor.min.js';
 
 import fuzzy from 'fuzzy';
+import Chart from 'chart.js';
 
 
 // Issue page
@@ -20,6 +21,40 @@ let colourSchemeCreateModal = new Modal('colour-scheme-create-modal');
 let colourSchemeCreateBtn = new SimpleButton('create-colour-scheme', (event) => {
   colourSchemeCreateModal.show();
 });
+
+let chartCanvas = document.getElementById('data-chart');
+
+if (chartCanvas) {
+  let ctx = chartCanvas.getContext('2d');
+  let chart = new Chart(ctx,
+    Object.assign(teamData, {
+      options: {
+        tooltips: {
+          callbacks: {
+            label: (tooltipItems, data) => {
+              return data.datasets[tooltipItems.datasetIndex].label + ': ' + (tooltipItems.yLabel / 3600).toFixed(2) + 'h';
+            }
+          }
+        },
+        scales: {
+          yAxes: [{
+            stacked: true,
+            ticks: {
+              stepSize: 3600,
+              beginAtZero: true,
+              callback: function(value, index, labels) {
+                return value / 3600 + 'h';
+              }
+            }
+          }],
+          xAxes: [{
+            stacked: true
+          }]
+        }
+      }
+    })
+  );
+}
 
 
 // Employees page

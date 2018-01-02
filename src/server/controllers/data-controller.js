@@ -1,4 +1,6 @@
 import { ColourSchemeModel } from '../models/colour-scheme-model';
+import { UserModel } from '../models/user-model';
+import { TeamModel } from '../models/team-model';
 
 export class DataController {
   constructor() {}
@@ -12,9 +14,11 @@ export class DataController {
   }
 
   async dataOnlyIndex(req, res) {
-    let colours = await ColourSchemeModel.getByEmpId(req.user.id);
+    let user = await UserModel.getById(req.user.id);
+    let colours = await ColourSchemeModel.getByEmpId(user.id);
+    let teamData = await TeamModel.getData(user.team.id);
     // get all employees in current user's team
-    res.render('data-only', { css: ['main.css'], colours });
+    res.render('data-only', { css: ['main.css'], colours, teamData });
   }
 
   async createColourScheme(req, res) {

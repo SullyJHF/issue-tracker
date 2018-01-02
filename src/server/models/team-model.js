@@ -1,4 +1,6 @@
 import { ColourSchemeModel } from './colour-scheme-model';
+import { UserModel } from './user-model';
+import { IssueState } from '../utils/issue-state';
 import db from '../database';
 
 export class TeamModel {
@@ -52,5 +54,59 @@ export class TeamModel {
   static async getAll() {
     let results = await db.query('SELECT * FROM teams, colour_schemes WHERE teams.SCHEME_ID = colour_schemes.SCHEME_ID');
     return results.map(this.createFromDb);
+  }
+
+  static async getData(teamId) {
+    let teamUsers = await UserModel.getByTeamId(teamId);
+    let teamColours = await ColourSchemeModel.getByEmpId(teamUsers[0].id);
+    teamUsers = teamUsers.map((user) => {
+      return {id: user.id, fullName: user.fullName}
+    });
+
+    let totalEstimates = await TeamModel.getTotalEstimates(teamId);
+
+    let datasets = [];
+
+    for (let key in IssueState) {
+      let state = IssueState[key];
+      let data = [];
+      for (let user of teamUsers) {
+        let temp = totalEstimates.find((obj) => user.id === obj.id && state === obj.state);
+        let estimate = temp && temp.estimatedTime || 0;
+        data.push(estimate);
+      }
+      let dataset = {
+        label: state,
+        backgroundColor: teamColours[state],
+        data
+      }
+      datasets.push(dataset);
+    }
+
+    let chartData = {
+      type: 'bar',
+      data: {
+        labels: teamUsers.map((user) => user.fullName),
+        datasets
+      }
+    };
+
+    return chartData;
+  }
+
+  static async getTotalEstimates(teamId) {
+    let query = 'SELECT users.EMP_ID, users.FIRST_NAME, users.SURNAME, SUM(issues.ESTIMATED_TIME) AS TOTAL_ESTIMATED_TIME, issues.STATE FROM users INNER JOIN issues ON users.EMP_ID = issues.EMP_ID WHERE users.TEAM_ID = ? GROUP BY STATE, users.EMP_ID';
+
+    let inserts = [teamId];
+    query = db.format(query, inserts);
+    let results = await db.query(query);
+    return results.map((userEstimate) => {
+      return {
+        id: userEstimate.EMP_ID,
+        state: userEstimate.STATE,
+        estimatedTime: userEstimate.TOTAL_ESTIMATED_TIME,
+        fullName: userEstimate.FIRST_NAME + ' ' + userEstimate.SURNAME
+      };
+    });
   }
 }
