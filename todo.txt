@@ -48,6 +48,7 @@ issues page *
   only show issues for current team *
     don't allow users to navigate to an issue that's not on their team *
   allow admins to delete issues *
+  don't show delete button for issues that don't belong to you (unless admin) *
 
 Sort out how employees page will look
 employees page

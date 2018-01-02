@@ -55,6 +55,7 @@
         </table>
       </form>
     </div>
+    <% if (editable) { %>
     <div id="delete-issue-modal" class="card modal middle width-50">
       <form id="delete-issue-form" action="/issues/<%= locals.issue.id %>/delete" method="POST">
         <h1 class="title">Delete <%= issue.id %></h1>
@@ -76,6 +77,7 @@
         </table>
       </form>
     </div>
+    <% } %>
 
 
 
@@ -135,9 +137,11 @@
                 </form>
               </td>
               <td class="text-right">
+                <% if (editable) { %>
                 <button id="delete-btn" class="bg-red inline">
                   <%- include('includes/icon', { icon: 'delete' }); %>
                 </button>
+                <% } %>
                 <form action="/issues" method="GET" class="inline">
                   <button id="done-btn">
                     <%- include('includes/icon', { icon: 'done' }); %>
