@@ -77,9 +77,40 @@
         </div>
         <% } %>
       </div>
-      <button id="create-colour-scheme">
+      <button id="create-colour-scheme" class="marg-bottom-5">
         <%- include('./includes/icon', { icon: 'add_circle' }) %>
       </button>
+
+      <script type="text/javascript">
+        let estimatedData, timeLoggedData;
+        function addOnLoad(fn) { 
+          var old = window.onload;
+          window.onload = function() {
+            old();
+            fn();
+          };
+        }
+      </script>
+
+      <% let estimatedData, timeLoggedData; %>
+      <% for(let team of locals.teams) { %>
+        <% estimatedData = estimatedGraphs.find((graphData) => graphData.team === team.id) %>
+        <% timeLoggedData = loggedTimeGraphs.find((graphData) => graphData.team === team.id) %>
+        <% estimatedId = team.id + '-' + 'estimate' %>
+        <% timeLoggedId = team.id + '-' + 'time-logged' %>
+        <%- include('includes/data-card', { estimatedData, timeLoggedData, estimatedId, timeLoggedId, team }) %>
+        <script type="text/javascript">
+          function checkLoad<%= team.id %>() {
+            if (window.populateChart) {
+              addOnLoad(window.populateChart('<%= estimatedId %>', <%- JSON.stringify(team) %>, <%- JSON.stringify(estimatedData) %>));
+              addOnLoad(window.populateChart('<%= timeLoggedId %>', <%- JSON.stringify(team) %>, <%- JSON.stringify(timeLoggedData) %>));
+            } else {
+              setTimeout(checkLoad<%= team.id %>, 100);
+            }
+          }
+          checkLoad<%= team.id %>();
+        </script>
+      <% } %>
     </div>
   </div>
 </body>

@@ -9,7 +9,10 @@ export class DataController {
     let colourSchemes = await ColourSchemeModel.getAll();
     let colours = await ColourSchemeModel.getByEmpId(req.user.id);
     let formData = req.body.formData || req.session.prevBody || {};
-    res.render('data', { css: ['main.css'], colourSchemes, formData, colours });
+    let teams = await TeamModel.getAll();
+    let estimatedGraphs = await Promise.all(teams.map(team => TeamModel.getEstimatedChartData(team.id)));
+    let loggedTimeGraphs = await Promise.all(teams.map(team => TeamModel.getTimeLoggedChartData(team.id)));
+    res.render('data', { css: ['main.css'], colourSchemes, formData, colours, teams, estimatedGraphs, loggedTimeGraphs });
     req.session.destroy();
   }
 

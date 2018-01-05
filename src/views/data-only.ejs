@@ -2,7 +2,6 @@
 <html>
   <head>
     <%- include('./includes/head'); %>
-    <%console.log(user)%>
   </head>
   <body>
     <div class="wrapper">
@@ -10,8 +9,27 @@
         <%- include('./includes/navbar', { active: 'data' }); %>
       </div>
       <div class="content">
-        <%- include('includes/data-card'); %>
+        <%- include('includes/data-card', { estimatedId: 'estimate-chart', timeLoggedId: 'time-logged-chart' }); %>
       </div>
+      <script type="text/javascript">
+        function addOnLoad(fn) { 
+          var old = window.onload;
+          window.onload = function() {
+            old();
+            fn();
+          };
+        }
+
+        function checkLoad() {
+          if (window.populateChart) {
+            addOnLoad(window.populateChart('estimate-chart', <%- JSON.stringify(team) %>, <%- JSON.stringify(estimatedData) %>));
+            addOnLoad(window.populateChart('time-logged-chart', <%- JSON.stringify(team) %>, <%- JSON.stringify(timeLoggedData) %>));
+          } else {
+            setTimeout(checkLoad, 100);
+          }
+        }
+        checkLoad();
+      </script>
     </div>
   </body>
 </html>

@@ -23,19 +23,15 @@ const colourSchemeCreateBtn = new SimpleButton('create-colour-scheme', (event) =
   colourSchemeCreateModal.show();
 });
 
-const estimatedChartCanvas = document.getElementById('estimated-data-chart');
-const timeLoggedChartCanvas = document.getElementById('time-logged-data-chart');
-
-if (estimatedChartCanvas) {
-  let ctx = estimatedChartCanvas.getContext('2d');
-  new Chart(ctx, Object.assign(estimatedData, chartOptions));
+global.populateChart = function(id, team, data) {
+  let chartCanvas = document.getElementById(id);
+  if (chartCanvas) {
+    let ctx = chartCanvas.getContext('2d');
+    new Chart(ctx, Object.assign(data, chartOptions));
+  } else {
+    console.error(`Chart element not found with id: ${id}`);
+  }
 }
-
-if (timeLoggedChartCanvas) {
-  let ctx = timeLoggedChartCanvas.getContext('2d');
-  new Chart(ctx, Object.assign(timeLoggedData, chartOptions));
-}
-
 
 // Employees page
 let employeeCreateModal = new Modal('employee-create-modal');

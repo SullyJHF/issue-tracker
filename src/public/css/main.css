@@ -473,6 +473,7 @@ td {
 .bg-green { background-color: green; }
 .bg-red { background-color: red; color: #F5F5F5; }
 
+.marg-bottom-10 { margin-bottom: 10vh; }
 .marg-bottom-5 { margin-bottom: 5vh; }
 .marg-bottom-2 { margin-bottom: 2vh; }
 

@@ -86,6 +86,7 @@ export class TeamModel {
     }
 
     let chartData = {
+      team: teamId,
       type: 'bar',
       data: {
         labels: teamUsers.map((user) => user.fullName),
@@ -124,6 +125,7 @@ export class TeamModel {
     }
 
     let chartData = {
+      team: teamId,
       type: 'bar',
       data: {
         labels: teamUsers.map((user) => user.fullName),
