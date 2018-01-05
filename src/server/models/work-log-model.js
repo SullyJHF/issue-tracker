@@ -47,8 +47,10 @@ export class WorkLogModel {
     return [];
   }
 
-  static async getBySprint(issue) {
-    return [];
+  static async getBySprint(id) {
+    let query = db.format('SELECT * FROM work_log WHERE SPRINT_ID=?', [id]);
+    let results = await db.query(query);
+    return Promise.all(results.map(this.createFromDb));
   }
 
   static async getByIssueId(id) {

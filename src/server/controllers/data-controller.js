@@ -16,9 +16,11 @@ export class DataController {
   async dataOnlyIndex(req, res) {
     let user = await UserModel.getById(req.user.id);
     let colours = await ColourSchemeModel.getByEmpId(user.id);
-    let teamData = await TeamModel.getData(user.team.id);
+    let estimatedData = await TeamModel.getEstimatedChartData(user.team.id);
+    let timeLoggedData = await TeamModel.getTimeLoggedChartData(user.team.id);
+    let team = user.team;
     // get all employees in current user's team
-    res.render('data-only', { css: ['main.css'], colours, teamData });
+    res.render('data-only', { css: ['main.css'], colours, estimatedData, timeLoggedData, team });
   }
 
   async createColourScheme(req, res) {

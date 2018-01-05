@@ -67,6 +67,8 @@ employees page
 
 data page *
   show visualisations
+    estimated time *
+    time logged *
   colour schemes
     add *
     edit

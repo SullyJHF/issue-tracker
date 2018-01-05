@@ -1,5 +1,7 @@
 import { ColourSchemeModel } from './colour-scheme-model';
 import { UserModel } from './user-model';
+import { SprintModel } from './sprint-model';
+import { WorkLogModel } from './work-log-model';
 import { IssueState } from '../utils/issue-state';
 import db from '../database';
 
@@ -56,7 +58,7 @@ export class TeamModel {
     return results.map(this.createFromDb);
   }
 
-  static async getData(teamId) {
+  static async getEstimatedChartData(teamId) {
     let teamUsers = await UserModel.getByTeamId(teamId);
     let teamColours = await ColourSchemeModel.getByEmpId(teamUsers[0].id);
     teamUsers = teamUsers.map((user) => {
@@ -94,8 +96,72 @@ export class TeamModel {
     return chartData;
   }
 
+  static async getTimeLoggedChartData(teamId) {
+    let teamUsers = await UserModel.getByTeamId(teamId);
+    let teamColours = await ColourSchemeModel.getByEmpId(teamUsers[0].id);
+    teamUsers = teamUsers.map((user) => {
+      return {id: user.id, fullName: user.fullName}
+    });
+
+    let totalLoggedTime = await TeamModel.getTotalTimeLogged(teamId);
+
+    let datasets = [];
+
+    for (let key in IssueState) {
+      let state = IssueState[key];
+      let data = [];
+      for (let user of teamUsers) {
+        let temp = totalLoggedTime.find((obj) => user.id === obj.id && state === obj.state);
+        let timeLogged = temp && temp.timeLogged || 0;
+        data.push(timeLogged);
+      }
+      let dataset = {
+        label: state,
+        backgroundColor: teamColours[state],
+        data
+      }
+      datasets.push(dataset);
+    }
+
+    let chartData = {
+      type: 'bar',
+      data: {
+        labels: teamUsers.map((user) => user.fullName),
+        datasets
+      }
+    };
+
+    return chartData;
+  }
+
+  static async getTotalTimeLogged(teamId) {
+    let query = 'SELECT users.EMP_ID, users.FIRST_NAME, users.SURNAME, SUM(issues.TOTAL_SECONDS_LOGGED) AS TOTAL_SECONDS_LOGGED, issues.STATE ' +
+    'FROM users ' +
+      'INNER JOIN issues ' +
+        'ON users.EMP_ID = issues.EMP_ID '+
+    'WHERE users.TEAM_ID = ? '+
+    'GROUP BY STATE, users.EMP_ID';
+
+    let inserts = [teamId];
+    query = db.format(query, inserts);
+    let results = await db.query(query);
+    return results.map((userTimeLogged) => {
+      return {
+        id: userTimeLogged.EMP_ID,
+        state: userTimeLogged.STATE,
+        timeLogged: userTimeLogged.TOTAL_SECONDS_LOGGED,
+        fullName: userTimeLogged.FIRST_NAME + ' ' + userTimeLogged.SURNAME
+      };
+    });
+  }
+
   static async getTotalEstimates(teamId) {
-    let query = 'SELECT users.EMP_ID, users.FIRST_NAME, users.SURNAME, SUM(issues.ESTIMATED_TIME) AS TOTAL_ESTIMATED_TIME, issues.STATE FROM users INNER JOIN issues ON users.EMP_ID = issues.EMP_ID WHERE users.TEAM_ID = ? GROUP BY STATE, users.EMP_ID';
+    let query = 'SELECT users.EMP_ID, users.FIRST_NAME, users.SURNAME, SUM(issues.ESTIMATED_TIME) AS TOTAL_ESTIMATED_TIME, issues.STATE ' +
+    'FROM users ' +
+      'INNER JOIN issues ' +
+        'ON users.EMP_ID = issues.EMP_ID '+
+    'WHERE users.TEAM_ID = ? '+
+    'GROUP BY STATE, users.EMP_ID';
 
     let inserts = [teamId];
     query = db.format(query, inserts);

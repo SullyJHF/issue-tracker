@@ -1,8 +1,14 @@
 <script type="text/javascript">
-  let teamData = <%- JSON.stringify(locals.teamData) %>
+  let estimatedData = <%- JSON.stringify(locals.estimatedData); %>;
+  let timeLoggedData = <%- JSON.stringify(locals.timeLoggedData); %>;
 </script>
 
-<div class="card full-width">
+<h1 class="title"><%= locals.team.name %> Data</h1>
+<div class="card full-width marg-bottom-5">
   <h1 class="title">Estimated Time</h1>
-  <canvas id="data-chart"></canvas>
+  <canvas id="estimated-data-chart"></canvas>
+</div>
+<div class="card full-width">
+  <h1 class="title">Total Time Logged</h1>
+  <canvas id="time-logged-data-chart"></canvas>
 </div>
