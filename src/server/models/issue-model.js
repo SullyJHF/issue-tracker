@@ -44,6 +44,10 @@ export class IssueModel {
     );
   }
 
+  //validate
+  // ([A-Z]+-\d+)
+  // ([A-Z])
+
 
   static async insertIssue(issue) {
     if (!(issue instanceof IssueModel)) throw new Error('Data must be of type IssueModel');

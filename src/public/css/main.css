@@ -110,6 +110,7 @@ table td {
   padding: calc(1.5vh - 1px);
   position: absolute;
   display: none;
+  cursor: default;
 }
 
 .error-icon:before {

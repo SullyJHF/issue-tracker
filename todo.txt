@@ -15,6 +15,9 @@ login
   Add a few new errors to login *
     please provide email (empty email) *
     please provide password (empty password) *
+  password confirmation
+
+redirection stuff *
 
 somehow change clientside javascript to be better
 
@@ -26,6 +29,8 @@ form validation design *
 change mysql queryFormat to use objects instead
 
 Show user is admin somehow
+
+check colourScheme createFromDb works from team model
 
 
 --- FEATURES ---
@@ -72,6 +77,7 @@ data page *
   colour schemes
     add *
     edit
+    delete
     show what graph would look like instead of list of colour schemes
     show what teams use each colour scheme somehow?
   admin view each team *

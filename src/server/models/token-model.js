@@ -1,4 +1,3 @@
-import db from '../database';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 

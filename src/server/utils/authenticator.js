@@ -12,12 +12,13 @@ export default async function authenticator(req, res, next) {
     token = jwt.verify(req.cookies.token, config().secret);
   } catch(e) {
     console.error(e);
-    // do this switch for each error and handle accordingly?
-    /*switch(e.name) {
+    /*
+    switch(e.name) {
       case 'TokenExpiredError':
 
       break;
-    }*/
+    }
+    */
     unauthenticated(e.message, req, res, next);
     return;
   }
@@ -65,8 +66,5 @@ function unauthenticated(err, req, res, next) {
   req.session.prevUrl = req.url;
   req.session.prevBody = req.body;
 
-  // redirect back to login?
-  // or explain to user that unauthenticated
-  // send back some data to display on the current page?
   res.redirect('/login');
 }

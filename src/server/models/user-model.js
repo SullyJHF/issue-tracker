@@ -96,12 +96,9 @@ export class UserModel {
   // in the case of an error
   // or a user object if there are no errors
   static async validate(email, password) {
-    // formData will be passed back to the ejs
-    // and will repopulate the relevant data
     let formData = { email };
     let errors = {};
 
-    // check if email exists
     let user = await UserModel.getByEmail(email);
     
     if (!user) {
