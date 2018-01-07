@@ -1,7 +1,7 @@
 {
-  "name": "Base",
+  "name": "issue-tracker",
   "version": "1.0.0",
-  "description": "Base ejs repo that utilises es2015+ features both on the frontend and backend",
+  "description": "Issue tracker, designed for use by multiple teams in an organisation",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node dist/server",
@@ -11,13 +11,13 @@
     "build-server": "babel src/server -d dist/server",
     "copy": "mkdir -p dist/public/js && cp -r src/public/images src/public/css src/public/fonts dist/public && mv src/public/js/bundle.js dist/public/js && cp -r src/views dist",
     "dev": "NODE_ENV=development nodemon src/server/index.js --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape -r babel-register tests | tap-spec"
   },
   "author": "Sullivan Ford",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SullyJHF/base-ejs"
+    "url": "https://github.com/SullyJHF/issue-tracker"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -27,6 +27,8 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "nodemon": "^1.12.1",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.8.0",
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.0"
   },
