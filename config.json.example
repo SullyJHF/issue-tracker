@@ -1,0 +1,10 @@
+{
+  "db": {
+    "connectionLimit": 10,
+    "host": "localhost",
+    "user": "example",
+    "password": "password123",
+    "database": "issue_tracker"
+  },
+  "secret": "USED_FOR_DEVELOPMENT_ONLY"
+}
