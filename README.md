@@ -15,7 +15,8 @@ And then populating the data in the database using `db_data.sql`
 
 `mysql -u <user> -p issue_tracker < db_data.sql`
 
-Any user can be used for the system, just update `config.json` to have the correct details
+Any user can be used for the system, just update `config.json.example` to have the correct details
+and then move `config.json.example` to `config.json`
 
 #Run in development mode#
 
