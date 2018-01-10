@@ -14,8 +14,8 @@ export class TeamModel {
 
   // change colourScheme to colourSchemeId
   static async createFromReq({teamName, teamColourScheme}) {
-    let colourSchemeObj = await ColourSchemeModel.getById(colourScheme);
-    return new TeamModel(-1, name, colourSchemeObj);
+    let colourSchemeObj = await ColourSchemeModel.getById(teamColourScheme);
+    return new TeamModel(-1, teamName, colourSchemeObj);
   }
 
   static createFromDb(teamData) {
@@ -60,6 +60,7 @@ export class TeamModel {
 
   static async getEstimatedChartData(teamId) {
     let teamUsers = await UserModel.getByTeamId(teamId);
+    if (!teamUsers.length) return;
     let teamColours = await ColourSchemeModel.getByEmpId(teamUsers[0].id);
     teamUsers = teamUsers.map((user) => {
       return {id: user.id, fullName: user.fullName}
@@ -99,6 +100,7 @@ export class TeamModel {
 
   static async getTimeLoggedChartData(teamId) {
     let teamUsers = await UserModel.getByTeamId(teamId);
+    if (!teamUsers.length) return;
     let teamColours = await ColourSchemeModel.getByEmpId(teamUsers[0].id);
     teamUsers = teamUsers.map((user) => {
       return {id: user.id, fullName: user.fullName}

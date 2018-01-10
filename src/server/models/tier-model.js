@@ -7,7 +7,7 @@ export class TierModel {
   }
 
   static createFromReq({tierName, tierCost}) {
-    return new TierModel(name, cost);
+    return new TierModel(tierName, tierCost);
   }
 
   static createFromDb(tierData) {

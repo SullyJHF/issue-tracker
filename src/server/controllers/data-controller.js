@@ -12,6 +12,8 @@ export class DataController {
     let teams = await TeamModel.getAll();
     let estimatedGraphs = await Promise.all(teams.map(team => TeamModel.getEstimatedChartData(team.id)));
     let loggedTimeGraphs = await Promise.all(teams.map(team => TeamModel.getTimeLoggedChartData(team.id)));
+    estimatedGraphs = estimatedGraphs.filter(graph => graph !== undefined);
+    loggedTimeGraphs = loggedTimeGraphs.filter(graph => graph !== undefined);
     res.render('data', { css: ['main.css'], colourSchemes, formData, colours, teams, estimatedGraphs, loggedTimeGraphs });
     req.session.destroy();
   }

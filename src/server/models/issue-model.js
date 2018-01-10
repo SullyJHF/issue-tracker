@@ -107,7 +107,7 @@ export class IssueModel {
     if (results.length) {
       return Promise.all(results.map(IssueModel.createFromDb));
     }
-    return null;
+    return [];
   }
 
   static async getIdForProject(project) {
