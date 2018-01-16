@@ -29,6 +29,15 @@ export class IssueModel {
   }
 
   static async createFromDb(db, dbIssue) {
+    if (!dbIssue.ISSUE_ID ||
+        !dbIssue.TITLE ||
+        !dbIssue.DESCRIPTION ||
+        !dbIssue.ESTIMATED_TIME ||
+        !dbIssue.EMP_ID ||
+        !dbIssue.STATE ||
+        !dbIssue.TOTAL_SECONDS_LOGGED) {
+      throw new Error('dbIssue must be a valid issue from the database');
+    }
     let assignee = await UserModel.getById(db, dbIssue.EMP_ID);
     let workLogs = await WorkLogModel.getByIssueId(db, dbIssue.ISSUE_ID);
     return new IssueModel(

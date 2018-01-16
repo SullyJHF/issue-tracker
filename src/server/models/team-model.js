@@ -17,11 +17,13 @@ export class TeamModel {
     return new TeamModel(-1, teamName, colourSchemeObj);
   }
 
-  static createFromDb(teamData) {
+  static async createFromDb(db, teamData) {
+    let colourScheme = await ColourSchemeModel.getById(db, teamData.SCHEME_ID);
+
     return new TeamModel(
       teamData.TEAM_ID,
       teamData.TEAM_NAME,
-      ColourSchemeModel.createFromDb(teamData)
+      colourScheme
     );
   }
 
@@ -49,12 +51,12 @@ export class TeamModel {
       [id]
     );
     let results = await db.query(query);
-    return this.createFromDb(results[0]);
+    return await this.createFromDb(db, results[0]);
   }
 
   static async getAll(db) {
     let results = await db.query('SELECT * FROM teams, colour_schemes WHERE teams.SCHEME_ID = colour_schemes.SCHEME_ID');
-    return results.map(this.createFromDb);
+    return await Promise.all(results.map(result => this.createFromDb(db, result)));
   }
 
   static async getEstimatedChartData(db, teamId) {

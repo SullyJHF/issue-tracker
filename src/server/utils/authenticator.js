@@ -25,7 +25,7 @@ export class Authenticator {
         break;
       }
       */
-      unauthenticated(e.message, req, res, next);
+      this.unauthenticated(e.message, req, res, next);
       return;
     }
 
@@ -37,12 +37,12 @@ export class Authenticator {
 
     if (!user) {
       // User doesn't exist
-      return unauthenticated('User not found', req, res, next);
+      return this.unauthenticated('User not found', req, res, next);
     }
 
     if (token.hashedPass !== user.hashedPass) {
       // User changed password since - unauthenticated
-      return unauthenticated('User changed password', req, res, next);
+      return this.unauthenticated('User changed password', req, res, next);
     }
 
     // do this when user role is implemented
