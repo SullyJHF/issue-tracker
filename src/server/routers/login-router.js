@@ -2,8 +2,9 @@ import express from 'express';
 const router = express.Router();
 
 
+import { DB } from '../database';
 import { LoginController } from '../controllers/login-controller';
-const loginController = new LoginController();
+const loginController = new LoginController(new DB());
 
 
 // Routes

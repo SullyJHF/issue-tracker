@@ -1,4 +1,3 @@
-import db from '../database';
 import moment from 'moment';
 
 export class SprintModel {
@@ -23,7 +22,7 @@ export class SprintModel {
     );
   }
 
-  static async insert(sprint) {
+  static async insert(db, sprint) {
     if (!(sprint instanceof SprintModel)) throw new Error('Data must be of type SprintModel');
     let sql = 'INSERT INTO sprints VALUES (NULL, ?, ?)';
     let inserts = [
@@ -36,7 +35,7 @@ export class SprintModel {
     return await db.query(sql);
   }
 
-  static async getById(id) {
+  static async getById(db, id) {
     let query = db.format(
       'SELECT * FROM sprints WHERE SPRINT_ID=?',
       [id]
@@ -45,15 +44,15 @@ export class SprintModel {
     return this.createFromDb(results[0]);
   }
 
-  static async getAll() {
+  static async getAll(db) {
     let results = await db.query('SELECT * FROM sprints');
     return results.map(this.createFromDb).sort((sprintA, sprintB) => {
       return sprintA.end >= sprintB.end;
     });
   }
 
-  static async getCurrentSprint() {
-    let sprints = await SprintModel.getAll();
+  static async getCurrentSprint(db) {
+    let sprints = await SprintModel.getAll(db);
 
     sprints = sprints.filter((sprint) => moment().isBetween(moment(sprint.start * 1000), moment(sprint.end * 1000)));
 

@@ -1,11 +1,16 @@
 import { SprintModel } from '../models/sprint-model';
 
 export class SprintController {
-  constructor() {}
+  constructor(db) {
+    this.db = db;
+    this.index = this.index.bind(this);
+    this.create = this.create.bind(this);
+    this.checkRole = this.checkRole.bind(this);
+  }
 
   async index(req, res) {
-    let sprints = await SprintModel.getAll();
-    let currentSprint = await SprintModel.getCurrentSprint();
+    let sprints = await SprintModel.getAll(this.db);
+    let currentSprint = await SprintModel.getCurrentSprint(this.db);
     let formData = req.body.formData || req.session.prevBody || {};
 
     res.render('sprint', { css: ['main.css'], sprints, formData, currentSprint });
@@ -16,7 +21,7 @@ export class SprintController {
     let sprint = await SprintModel.createFromReq(req.body);
     // validate here
     // Check if new sprint overlaps any others
-    let result = await SprintModel.insert(sprint);
+    let result = await SprintModel.insert(this.db, sprint);
 
     res.redirect('/sprint');
   }

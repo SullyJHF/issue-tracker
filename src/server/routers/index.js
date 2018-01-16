@@ -8,7 +8,11 @@ import employeesRouter from './employees-router';
 import dataRouter from './data-router';
 import sprintRouter from './sprint-router';
 
-import authenticator from '../utils/authenticator';
+import { Authenticator } from '../utils/authenticator';
+
+import { DB } from '../database';
+
+let authenticator = new Authenticator(new DB());
 
 // ERROR PAGES
 router.get('/404', (req, res) => {
@@ -27,7 +31,7 @@ router.get('/500', (req, res) => {
 router.get('/', (req, res) => res.redirect('/login'));
 router.use('/login', loginRouter);
 router.use('/logout', logoutRouter);
-router.use(authenticator);
+router.use(authenticator.authenticate);
 router.use('/issues', issuesRouter);
 router.use('/employees', employeesRouter);
 router.use('/data', dataRouter);

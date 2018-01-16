@@ -1,7 +1,7 @@
 import mysql from 'promise-mysql';
 import config from '../config';
 
-class DB {
+export class DB {
   constructor() {
     this.pool = mysql.createPool(config().db);
   }
@@ -24,5 +24,3 @@ class DB {
     return mysql.format(query, inserts);
   }
 }
-
-export default DB.create();

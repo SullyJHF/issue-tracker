@@ -1,5 +1,3 @@
-import db from '../database';
-
 import { IssueState } from '../utils/issue-state';
 
 export class ColourSchemeModel {
@@ -29,7 +27,7 @@ export class ColourSchemeModel {
     );
   }
 
-  static async insert(colourScheme) {
+  static async insert(db, colourScheme) {
     if (!(colourScheme instanceof ColourSchemeModel)) throw new Error('Data must be of type ColourSchemeModel');
     let sql = 'INSERT INTO colour_schemes VALUES (NULL, ?, ?, ?, ?, ?, ?)';
     let inserts = [
@@ -46,7 +44,7 @@ export class ColourSchemeModel {
     return await db.query(sql);
   }
 
-  static async getById(id) {
+  static async getById(db, id) {
     let query = db.format(
       'SELECT * FROM colour_schemes WHERE SCHEME_ID=?',
       [id]
@@ -55,12 +53,12 @@ export class ColourSchemeModel {
     return this.createFromDb(results[0]);
   }
 
-  static async getAll() {
+  static async getAll(db) {
     let results = await db.query('SELECT * FROM colour_schemes');
     return results.map(this.createFromDb);
   }
 
-  static async getByEmpId(id) {
+  static async getByEmpId(db, id) {
     let query = db.format('SELECT ' +
       'colour_schemes.RESOLVE_COLOUR, ' +
       'colour_schemes.CLOSE_COLOUR, ' +

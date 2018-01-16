@@ -3,7 +3,6 @@ import { UserModel } from './user-model';
 import { SprintModel } from './sprint-model';
 import { WorkLogModel } from './work-log-model';
 import { IssueState } from '../utils/issue-state';
-import db from '../database';
 
 export class TeamModel {
   constructor(id, name, colourScheme) {
@@ -13,8 +12,8 @@ export class TeamModel {
   }
 
   // change colourScheme to colourSchemeId
-  static async createFromReq({teamName, teamColourScheme}) {
-    let colourSchemeObj = await ColourSchemeModel.getById(teamColourScheme);
+  static async createFromReq(db, {teamName, teamColourScheme}) {
+    let colourSchemeObj = await ColourSchemeModel.getById(db, teamColourScheme);
     return new TeamModel(-1, teamName, colourSchemeObj);
   }
 
@@ -26,7 +25,7 @@ export class TeamModel {
     );
   }
 
-  static async insert(team) {
+  static async insert(db, team) {
     if (!(team instanceof TeamModel)) throw new Error('Data must be of type TeamModel');
     let sql = 'INSERT INTO teams VALUES (NULL, ?, ?)';
     let inserts = [
@@ -44,7 +43,7 @@ export class TeamModel {
     return result;
   }
 
-  static async getById(id) {
+  static async getById(db, id) {
     let query = db.format(
       'SELECT * FROM teams WHERE TEAM_ID=?',
       [id]
@@ -53,20 +52,20 @@ export class TeamModel {
     return this.createFromDb(results[0]);
   }
 
-  static async getAll() {
+  static async getAll(db) {
     let results = await db.query('SELECT * FROM teams, colour_schemes WHERE teams.SCHEME_ID = colour_schemes.SCHEME_ID');
     return results.map(this.createFromDb);
   }
 
-  static async getEstimatedChartData(teamId) {
-    let teamUsers = await UserModel.getByTeamId(teamId);
+  static async getEstimatedChartData(db, teamId) {
+    let teamUsers = await UserModel.getByTeamId(db, teamId);
     if (!teamUsers.length) return;
-    let teamColours = await ColourSchemeModel.getByEmpId(teamUsers[0].id);
+    let teamColours = await ColourSchemeModel.getByEmpId(db, teamUsers[0].id);
     teamUsers = teamUsers.map((user) => {
       return {id: user.id, fullName: user.fullName}
     });
 
-    let totalEstimates = await TeamModel.getTotalEstimates(teamId);
+    let totalEstimates = await TeamModel.getTotalEstimates(db, teamId);
 
     let datasets = [];
 
@@ -98,15 +97,15 @@ export class TeamModel {
     return chartData;
   }
 
-  static async getTimeLoggedChartData(teamId) {
-    let teamUsers = await UserModel.getByTeamId(teamId);
+  static async getTimeLoggedChartData(db, teamId) {
+    let teamUsers = await UserModel.getByTeamId(db, teamId);
     if (!teamUsers.length) return;
-    let teamColours = await ColourSchemeModel.getByEmpId(teamUsers[0].id);
+    let teamColours = await ColourSchemeModel.getByEmpId(db, teamUsers[0].id);
     teamUsers = teamUsers.map((user) => {
       return {id: user.id, fullName: user.fullName}
     });
 
-    let totalLoggedTime = await TeamModel.getTotalTimeLogged(teamId);
+    let totalLoggedTime = await TeamModel.getTotalTimeLogged(db, teamId);
 
     let datasets = [];
 
@@ -138,7 +137,7 @@ export class TeamModel {
     return chartData;
   }
 
-  static async getTotalTimeLogged(teamId) {
+  static async getTotalTimeLogged(db, teamId) {
     let query = 'SELECT users.EMP_ID, users.FIRST_NAME, users.SURNAME, SUM(issues.TOTAL_SECONDS_LOGGED) AS TOTAL_SECONDS_LOGGED, issues.STATE ' +
     'FROM users ' +
       'INNER JOIN issues ' +
@@ -159,7 +158,7 @@ export class TeamModel {
     });
   }
 
-  static async getTotalEstimates(teamId) {
+  static async getTotalEstimates(db, teamId) {
     let query = 'SELECT users.EMP_ID, users.FIRST_NAME, users.SURNAME, SUM(issues.ESTIMATED_TIME) AS TOTAL_ESTIMATED_TIME, issues.STATE ' +
     'FROM users ' +
       'INNER JOIN issues ' +

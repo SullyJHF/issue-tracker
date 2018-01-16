@@ -1,7 +1,6 @@
 import { TokenModel } from './token-model';
 import { TeamModel } from './team-model';
 import { TierModel } from './tier-model';
-import db from '../database';
 import bcrypt from 'bcrypt';
 
 export class UserModel {
@@ -18,19 +17,19 @@ export class UserModel {
     this.role = role;
   }
 
-  static async createFromReq({email, password, firstName, surname, capacity, team, tier, role}) {
+  static async createFromReq(db, {email, password, firstName, surname, capacity, team, tier, role}) {
     // team and tier are both ids
     let id = -1;
-    let teamObj = await TeamModel.getById(team);
-    let tierObj = await TierModel.getByName(tier);
+    let teamObj = await TeamModel.getById(db, team);
+    let tierObj = await TierModel.getByName(db, tier);
     // bcrypt.hash automatically makes salt
     let hashedPass = await bcrypt.hash(password, 10);
     return new UserModel(id, email, hashedPass, firstName, surname, capacity, teamObj, tierObj, role || 0);
   }
 
-  static async createFromDb(userData) {
-    let team = await TeamModel.getById(userData.TEAM_ID);
-    let tier = await TierModel.getByName(userData.TIER);
+  static async createFromDb(db, userData) {
+    let team = await TeamModel.getById(db, userData.TEAM_ID);
+    let tier = await TierModel.getByName(db, userData.TIER);
     return new UserModel(
       userData.EMP_ID,
       userData.EMAIL,
@@ -44,7 +43,7 @@ export class UserModel {
     );
   }
 
-  static async insert(user) {
+  static async insert(db, user) {
     if (!(user instanceof UserModel)) throw new Error('Data must be of type UserModel');
     // this has null in it for the ROLE for now, to set everyone to the default value of 0
     let sql = 'INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -66,7 +65,7 @@ export class UserModel {
     return result;
   }
 
-  static async update(userData) {
+  static async update(db, userData) {
     let sql = db.format(
       'UPDATE users SET ' +
         'EMAIL = ?, ' +
@@ -95,11 +94,11 @@ export class UserModel {
   // Either returns { formData, errors, error }
   // in the case of an error
   // or a user object if there are no errors
-  static async validate(email, password) {
+  static async validate(db, email, password) {
     let formData = { email };
     let errors = {};
 
-    let user = await UserModel.getByEmail(email);
+    let user = await UserModel.getByEmail(db, email);
     
     if (!user) {
       errors.error = true;
@@ -135,40 +134,40 @@ export class UserModel {
   }
 
 
-  static async getAll() {
+  static async getAll(db) {
     let results = await db.query('SELECT * FROM users');
-    return Promise.all(results.map(UserModel.createFromDb));
+    return Promise.all(results.map(result => UserModel.createFromDb(db, result)));
   }
 
-  static async getByEmail(email) {
+  static async getByEmail(db, email) {
     let query = 'SELECT * FROM users WHERE EMAIL = ?';
     let inserts = [email];
     query = db.format(query, inserts);
     let results = await db.query(query);
     if (results.length) {
-      return await UserModel.createFromDb(results[0]);
+      return await UserModel.createFromDb(db, results[0]);
     }
     return null;
   }
 
-  static async getById(id) {
+  static async getById(db, id) {
     let query = 'SELECT * FROM users WHERE EMP_ID = ?';
     let inserts = [id];
     query = db.format(query, inserts);
     let results = await db.query(query);
     if (results.length) {
-      return await UserModel.createFromDb(results[0]);
+      return await UserModel.createFromDb(db, results[0]);
     }
     return null;
   }
 
-  static async getByTeamId(id) {
+  static async getByTeamId(db, id) {
     let query = 'SELECT * FROM users WHERE TEAM_ID = ?';
     let inserts = [id];
     query = db.format(query, inserts);
     let results = await db.query(query);
     if (results.length) {
-      return Promise.all(results.map(UserModel.createFromDb));
+      return Promise.all(results.map(result => UserModel.createFromDb(db, result)));
     }
     return [];
   }

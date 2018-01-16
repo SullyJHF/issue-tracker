@@ -2,7 +2,10 @@ import { UserModel } from '../models/user-model';
 import { TokenModel } from '../models/token-model';
 
 export class LoginController {
-  constructor() {}
+  constructor(db) {
+    this.db = db;
+    this.login = this.login.bind(this);
+  }
 
   index(req, res) {
     if (req.cookies.token) {
@@ -23,7 +26,7 @@ export class LoginController {
     let email = req.body.email;
     let password = req.body.password;
 
-    let data = await UserModel.validate(email, password);
+    let data = await UserModel.validate(this.db, email, password);
 
     if (data.error) {
       req.body.errors = data.errors;

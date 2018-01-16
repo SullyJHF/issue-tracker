@@ -2,7 +2,6 @@ import { IssueState } from '../utils/issue-state';
 import { UserModel } from './user-model';
 import { SprintModel } from './sprint-model';
 import { WorkLogModel } from './work-log-model';
-import db from '../database';
 import { convertTime } from '../utils';
 import humanizer from '../utils/humanizer';
 
@@ -22,16 +21,16 @@ export class IssueModel {
     this.workLogs = workLogs;
   }
 
-  static async createFromReq({project, title, description, estimate, assigneeId}) {
-    let id = await IssueModel.getIdForProject(project.toUpperCase());
-    let assignee = await UserModel.getById(assigneeId);
-    let workLogs = await WorkLogModel.getByIssueId(id);
+  static async createFromReq(db, { project, title, description, estimate, assigneeId }) {
+    let id = await IssueModel.getIdForProject(db, project.toUpperCase());
+    let assignee = await UserModel.getById(db, assigneeId);
+    let workLogs = await WorkLogModel.getByIssueId(db, id);
     return new IssueModel(id, title, description, convertTime(estimate), assignee, IssueState.AWAITING_START, 0, workLogs);
   }
 
-  static async createFromDb(dbIssue) {
-    let assignee = await UserModel.getById(dbIssue.EMP_ID);
-    let workLogs = await WorkLogModel.getByIssueId(dbIssue.ISSUE_ID);
+  static async createFromDb(db, dbIssue) {
+    let assignee = await UserModel.getById(db, dbIssue.EMP_ID);
+    let workLogs = await WorkLogModel.getByIssueId(db, dbIssue.ISSUE_ID);
     return new IssueModel(
       dbIssue.ISSUE_ID,
       dbIssue.TITLE,
@@ -44,12 +43,8 @@ export class IssueModel {
     );
   }
 
-  //validate
-  // ([A-Z]+-\d+)
-  // ([A-Z])
 
-
-  static async insertIssue(issue) {
+  static async insertIssue(db, issue) {
     if (!(issue instanceof IssueModel)) throw new Error('Data must be of type IssueModel');
     let sql = 'INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?)';
     let inserts = [
@@ -67,7 +62,7 @@ export class IssueModel {
     return Object.assign(await db.query(sql), {id: issue.id});
   }
 
-  static async updateIssue(issue) {
+  static async updateIssue(db, issue) {
     if (!(issue instanceof IssueModel)) throw new Error('Data must be of type IssueModel');
     let sql = 'UPDATE issues SET TITLE=?, DESCRIPTION=?, STATE=?, TOTAL_SECONDS_LOGGED=?, ESTIMATED_TIME=?, EMP_ID=? WHERE ISSUE_ID=?';
     let inserts = [
@@ -85,32 +80,32 @@ export class IssueModel {
     return Object.assign(await db.query(sql), {id: issue.id});
   }
 
-  static async getAll() {
+  static async getAll(db) {
     let results = await db.query('SELECT * FROM issues');
-    return Promise.all(results.map(IssueModel.createFromDb));
+    return Promise.all(results.map(result => IssueModel.createFromDb(db, result)));
   }
 
-  static async getById(id) {
+  static async getById(db, id) {
     let query = 'SELECT * FROM issues WHERE ISSUE_ID = ?';
     let inserts = [id];
     query = db.format(query, inserts);
     let results = await db.query(query);
     if (results.length) {
-      return await IssueModel.createFromDb(results[0]);
+      return await IssueModel.createFromDb(db, results[0]);
     }
     return null;
   }
 
-  static async getByTeamId(id) {
+  static async getByTeamId(db, id) {
     let query = db.format('SELECT * FROM issues JOIN users ON issues.EMP_ID = users.EMP_ID WHERE TEAM_ID = ?', [id]);
     let results = await db.query(query);
     if (results.length) {
-      return Promise.all(results.map(IssueModel.createFromDb));
+      return Promise.all(results.map(result => IssueModel.createFromDb(db, result)));
     }
     return [];
   }
 
-  static async getIdForProject(project) {
+  static async getIdForProject(db, project) {
     let sql = db.format('SELECT * FROM issues WHERE left(ISSUE_ID, ?) = ?', [project.length + 1, project + '-']);
     let results = await db.query(sql);
 
@@ -119,36 +114,36 @@ export class IssueModel {
     return `${project}-${results.length + 1}`;
   }
 
-  static async logTime(issue, timeStr) {
+  static async logTime(db, issue, timeStr) {
     let time = convertTime(timeStr);
-    let sprint = await SprintModel.getCurrentSprint();
+    let sprint = await SprintModel.getCurrentSprint(db);
     let workLog = WorkLogModel.create(sprint.id, issue.id, time);
 
     if (workLog === null) {
       // return some errors
     }
 
-    let result = await WorkLogModel.insert(workLog);
+    let result = await WorkLogModel.insert(db, workLog);
 
     issue.totalSeconds += time;
 
-    return await IssueModel.updateIssue(issue);
+    return await IssueModel.updateIssue(db, issue);
   }
 
-  static async removeWorkLog(issueId, sprintId, time) {
-    let issue = await IssueModel.getById(issueId);
+  static async removeWorkLog(db, issueId, sprintId, time) {
+    let issue = await IssueModel.getById(db, issueId);
     let sql = db.format('DELETE FROM work_log WHERE ISSUE_ID = ? AND SPRINT_ID = ? AND SECONDS_LOGGED = ?', [issueId, sprintId, time]);
 
     let result = await db.query(sql);
     // if result is ok
     issue.totalSeconds -= time;
 
-    return await IssueModel.updateIssue(issue);
+    return await IssueModel.updateIssue(db, issue);
   }
 
-  static async editWorkLog(issueId, sprintId, time, oldTime) {
+  static async editWorkLog(db, issueId, sprintId, time, oldTime) {
     time = convertTime(time);
-    let issue = await IssueModel.getById(issueId);
+    let issue = await IssueModel.getById(db, issueId);
     let sql = db.format(
       'UPDATE work_log SET SECONDS_LOGGED = ? WHERE ISSUE_ID = ? AND SPRINT_ID = ? AND SECONDS_LOGGED = ?',
       [time, issueId, sprintId, oldTime]
@@ -158,10 +153,10 @@ export class IssueModel {
     // if result is ok
     issue.totalSeconds -= (oldTime - time);
 
-    return await IssueModel.updateIssue(issue);
+    return await IssueModel.updateIssue(db, issue);
   }
 
-  static async deleteIssue(id) {
+  static async deleteIssue(db, id) {
     let query = db.format('DELETE FROM issues WHERE ISSUE_ID = ?', [id]);
     let results = await db.query(query);
     return results;

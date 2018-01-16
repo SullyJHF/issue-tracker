@@ -1,5 +1,3 @@
-import db from '../database';
-
 export class TierModel {
   constructor(name, cost) {
     this.name = name;
@@ -17,7 +15,7 @@ export class TierModel {
     );
   }
 
-  static async insert(tier) {
+  static async insert(db, tier) {
     if (!(tier instanceof TierModel)) throw new Error('Data must be of type TierModel');
     let sql = 'INSERT INTO tiers VALUES (?, ?)';
     let inserts = [
@@ -30,7 +28,7 @@ export class TierModel {
     return await db.query(sql);
   }
 
-  static async getByName(name) {
+  static async getByName(db, name) {
     let query = db.format(
       'SELECT * FROM tiers WHERE TIER=?',
       [name]
@@ -39,7 +37,7 @@ export class TierModel {
     return this.createFromDb(results[0]);
   }
 
-  static async getAll() {
+  static async getAll(db) {
     let results = await db.query('SELECT * FROM tiers');
     return results.map(this.createFromDb);
   }

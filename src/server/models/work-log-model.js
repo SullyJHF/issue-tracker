@@ -1,5 +1,3 @@
-import db from '../database';
-
 import { SprintModel } from './sprint-model';
 import { IssueModel } from './issue-model';
 
@@ -17,7 +15,7 @@ export class WorkLogModel {
     return new WorkLogModel(sprint, issue, time);
   }
 
-  static async createFromDb(workLogData) {
+  static createFromDb(workLogData) {
     return new WorkLogModel(
       workLogData.SPRINT_ID,
       workLogData.ISSUE_ID,
@@ -25,7 +23,7 @@ export class WorkLogModel {
     );
   }
 
-  static async insert(workLog) {
+  static async insert(db, workLog) {
     if (!(workLog instanceof WorkLogModel)) throw new Error('Data must be of type WorkLogModel');
     let sql = 'INSERT INTO work_log VALUES (?, ?, ?)';
     let inserts = [
@@ -39,27 +37,27 @@ export class WorkLogModel {
     return await db.query(sql);
   }
 
-  static async getByUser(user) {
+  static async getByUser(db, user) {
     return [];
   }
 
-  static async getBySprintAndIssue(sprint, issue) {
+  static async getBySprintAndIssue(db, sprint, issue) {
     return [];
   }
 
-  static async getBySprint(id) {
+  static async getBySprint(db, id) {
     let query = db.format('SELECT * FROM work_log WHERE SPRINT_ID=?', [id]);
     let results = await db.query(query);
-    return Promise.all(results.map(this.createFromDb));
+    return results.map(this.createFromDb);
   }
 
-  static async getByIssueId(id) {
+  static async getByIssueId(db, id) {
     let query = db.format('SELECT * FROM work_log WHERE ISSUE_ID=?', [id]);
     let results = await db.query(query);
-    return Promise.all(results.map(this.createFromDb));
+    return results.map(this.createFromDb);
   }
 
-  static async getAll() {
+  static async getAll(db) {
     let results = await db.query('SELECT * FROM work_log');
     return results.map(this.createFromDb);
   }

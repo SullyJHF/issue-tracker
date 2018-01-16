@@ -2,8 +2,9 @@ import express from 'express';
 const router = express.Router();
 
 
+import { DB } from '../database';
 import { EmployeesController } from '../controllers/employees-controller';
-const employeesController = new EmployeesController();
+const employeesController = new EmployeesController(new DB());
 
 
 // Routes

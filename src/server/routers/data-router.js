@@ -2,8 +2,10 @@ import express from 'express';
 const router = express.Router();
 
 
+import { DB } from '../database';
 import { DataController } from '../controllers/data-controller';
-const dataController = new DataController();
+const dataController = new DataController(new DB());
+
 
 
 // Routes
