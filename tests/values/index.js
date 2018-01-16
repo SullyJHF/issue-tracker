@@ -22,6 +22,16 @@ export default {
       TOTAL_SECONDS_LOGGED: '3900'
     }],
 
+    updatedIssues: [{
+      ISSUE_ID: 'ISSUE-1',
+      TITLE: 'Test Issue',
+      DESCRIPTION: 'Test Description',
+      ESTIMATED_TIME: '7200',
+      EMP_ID: 1,
+      STATE: 'Closed',
+      TOTAL_SECONDS_LOGGED: '3900'
+    }],
+
     teams: [{
       TEAM_ID: 2,
       TEAM_NAME: 'Product',
